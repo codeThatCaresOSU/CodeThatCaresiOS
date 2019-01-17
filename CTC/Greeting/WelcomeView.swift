@@ -27,14 +27,17 @@ class WelcomeView: UIView {
         let animationView = LOTAnimationView(contentsOf: URL(string: "https://assets.lottiefiles.com/datafiles/iWEiFJ0uySBMqNg/data.json")!)
         animationView.contentMode = .scaleAspectFit
         animationView.animationSpeed = 0.5
-        animationView.loopAnimation = true
+        animationView.loopAnimation = false
         return animationView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0)
-        animationView.frame = self.bounds
+        animationView.center = self.center
+        animationView.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
+        animationView.center = self.center
+        animationView.play(fromProgress: 0.5, toProgress: 0.6, withCompletion: nil)
         self.setupView()
     }
     
@@ -45,6 +48,5 @@ class WelcomeView: UIView {
     func setupView(){
         self.addSubview(welcomeLabel)
         self.addSubview(animationView)
-        animationView.play()
     }
 }
