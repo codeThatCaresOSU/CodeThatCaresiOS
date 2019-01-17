@@ -14,9 +14,9 @@ class HomeView: UIViewController, UICollectionViewDelegateFlowLayout {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        view.addSubview(swipeCollection)
+//        view.addSubview(swipeCollection)
         // If first time
-        view.addSubview(GreetingView())
+        view.addSubview(GreetingView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)))
     }
     
     private lazy var swipeCollection: UICollectionView = {
