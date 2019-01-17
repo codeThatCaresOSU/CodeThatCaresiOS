@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Lottie
 
 class WelcomeView: UIView {
 
@@ -22,10 +23,18 @@ class WelcomeView: UIView {
         label.numberOfLines = 3
         return label
     }()
+    let animationView: LOTAnimationView = {
+        let animationView = LOTAnimationView(contentsOf: URL(string: "https://assets.lottiefiles.com/datafiles/iWEiFJ0uySBMqNg/data.json")!)
+        animationView.contentMode = .scaleAspectFit
+        animationView.animationSpeed = 0.5
+        animationView.loopAnimation = true
+        return animationView
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0)
+        animationView.frame = self.bounds
         self.setupView()
     }
     
@@ -35,6 +44,7 @@ class WelcomeView: UIView {
     
     func setupView(){
         self.addSubview(welcomeLabel)
+        self.addSubview(animationView)
+        animationView.play()
     }
-    
 }
