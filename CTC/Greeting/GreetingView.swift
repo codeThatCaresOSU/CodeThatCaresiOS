@@ -12,8 +12,7 @@ class GreetingView: UIScrollView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        let welcomeView = WelcomeView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
-        let bioView = BioView(frame: CGRect(x: 0, y: self.frame.maxY, width: self.frame.width, height: self.frame.height))
+        
         self.contentSize = CGSize(width: self.frame.width, height: self.frame.height * 2)
         self.addSubview(welcomeView)
         self.addSubview(bioView)
@@ -22,4 +21,8 @@ class GreetingView: UIScrollView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    lazy var welcomeView = WelcomeView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
+    lazy var bioView = BioView(frame: CGRect(x: 0, y: self.frame.maxY, width: self.frame.width, height: self.frame.height))
+    
 }
