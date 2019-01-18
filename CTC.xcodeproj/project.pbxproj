@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		553CE80921F27A6400B8F317 /* heart.json in Resources */ = {isa = PBXBuildFile; fileRef = 553CE80821F27A6400B8F317 /* heart.json */; };
 		55870EA821F00CEE004631B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EA721F00CEE004631B7 /* AppDelegate.swift */; };
 		55870EAA21F00CEE004631B7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EA921F00CEE004631B7 /* HomeView.swift */; };
 		55870EAF21F00CF0004631B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55870EAE21F00CF0004631B7 /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		5083C0245E97734CC1D47566 /* Pods-CTC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CTC.release.xcconfig"; path = "Pods/Target Support Files/Pods-CTC/Pods-CTC.release.xcconfig"; sourceTree = "<group>"; };
+		553CE80821F27A6400B8F317 /* heart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = heart.json; sourceTree = "<group>"; };
 		55870EA421F00CEE004631B7 /* CTC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CTC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55870EA721F00CEE004631B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55870EA921F00CEE004631B7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -56,9 +58,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		553CE7F321F2739700B8F317 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				553CE80821F27A6400B8F317 /* heart.json */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
 		55870E9B21F00CEE004631B7 = {
 			isa = PBXGroup;
 			children = (
+				553CE7F321F2739700B8F317 /* Animations */,
 				55870EA621F00CEE004631B7 /* CTC */,
 				55870EA521F00CEE004631B7 /* Products */,
 				B2B171A446E4E2CF2F9481EE /* Pods */,
@@ -187,6 +198,7 @@
 			files = (
 				55870EB221F00CF0004631B7 /* LaunchScreen.storyboard in Resources */,
 				55870EAF21F00CF0004631B7 /* Assets.xcassets in Resources */,
+				553CE80921F27A6400B8F317 /* heart.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,7 +412,10 @@
 				DEVELOPMENT_TEAM = 27M48FAK5G;
 				INFOPLIST_FILE = CTC/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.CodeThatCares.CTC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -417,7 +432,10 @@
 				DEVELOPMENT_TEAM = 27M48FAK5G;
 				INFOPLIST_FILE = CTC/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.CodeThatCares.CTC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
