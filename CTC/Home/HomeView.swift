@@ -18,14 +18,14 @@ class HomeView: UIViewController, UICollectionViewDelegateFlowLayout {
         // If first time
         greetingView.delegate = self
         greetingView.contentInsetAdjustmentBehavior = .never
-        animationView.center = self.view.center
+        heartAnimationView.center = self.view.center
         let heartSize: CGFloat = 300
-        animationView.frame = CGRect(x: 0, y: 0, width: heartSize, height: heartSize)
-        animationView.center = self.view.center
-        animationView.animationProgress = 0.18
-        animationView.isUserInteractionEnabled = false
+        heartAnimationView.frame = CGRect(x: 0, y: 0, width: heartSize, height: heartSize)
+        heartAnimationView.center = self.view.center
+        heartAnimationView.animationProgress = 0.18
+        heartAnimationView.isUserInteractionEnabled = false
         view.addSubview(greetingView)
-        view.addSubview(animationView)
+        view.addSubview(heartAnimationView)
     }
     
     private lazy var greetingView = GreetingView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
@@ -41,7 +41,7 @@ class HomeView: UIViewController, UICollectionViewDelegateFlowLayout {
         return collectionView
     }()
     
-    let animationView: LOTAnimationView = {
+    let heartAnimationView: LOTAnimationView = {
         let animationView = LOTAnimationView(name: "heart")
         animationView.contentMode = .scaleAspectFit
         animationView.animationSpeed = 0.5
@@ -90,23 +90,30 @@ extension HomeView: UIScrollViewDelegate {
         
         let screenHeight = self.view.bounds.height
         // 2 is tested on 8+ only, might need to increase/decrease
-        let maxScale = 2 * screenHeight / animationView.bounds.height
+        let maxScale = 2 * screenHeight / heartAnimationView.bounds.height
         if progress > 0 {
-            animationView.transform = CGAffineTransform(scaleX: 1 + maxScale * progress, y: 1 + maxScale * progress)
+            UIView.animate(withDuration: duration, animations: {
+                self.greetingView.welcomeView.swipeAnimationView.alpha = 0.0
+            })
+            heartAnimationView.transform = CGAffineTransform(scaleX: 1 + maxScale * progress, y: 1 + maxScale * progress)
         } else if progress < 0 {
-            animationView.transform = CGAffineTransform(translationX: 0, y: -screenHeight / 2 * progress)
+            heartAnimationView.transform = CGAffineTransform(translationX: 0, y: -screenHeight / 2 * progress)
+        } else {
+            UIView.animate(withDuration: duration, animations: {
+                self.greetingView.welcomeView.swipeAnimationView.alpha = 1.0
+            })
         }
         if progress <= 1 && progress >= 0.18 { // 0.18 cuts off the first part of the animation that is unnecessary
-            animationView.animationProgress = progress
+            heartAnimationView.animationProgress = progress
         } else if progress >= 2.0 { // Hides heart after done scrolling
             UIView.animate(withDuration: duration, animations: {
-                self.animationView.isHidden = true
+                self.heartAnimationView.isHidden = true
                 })
             greetingView.bioView.showView(duration: duration)
         } else { // Shows heart if scrolling back up
             greetingView.bioView.hideView()
             UIView.animate(withDuration: duration, animations: {
-                self.animationView.isHidden = false
+                self.heartAnimationView.isHidden = false
             })
         }
     }

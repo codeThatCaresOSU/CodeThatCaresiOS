@@ -14,17 +14,10 @@ class BioView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Futura-Medium", size: 35)
-        label.text = """
-        ...We're a student
-        organization at OSU
-        dedicated to creating
-        mobile applications for
-        charities and nonprofits
-        
-        
-        """
+        label.text = "...We're a student organization at OSU dedicated to creating mobile applications for charities and nonprofits"
         label.textColor = .white
-        label.numberOfLines = 7
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
         label.alpha = 0.0
         return label
     }()
@@ -33,16 +26,10 @@ class BioView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Futura-Medium", size: 35)
-        label.text = """
-        
-        
-        Please enable push
-        notifications so that
-        you don't miss any
-        important events!
-        """
+        label.text = "Please enable push notifications to stay up to date on meetings and important events!"
         label.textColor = .white
-        label.numberOfLines = 6
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
         label.alpha = 0.0
         return label
     }()
@@ -81,13 +68,11 @@ class BioView: UIView {
     func autoLayout() {
         topLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 20).isActive = true
         topLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
-        topLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: 10).isActive = true
-        topLabel.heightAnchor.constraint(equalToConstant: topLabel.intrinsicContentSize.height).isActive = true
+        topLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         
         bottomLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20).isActive = true
         bottomLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
-        bottomLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: 10).isActive = true
-        bottomLabel.heightAnchor.constraint(equalToConstant: bottomLabel.intrinsicContentSize.height).isActive = true
+        bottomLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
     }
     
 }

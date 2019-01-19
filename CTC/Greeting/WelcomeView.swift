@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import Lottie
+import Lottie
 
 class WelcomeView: UIView {
 
@@ -15,13 +15,20 @@ class WelcomeView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Futura-Medium", size: 45)
-        label.text = """
-                     Welcome To
-                     Code That Cares...
-                     """
+        label.text = "Welcome To \nCode That Cares..."
         label.textColor = .white
-        label.numberOfLines = 3
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
         return label
+    }()
+    
+    let swipeAnimationView: LOTAnimationView = {
+        let animationView = LOTAnimationView(name: "scrolldown")
+        animationView.translatesAutoresizingMaskIntoConstraints = false
+        animationView.contentMode = .scaleAspectFill
+        animationView.animationSpeed = 1.0
+        animationView.loopAnimation = true
+        return animationView
     }()
     
     override init(frame: CGRect) {
@@ -36,14 +43,21 @@ class WelcomeView: UIView {
     
     func setupView(){
         self.addSubview(welcomeLabel)
+        swipeAnimationView.play()
+        self.addSubview(swipeAnimationView)
         autoLayout()
     }
     
     func autoLayout() {
         welcomeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 20).isActive = true
         welcomeLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
-        welcomeLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: 10).isActive = true
+        welcomeLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         welcomeLabel.heightAnchor.constraint(equalToConstant: welcomeLabel.intrinsicContentSize.height).isActive = true
+
+        swipeAnimationView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        swipeAnimationView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        swipeAnimationView.widthAnchor.constraint(equalToConstant: 800).isActive = true
+        swipeAnimationView.heightAnchor.constraint(equalToConstant: 100).isActive = true
     }
 }
 
