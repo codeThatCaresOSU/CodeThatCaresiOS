@@ -128,6 +128,7 @@
 		55870EC421F018A5004631B7 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				9A6DC87A21FB6C8B007906A1 /* Settings */,
 				55870EA921F00CEE004631B7 /* HomeView.swift */,
 				55870EB921F00E69004631B7 /* HomeViewModel.swift */,
 				55870EC621F01913004631B7 /* Calendar */,
@@ -143,6 +144,7 @@
 			path = Calendar;
 			sourceTree = "<group>";
 		};
+
 		55A6699C21F29B9500029535 /* images */ = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +169,13 @@
 				5083C0245E97734CC1D47566 /* Pods-CTC.release.xcconfig */,
 			);
 			name = Pods;
+
+		9A6DC87A21FB6C8B007906A1 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				9A6DC87B21FB6CA9007906A1 /* SettingsView.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55870EAA21F00CEE004631B7 /* HomeView.swift in Sources */,
+				9A6DC87C21FB6CA9007906A1 /* SettingsView.swift in Sources */,
 				55870EC021F0186A004631B7 /* WelcomeView.swift in Sources */,
 				55870EBA21F00E69004631B7 /* HomeViewModel.swift in Sources */,
 				55870EBC21F013AC004631B7 /* CalendarView.swift in Sources */,
