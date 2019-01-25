@@ -8,14 +8,21 @@
 
 import UIKit
 
-class GreetingView: UIScrollView {
+class GreetingView: UIScrollView, UICollectionViewDelegateFlowLayout {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        self.contentSize = CGSize(width: self.frame.width, height: self.frame.height * 2)
+        self.addSubview(welcomeView)
+        self.addSubview(bioView)
     }
-    */
-
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    lazy var welcomeView = WelcomeView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
+    lazy var bioView = BioView(frame: CGRect(x: 0, y: self.frame.maxY, width: self.frame.width, height: self.frame.height))
+    
 }

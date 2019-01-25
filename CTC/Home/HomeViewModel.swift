@@ -13,4 +13,15 @@ class HomeViewModel {
     init() {
         
     }
+    
+    func scrollToPage(page: Int){
+        switch page {
+        case 0:
+            break
+        case 1:
+            break
+        default:
+            break
+        }
+    }
 }
