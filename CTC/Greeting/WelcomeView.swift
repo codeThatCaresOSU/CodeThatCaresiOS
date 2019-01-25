@@ -22,18 +22,17 @@ class WelcomeView: UIView {
         return label
     }()
     
-    let swipeAnimationView: LOTAnimationView = {
+    lazy var swipeAnimationView: LOTAnimationView = {
         let animationView = LOTAnimationView(name: "scrolldown")
         animationView.translatesAutoresizingMaskIntoConstraints = false
         animationView.contentMode = .scaleAspectFill
-        animationView.animationSpeed = 1.0
         animationView.loopAnimation = true
         return animationView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0)
+        self.backgroundColor = Globals.constants.backgroundColor
         self.setupView()
     }
     
@@ -49,15 +48,20 @@ class WelcomeView: UIView {
     }
     
     func autoLayout() {
-        welcomeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 20).isActive = true
-        welcomeLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
-        welcomeLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
+        welcomeLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
+        welcomeLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
+        welcomeLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
         welcomeLabel.heightAnchor.constraint(equalToConstant: welcomeLabel.intrinsicContentSize.height).isActive = true
 
-        swipeAnimationView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        swipeAnimationView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        swipeAnimationView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        swipeAnimationView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor).isActive = true
         swipeAnimationView.widthAnchor.constraint(equalToConstant: 800).isActive = true
         swipeAnimationView.heightAnchor.constraint(equalToConstant: 100).isActive = true
     }
+    
+    func setSwipeAlpha(alpha: CGFloat, duration: Double) {
+        UIView.animate(withDuration: duration, animations: {
+            self.swipeAnimationView.alpha = alpha
+        })
+    }
 }
-

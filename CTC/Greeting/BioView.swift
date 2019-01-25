@@ -34,6 +34,18 @@ class BioView: UIView {
         return label
     }()
     
+    lazy var readyButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Get Started", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 25
+        button.layer.masksToBounds = true
+        button.backgroundColor = UIColor.black
+        button.clipsToBounds = true
+        button.addTarget(self, action: #selector(readyButtonPressed), for: .touchUpInside)
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -46,33 +58,45 @@ class BioView: UIView {
     func setupView(){
         self.addSubview(topLabel)
         self.addSubview(bottomLabel)
+        self.addSubview(readyButton)
         autoLayout()
     }
     
     func showView(duration: Double){
-        self.backgroundColor = UIColor(red:0.96, green:0.31, blue:0.40, alpha:1.0)
-        self.superview?.backgroundColor = UIColor(red:0.96, green:0.31, blue:0.40, alpha:1.0)
+        self.backgroundColor = Globals.constants.ctcColor
+        self.superview?.backgroundColor = Globals.constants.ctcColor
         UIView.animate(withDuration: duration, animations: {
             self.topLabel.alpha = 1.0
             self.bottomLabel.alpha = 1.0
+            self.readyButton.alpha = 1.0
         })
     }
     
     func hideView(){
-        self.backgroundColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0)
-        self.superview?.backgroundColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0)
+        self.backgroundColor = Globals.constants.backgroundColor
+        self.superview?.backgroundColor = Globals.constants.backgroundColor
         self.topLabel.alpha = 0.0
         self.bottomLabel.alpha = 0.0
+        self.readyButton.alpha = 0.0
     }
     
     func autoLayout() {
-        topLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 20).isActive = true
-        topLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
-        topLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
+        topLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        topLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
+        topLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
         
-        bottomLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20).isActive = true
-        bottomLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
-        bottomLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
+        bottomLabel.topAnchor.constraint(equalTo: topLabel.bottomAnchor, constant: 40).isActive = true
+        bottomLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
+        bottomLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+        
+        readyButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+        readyButton.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
+        readyButton.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+        readyButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+    }
+    
+    @objc func readyButtonPressed() {
+        print("test")
     }
     
 }

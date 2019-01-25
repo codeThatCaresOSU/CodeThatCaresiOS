@@ -13,20 +13,26 @@ class HomeView: UIViewController, UICollectionViewDelegateFlowLayout {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0)
+        self.view.backgroundColor = Globals.constants.backgroundColor
 //        view.addSubview(swipeCollection)
         // If first time
         greetingView.delegate = self
         greetingView.contentInsetAdjustmentBehavior = .never
+        greetingView.welcomeView.swipeAnimationView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(scrollToBottom)))
         heartAnimationView.center = self.view.center
         let heartSize: CGFloat = 300
         heartAnimationView.frame = CGRect(x: 0, y: 0, width: heartSize, height: heartSize)
         heartAnimationView.center = self.view.center
-        heartAnimationView.animationProgress = 0.18
+        heartAnimationView.animationProgress = heartAnimationStartTime
         heartAnimationView.isUserInteractionEnabled = false
         view.addSubview(greetingView)
+        view.addSubview(leftBracket)
+        view.addSubview(rightBracket)
         view.addSubview(heartAnimationView)
+        addConstraints()
     }
+    
+    private let heartAnimationStartTime: CGFloat = 0.18
     
     private lazy var greetingView = GreetingView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
     
@@ -42,12 +48,43 @@ class HomeView: UIViewController, UICollectionViewDelegateFlowLayout {
     }()
     
     let heartAnimationView: LOTAnimationView = {
-        let animationView = LOTAnimationView(name: "heart")
+        let animationView = LOTAnimationView(name: "heart-green")
         animationView.contentMode = .scaleAspectFit
         animationView.animationSpeed = 0.5
         animationView.loopAnimation = false
         return animationView
     }()
+    
+    let leftBracket: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "AdventPro-SemiBold", size: 200)
+        label.text = "<"
+        label.textColor = Globals.constants.ctcColor
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let rightBracket: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "AdventPro-SemiBold", size: 200)
+        label.text = ">"
+        label.textColor = Globals.constants.ctcColor
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    func addConstraints() {
+        let bracketSpacing: CGFloat = 75
+        leftBracket.rightAnchor.constraint(equalTo: heartAnimationView.centerXAnchor, constant: -bracketSpacing).isActive = true
+        leftBracket.centerYAnchor.constraint(equalTo: heartAnimationView.centerYAnchor).isActive = true
+        leftBracket.heightAnchor.constraint(equalToConstant: leftBracket.intrinsicContentSize.height).isActive = true
+        leftBracket.widthAnchor.constraint(equalToConstant: leftBracket.intrinsicContentSize.width).isActive = true
+        
+        rightBracket.leftAnchor.constraint(equalTo: heartAnimationView.centerXAnchor, constant: bracketSpacing).isActive = true
+        rightBracket.centerYAnchor.constraint(equalTo: heartAnimationView.centerYAnchor).isActive = true
+        rightBracket.heightAnchor.constraint(equalToConstant: rightBracket.intrinsicContentSize.height).isActive = true
+        rightBracket.widthAnchor.constraint(equalToConstant: rightBracket.intrinsicContentSize.width).isActive = true
+    }
     
 }
 
@@ -85,36 +122,40 @@ extension HomeView: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let progress = 2 * greetingView.contentOffset.y / (greetingView.contentSize.height - greetingView.bounds.size.height)
-        print("progress: \(progress)")
-        let duration = 0.5
+        let animationDuration: Double = 0.5
         
         let screenHeight = self.view.bounds.height
-        // 2 is tested on 8+ only, might need to increase/decrease
         let maxScale = 2 * screenHeight / heartAnimationView.bounds.height
         if progress > 0 {
-            UIView.animate(withDuration: duration, animations: {
-                self.greetingView.welcomeView.swipeAnimationView.alpha = 0.0
-            })
+            greetingView.welcomeView.setSwipeAlpha(alpha: 0.0, duration: animationDuration)
             heartAnimationView.transform = CGAffineTransform(scaleX: 1 + maxScale * progress, y: 1 + maxScale * progress)
+            leftBracket.transform = CGAffineTransform(translationX: progress * -350, y: 0)
+            rightBracket.transform = CGAffineTransform(translationX: progress * 350, y: 0)
         } else if progress < 0 {
-            heartAnimationView.transform = CGAffineTransform(translationX: 0, y: -screenHeight / 2 * progress)
+            let slideUpTransformation = CGAffineTransform(translationX: 0, y: -screenHeight / 2 * progress)
+            heartAnimationView.transform = slideUpTransformation
+            leftBracket.transform = slideUpTransformation
+            rightBracket.transform = slideUpTransformation
+            heartAnimationView.animationProgress = heartAnimationStartTime
         } else {
-            UIView.animate(withDuration: duration, animations: {
-                self.greetingView.welcomeView.swipeAnimationView.alpha = 1.0
-            })
+            greetingView.welcomeView.setSwipeAlpha(alpha: 1.0, duration: animationDuration)
         }
-        if progress <= 1 && progress >= 0.18 { // 0.18 cuts off the first part of the animation that is unnecessary
+        if progress <= 1 && progress >= heartAnimationStartTime {
             heartAnimationView.animationProgress = progress
         } else if progress >= 2.0 { // Hides heart after done scrolling
-            UIView.animate(withDuration: duration, animations: {
+            UIView.animate(withDuration: animationDuration, animations: {
                 self.heartAnimationView.isHidden = true
                 })
-            greetingView.bioView.showView(duration: duration)
+            greetingView.bioView.showView(duration: animationDuration)
         } else { // Shows heart if scrolling back up
             greetingView.bioView.hideView()
-            UIView.animate(withDuration: duration, animations: {
+            UIView.animate(withDuration: animationDuration, animations: {
                 self.heartAnimationView.isHidden = false
             })
         }
+    }
+    
+    @objc func scrollToBottom(){
+        greetingView.setContentOffset(CGPoint(x: 0, y: greetingView.contentSize.height - greetingView.bounds.size.height), animated: true)
     }
 }

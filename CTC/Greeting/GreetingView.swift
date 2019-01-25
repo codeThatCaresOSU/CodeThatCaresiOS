@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GreetingView: UIScrollView {
+class GreetingView: UIScrollView, UICollectionViewDelegateFlowLayout {
 
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -10,12 +10,10 @@ import UIKit
 
 class Globals: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    struct constants {
+        static let ctcColor = UIColor(red:0.55, green:0.77, blue:0.29, alpha:1.0)
+        static let redColor = UIColor(red:0.96, green:0.31, blue:0.40, alpha:1.0)
+        static let backgroundColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0)
     }
-    */
 
 }
