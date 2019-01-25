@@ -16,6 +16,7 @@
 		55870EBE21F0159D004631B7 /* GreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EBD21F0159C004631B7 /* GreetingView.swift */; };
 		55870EC021F0186A004631B7 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EBF21F0186A004631B7 /* WelcomeView.swift */; };
 		55870EC221F01875004631B7 /* BioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EC121F01875004631B7 /* BioView.swift */; };
+		9A6DC87C21FB6CA9007906A1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6DC87B21FB6CA9007906A1 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		55870EBD21F0159C004631B7 /* GreetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingView.swift; sourceTree = "<group>"; };
 		55870EBF21F0186A004631B7 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		55870EC121F01875004631B7 /* BioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioView.swift; sourceTree = "<group>"; };
+		9A6DC87B21FB6CA9007906A1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 		55870EC421F018A5004631B7 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				9A6DC87A21FB6C8B007906A1 /* Settings */,
 				55870EA921F00CEE004631B7 /* HomeView.swift */,
 				55870EB921F00E69004631B7 /* HomeViewModel.swift */,
 				55870EC621F01913004631B7 /* Calendar */,
@@ -98,6 +101,14 @@
 				55870EBB21F013AC004631B7 /* CalendarView.swift */,
 			);
 			path = Calendar;
+			sourceTree = "<group>";
+		};
+		9A6DC87A21FB6C8B007906A1 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				9A6DC87B21FB6CA9007906A1 /* SettingsView.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55870EAA21F00CEE004631B7 /* HomeView.swift in Sources */,
+				9A6DC87C21FB6CA9007906A1 /* SettingsView.swift in Sources */,
 				55870EC021F0186A004631B7 /* WelcomeView.swift in Sources */,
 				55870EBA21F00E69004631B7 /* HomeViewModel.swift in Sources */,
 				55870EBC21F013AC004631B7 /* CalendarView.swift in Sources */,
@@ -317,6 +329,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 27M48FAK5G;
 				INFOPLIST_FILE = CTC/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -335,6 +348,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 27M48FAK5G;
 				INFOPLIST_FILE = CTC/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
