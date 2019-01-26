@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4030FC05B854662F9A34C182 /* Pods_CTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99502FEA537ABD75D2DDEEB /* Pods_CTC.framework */; };
 		55870EA821F00CEE004631B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EA721F00CEE004631B7 /* AppDelegate.swift */; };
 		55870EAA21F00CEE004631B7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EA921F00CEE004631B7 /* HomeView.swift */; };
 		55870EAF21F00CF0004631B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55870EAE21F00CF0004631B7 /* Assets.xcassets */; };
@@ -16,9 +17,11 @@
 		55870EBE21F0159D004631B7 /* GreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EBD21F0159C004631B7 /* GreetingView.swift */; };
 		55870EC021F0186A004631B7 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EBF21F0186A004631B7 /* WelcomeView.swift */; };
 		55870EC221F01875004631B7 /* BioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EC121F01875004631B7 /* BioView.swift */; };
+		7FB58F2321FD201A0030ED9E /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB58F2221FD201A0030ED9E /* Globals.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		28D27FFC098D8AA9BB3FCDF6 /* Pods-CTC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CTC.release.xcconfig"; path = "Pods/Target Support Files/Pods-CTC/Pods-CTC.release.xcconfig"; sourceTree = "<group>"; };
 		55870EA421F00CEE004631B7 /* CTC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CTC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55870EA721F00CEE004631B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55870EA921F00CEE004631B7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -30,6 +33,11 @@
 		55870EBD21F0159C004631B7 /* GreetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingView.swift; sourceTree = "<group>"; };
 		55870EBF21F0186A004631B7 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		55870EC121F01875004631B7 /* BioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioView.swift; sourceTree = "<group>"; };
+		7FB58F1F21FD1FF10030ED9E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		7FB58F2121FD20130030ED9E /* AdventPro-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AdventPro-SemiBold.ttf"; sourceTree = "<group>"; };
+		7FB58F2221FD201A0030ED9E /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		C99502FEA537ABD75D2DDEEB /* Pods_CTC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CTC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA1912D4F1CA3392D9BADB4C /* Pods-CTC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CTC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CTC/Pods-CTC.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,17 +45,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4030FC05B854662F9A34C182 /* Pods_CTC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07014C98FBD13BFFA6F9B995 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C99502FEA537ABD75D2DDEEB /* Pods_CTC.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0EC701392628F16236C53A16 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FA1912D4F1CA3392D9BADB4C /* Pods-CTC.debug.xcconfig */,
+				28D27FFC098D8AA9BB3FCDF6 /* Pods-CTC.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		55870E9B21F00CEE004631B7 = {
 			isa = PBXGroup;
 			children = (
 				55870EA621F00CEE004631B7 /* CTC */,
 				55870EA521F00CEE004631B7 /* Products */,
+				0EC701392628F16236C53A16 /* Pods */,
+				07014C98FBD13BFFA6F9B995 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,7 +90,9 @@
 		55870EA621F00CEE004631B7 /* CTC */ = {
 			isa = PBXGroup;
 			children = (
+				7FB58F2021FD20130030ED9E /* Fonts */,
 				55870EA721F00CEE004631B7 /* AppDelegate.swift */,
+				7FB58F1E21FD1FF10030ED9E /* Settings */,
 				55870EC421F018A5004631B7 /* Home */,
 				55870EC321F01883004631B7 /* Greeting */,
 				55870EAE21F00CF0004631B7 /* Assets.xcassets */,
@@ -87,7 +117,6 @@
 			children = (
 				55870EA921F00CEE004631B7 /* HomeView.swift */,
 				55870EB921F00E69004631B7 /* HomeViewModel.swift */,
-				55870EC621F01913004631B7 /* Calendar */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -100,6 +129,24 @@
 			path = Calendar;
 			sourceTree = "<group>";
 		};
+		7FB58F1E21FD1FF10030ED9E /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				55870EC621F01913004631B7 /* Calendar */,
+				7FB58F1F21FD1FF10030ED9E /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		7FB58F2021FD20130030ED9E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				7FB58F2221FD201A0030ED9E /* Globals.swift */,
+				7FB58F2121FD20130030ED9E /* AdventPro-SemiBold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -107,9 +154,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55870EB621F00CF0004631B7 /* Build configuration list for PBXNativeTarget "CTC" */;
 			buildPhases = (
+				575F1AB7D3D44BA64CD79E43 /* [CP] Check Pods Manifest.lock */,
 				55870EA021F00CEE004631B7 /* Sources */,
 				55870EA121F00CEE004631B7 /* Frameworks */,
 				55870EA221F00CEE004631B7 /* Resources */,
+				7CBB0325AC017D9197CEF731 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -165,6 +214,45 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		575F1AB7D3D44BA64CD79E43 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CTC-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7CBB0325AC017D9197CEF731 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-CTC/Pods-CTC-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CTC/Pods-CTC-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		55870EA021F00CEE004631B7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -174,6 +262,7 @@
 				55870EC021F0186A004631B7 /* WelcomeView.swift in Sources */,
 				55870EBA21F00E69004631B7 /* HomeViewModel.swift in Sources */,
 				55870EBC21F013AC004631B7 /* CalendarView.swift in Sources */,
+				7FB58F2321FD201A0030ED9E /* Globals.swift in Sources */,
 				55870EBE21F0159D004631B7 /* GreetingView.swift in Sources */,
 				55870EC221F01875004631B7 /* BioView.swift in Sources */,
 				55870EA821F00CEE004631B7 /* AppDelegate.swift in Sources */,
@@ -312,15 +401,13 @@
 		};
 		55870EB721F00CF0004631B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FA1912D4F1CA3392D9BADB4C /* Pods-CTC.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 27M48FAK5G;
 				INFOPLIST_FILE = CTC/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.CodeThatCares.CTC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -330,15 +417,13 @@
 		};
 		55870EB821F00CF0004631B7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 28D27FFC098D8AA9BB3FCDF6 /* Pods-CTC.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 27M48FAK5G;
 				INFOPLIST_FILE = CTC/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.CodeThatCares.CTC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
