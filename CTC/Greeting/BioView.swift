@@ -85,7 +85,7 @@ class BioView: UIView {
         topLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
         topLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
         
-        bottomLabel.topAnchor.constraint(equalTo: topLabel.bottomAnchor, constant: 40).isActive = true
+        bottomLabel.topAnchor.constraint(equalTo: topLabel.bottomAnchor, constant: 60).isActive = true
         bottomLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
         bottomLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
         
@@ -96,7 +96,11 @@ class BioView: UIView {
     }
     
     @objc func readyButtonPressed() {
-        print("test")
+        UIView.animate(withDuration: 0.5, animations: {
+            self.superview?.alpha = 0.0
+        }, completion: {(finished:Bool) in
+            self.superview?.removeFromSuperview()
+        })
     }
     
 }

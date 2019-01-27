@@ -14,11 +14,11 @@ class HomeView: UIViewController, UICollectionViewDelegateFlowLayout {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.view.backgroundColor = Globals.constants.backgroundColor
-//        view.addSubview(swipeCollection)
+        view.addSubview(swipeCollection)
         pageLabel = UILabel(frame: CGRect(x: 10, y: UIApplication.shared.statusBarFrame.height + 5, width: 200, height: 20))
         pageLabel.backgroundColor = .white
         pageLabel.text = "What's Next"
-//        view.addSubview(pageLabel)
+        view.addSubview(pageLabel)
         // If first time
          view.addSubview(greetingView)
     }
