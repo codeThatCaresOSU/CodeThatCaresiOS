@@ -9,7 +9,7 @@
 import UIKit
 
 class BioView: UIView {
-
+    
     lazy var topLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
