@@ -19,8 +19,12 @@ class HomeView: UIViewController, UICollectionViewDelegateFlowLayout {
         pageLabel.backgroundColor = .white
         pageLabel.text = "What's Next"
         view.addSubview(pageLabel)
-        // If first time
-         view.addSubview(greetingView)
+        
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        if !launchedBefore {
+            UserDefaults.standard.set(true, forKey: "launchedBefore")
+            view.addSubview(greetingView)
+        }
     }
 
     var pageLabel: UILabel!
