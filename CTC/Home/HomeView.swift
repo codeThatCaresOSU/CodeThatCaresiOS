@@ -7,22 +7,26 @@
 //
 
 import UIKit
+import RxSwift
 
 class HomeView: UIViewController, UICollectionViewDelegateFlowLayout {
     
     var pageLabel: UILabel!
+    private var viewModel: HomeViewModel = HomeViewModel()
+    private var subscription: Disposable?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         view.addSubview(swipeCollection)
         pageLabel = UILabel(frame: CGRect(x: 10, y: UIApplication.shared.statusBarFrame.height + 5, width: 200, height: 20))
         pageLabel.backgroundColor = .white
-        pageLabel.text = "What's Next"
+        pageLabel.text = self.viewModel.pageLabelText
         view.addSubview(pageLabel)
         // If first time
         view.addSubview(GreetingView())
+        
+        self.subscription = self.viewModel.updateUI?.subscribe(self.updateUI)
     }
     
     private lazy var swipeCollection: UICollectionView = {
@@ -34,26 +38,18 @@ class HomeView: UIViewController, UICollectionViewDelegateFlowLayout {
         collectionView.isPagingEnabled = true
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         let bgImage = UIImageView()
-        bgImage.image = UIImage(named: "background")
+        bgImage.image = UIImage(named: self.viewModel.backgroundImageName)
         bgImage.contentMode = .scaleAspectFill
         collectionView.backgroundView = bgImage
         return collectionView
     }()
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        let currentIndex = round(self.swipeCollection.contentOffset.x / self.swipeCollection.frame.size.width);
-        
-        switch currentIndex {
-        case 0 ..< 1:
-            pageLabel.text = "What's Next"
-            
-        case 1 ..< 2:
-            pageLabel.text = "Settings"
-        
-        default:
-            pageLabel.text = "\(currentIndex)"
-        }
+        self.viewModel.viewScrolled(percentageScrolled: Double(round(self.swipeCollection.contentOffset.x / self.swipeCollection.frame.size.width)))
+    }
+    
+    func updateUI(event: Event<Any?>) {
+        self.pageLabel.text = self.viewModel.pageLabelText
     }
     
     
@@ -66,7 +62,7 @@ extension HomeView: UICollectionViewDelegate {
 extension HomeView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return self.viewModel.itemsCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
