@@ -7,13 +7,11 @@
 //
 
 import UIKit
-import RxSwift
 
 class HomeView: UIViewController, UICollectionViewDelegateFlowLayout {
     
     var pageLabel: UILabel!
     private var viewModel: HomeViewModel = HomeViewModel()
-    private var subscription: Disposable?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,12 +19,13 @@ class HomeView: UIViewController, UICollectionViewDelegateFlowLayout {
         view.addSubview(swipeCollection)
         pageLabel = UILabel(frame: CGRect(x: 10, y: UIApplication.shared.statusBarFrame.height + 5, width: 200, height: 20))
         pageLabel.backgroundColor = .white
-        pageLabel.text = self.viewModel.pageLabelText
+        pageLabel.text = "What's Next"
         view.addSubview(pageLabel)
         // If first time
         view.addSubview(GreetingView())
-        
-        self.subscription = self.viewModel.updateUI?.subscribe(self.updateUI)
+        self.viewModel.updateUi?.subscribe({ (event) in
+            self.updateUI()
+        })
     }
     
     private lazy var swipeCollection: UICollectionView = {
@@ -45,14 +44,15 @@ class HomeView: UIViewController, UICollectionViewDelegateFlowLayout {
     }()
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.viewModel.viewScrolled(percentageScrolled: Double(round(self.swipeCollection.contentOffset.x / self.swipeCollection.frame.size.width)))
+        
+        let currentIndex = round(self.swipeCollection.contentOffset.x / self.swipeCollection.frame.size.width);
+        
+        self.viewModel.viewScrolled(index: currentIndex)
     }
     
-    func updateUI(event: Event<Any?>) {
+    func updateUI() {
         self.pageLabel.text = self.viewModel.pageLabelText
     }
-    
-    
 }
 
 extension HomeView: UICollectionViewDelegate {
@@ -62,7 +62,7 @@ extension HomeView: UICollectionViewDelegate {
 extension HomeView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel.itemsCount
+        return self.viewModel.pages
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -81,12 +81,8 @@ extension HomeView: UICollectionViewDataSource {
         return 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell,
-                                 forItemAt indexPath: IndexPath) {
-//        cell.alpha = 0
-//        UIView.animate(withDuration: 0.8) {
-//            cell.alpha = 1
-//        }
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+
         if indexPath.row == 0 {
             cell.subviews[1].subviews[0].frame = CGRect(x: -30, y: 125, width: cell.frame.width - 20, height: 75)
             UIView.animate(withDuration: 0.6) {
@@ -96,8 +92,6 @@ extension HomeView: UICollectionViewDataSource {
             UIView.animate(withDuration: 0.5) {
                 cell.subviews[1].subviews[1].frame = CGRect(x: 10, y: 210, width: cell.frame.width - 20, height: cell.frame.height - 275)
             }
-        }
-        if indexPath.row == 1 {
         }
     }
 }

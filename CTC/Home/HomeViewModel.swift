@@ -12,26 +12,26 @@ import RxSwift
 class HomeViewModel {
     
     var backgroundImageName = "background"
-    var itemsCount = 2
-    var updateUI: PublishSubject<Any?>?
-    var pageLabelText: String = "What's New"
+    var updateUi: PublishSubject<Any?>?
+    var pages = 2
+    var pageLabelText: String? = ""
 
     init() {
-        self.updateUI = PublishSubject<Any?>()
+        self.updateUi = PublishSubject<Any?>()
     }
     
-    func viewScrolled(percentageScrolled: Double) {
-        switch percentageScrolled {
+    func viewScrolled(index: CGFloat) {
+        switch index {
         case 0 ..< 1:
-            pageLabelText = "What's Next"
+            self.pageLabelText = "What's Next"
             
         case 1 ..< 2:
-            pageLabelText = "Settings"
+            self.pageLabelText = "Settings"
             
         default:
-            pageLabelText = "\(percentageScrolled)"
+            self.pageLabelText = "\(index)"
         }
         
-        self.updateUI?.onNext(nil)
+        self.updateUi?.onNext(nil)
     }
 }
