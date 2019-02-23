@@ -9,8 +9,6 @@
 import UIKit
 import Lottie
 
-@available(iOS 11.0, *)
-@available(iOS 11.0, *)
 class WelcomeView: UIView {
     
     lazy var welcomeLabel: UILabel = {
@@ -34,7 +32,7 @@ class WelcomeView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        //self.backgroundColor = Globals.constants.backgroundColor
+        self.backgroundColor = Globals.constants.backgroundColor
         self.setupView()
     }
     
@@ -50,13 +48,18 @@ class WelcomeView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        welcomeLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
-        welcomeLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
-        welcomeLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+        if #available(iOS 11.0, *) {
+            welcomeLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
+            welcomeLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
+            welcomeLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+            
+            swipeAnimationView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor).isActive = true
+            swipeAnimationView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        } else {
+            // Fallback on earlier versions
+            // TODO
+        }
         welcomeLabel.heightAnchor.constraint(equalToConstant: welcomeLabel.intrinsicContentSize.height).isActive = true
-        
-        swipeAnimationView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        swipeAnimationView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor).isActive = true
         swipeAnimationView.widthAnchor.constraint(equalToConstant: 800).isActive = true
         swipeAnimationView.heightAnchor.constraint(equalToConstant: 100).isActive = true
     }

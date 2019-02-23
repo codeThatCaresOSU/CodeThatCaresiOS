@@ -1,20 +1,28 @@
 PODS:
+  - BulletinBoard (3.0.0)
   - lottie-ios (2.5.0)
+  - LUNSegmentedControl (1.0.7)
   - RxSwift (4.3.1)
 
 DEPENDENCIES:
+  - BulletinBoard (>= 3.0.0)
   - lottie-ios
+  - LUNSegmentedControl
   - RxSwift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - BulletinBoard
     - lottie-ios
+    - LUNSegmentedControl
     - RxSwift
 
 SPEC CHECKSUMS:
+  BulletinBoard: 927f4f9fd22503ceecd71bfc830fd65d5996593a
   lottie-ios: d699fdee68d7b63e721d949388b015fef1aaa4ac
+  LUNSegmentedControl: f868b1ea740f9917f05dbcb4cded85c33ec606e6
   RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
 
-PODFILE CHECKSUM: 4f805dd60655970a6ad7fdc44eccf5ec04c0d8d7
+PODFILE CHECKSUM: d133da2baf09cc4a5418b774233b52bf5b7ecad3
 
-COCOAPODS: 1.5.2
+COCOAPODS: 1.6.0

@@ -7,5 +7,7 @@ target 'CTC' do
 
   # Pods for CTC
   pod 'lottie-ios'
+  pod 'LUNSegmentedControl'
+  pod 'BulletinBoard', '>= 3.0.0'
   pod 'RxSwift'
 end
