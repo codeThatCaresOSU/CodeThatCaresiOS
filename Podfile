@@ -7,4 +7,5 @@ target 'CTC' do
 
   # Pods for CTC
   pod 'lottie-ios'
+  pod 'RxSwift'
 end

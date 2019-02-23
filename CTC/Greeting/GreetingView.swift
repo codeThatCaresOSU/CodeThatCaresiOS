@@ -9,6 +9,7 @@
 import UIKit
 import Lottie
 
+@available(iOS 11.0, *)
 class GreetingView: UIScrollView, UICollectionViewDelegateFlowLayout {
     
     override init(frame: CGRect) {
@@ -19,7 +20,7 @@ class GreetingView: UIScrollView, UICollectionViewDelegateFlowLayout {
         self.addSubview(welcomeView)
         self.addSubview(bioView)
         
-        self.backgroundColor = Globals.constants.backgroundColor
+        //self.backgroundColor = Globals.constants.backgroundColor
         self.delegate = self
         self.contentInsetAdjustmentBehavior = .never
         self.showsVerticalScrollIndicator = false
@@ -56,7 +57,7 @@ class GreetingView: UIScrollView, UICollectionViewDelegateFlowLayout {
         let label = UILabel()
         label.font = UIFont(name: "AdventPro-SemiBold", size: 200)
         label.text = "<"
-        label.textColor = Globals.constants.ctcColor
+        //label.textColor = Globals.constants.ctcColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -65,7 +66,7 @@ class GreetingView: UIScrollView, UICollectionViewDelegateFlowLayout {
         let label = UILabel()
         label.font = UIFont(name: "AdventPro-SemiBold", size: 200)
         label.text = ">"
-        label.textColor = Globals.constants.ctcColor
+        //label.textColor = Globals.constants.ctcColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -85,10 +86,12 @@ class GreetingView: UIScrollView, UICollectionViewDelegateFlowLayout {
     
 }
 
+@available(iOS 11.0, *)
 extension GreetingView: UICollectionViewDelegate {
     
 }
 
+@available(iOS 11.0, *)
 extension GreetingView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -115,6 +118,7 @@ extension GreetingView: UICollectionViewDataSource {
     }
 }
 
+@available(iOS 11.0, *)
 extension GreetingView: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

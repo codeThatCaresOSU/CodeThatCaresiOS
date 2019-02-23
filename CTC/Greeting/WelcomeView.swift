@@ -9,6 +9,8 @@
 import UIKit
 import Lottie
 
+@available(iOS 11.0, *)
+@available(iOS 11.0, *)
 class WelcomeView: UIView {
     
     lazy var welcomeLabel: UILabel = {
@@ -32,7 +34,7 @@ class WelcomeView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = Globals.constants.backgroundColor
+        //self.backgroundColor = Globals.constants.backgroundColor
         self.setupView()
     }
     

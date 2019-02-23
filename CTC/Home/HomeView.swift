@@ -8,6 +8,7 @@
 
 import UIKit
 
+@available(iOS 11.0, *)
 class HomeView: UIViewController, UICollectionViewDelegateFlowLayout {
 
     var pageLabel: UILabel!
@@ -25,13 +26,13 @@ class HomeView: UIViewController, UICollectionViewDelegateFlowLayout {
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         if !launchedBefore {
             UserDefaults.standard.set(true, forKey: "launchedBefore")
-            view.addSubview(greetingView)self.viewModel.updateUi?.subscribe({ (event) in
+            view.addSubview(greetingView)
+            self.viewModel.updateUi?.subscribe({ (event) in
                 self.updateUI()
             })
         }
     }
 
-    var pageLabel: UILabel!
 
     private lazy var greetingView = GreetingView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
 
@@ -62,10 +63,12 @@ class HomeView: UIViewController, UICollectionViewDelegateFlowLayout {
     }
 }
 
+@available(iOS 11.0, *)
 extension HomeView: UICollectionViewDelegate {
 
 }
 
+@available(iOS 11.0, *)
 extension HomeView: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -8,6 +8,7 @@
 
 import UIKit
 
+@available(iOS 11.0, *)
 class BioView: UIView {
     
     lazy var topLabel: UILabel = {
@@ -59,12 +60,12 @@ class BioView: UIView {
         self.addSubview(topLabel)
         self.addSubview(bottomLabel)
         self.addSubview(readyButton)
-        autoLayout()
+        self.autoLayout()
     }
     
     func showView(duration: Double){
-        self.backgroundColor = Globals.constants.ctcColor
-        self.superview?.backgroundColor = Globals.constants.ctcColor
+        //self.backgroundColor = Globals.constants.ctcColor
+        //self.superview?.backgroundColor = Globals.constants.ctcColor
         UIView.animate(withDuration: duration, animations: {
             self.topLabel.alpha = 1.0
             self.bottomLabel.alpha = 1.0
@@ -73,13 +74,14 @@ class BioView: UIView {
     }
     
     func hideView(){
-        self.backgroundColor = Globals.constants.backgroundColor
-        self.superview?.backgroundColor = Globals.constants.backgroundColor
+        //self.backgroundColor = Globals.constants.backgroundColor
+        //self.superview?.backgroundColor = Globals.constants.backgroundColor
         self.topLabel.alpha = 0.0
         self.bottomLabel.alpha = 0.0
         self.readyButton.alpha = 0.0
     }
     
+    @available(iOS 11.0, *)
     func autoLayout() {
         topLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         topLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
