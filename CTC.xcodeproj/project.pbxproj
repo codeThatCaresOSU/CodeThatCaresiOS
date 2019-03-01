@@ -7,18 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E2D255F0CA68E878031D508 /* Pods_CTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72ED0A88CDD17F1BA897BA1 /* Pods_CTC.framework */; };
+		555834972221EFD900C1E887 /* AdventPro-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 555834952221EFD900C1E887 /* AdventPro-SemiBold.ttf */; };
+		555834982221EFD900C1E887 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555834962221EFD900C1E887 /* Globals.swift */; };
+		555834A02221EFE900C1E887 /* img_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5558349B2221EFE900C1E887 /* img_1.png */; };
+		555834A12221EFE900C1E887 /* img_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 5558349C2221EFE900C1E887 /* img_0.png */; };
+		555834A22221EFE900C1E887 /* heart-red.json in Resources */ = {isa = PBXBuildFile; fileRef = 5558349D2221EFE900C1E887 /* heart-red.json */; };
+		555834A32221EFE900C1E887 /* heart-green.json in Resources */ = {isa = PBXBuildFile; fileRef = 5558349E2221EFE900C1E887 /* heart-green.json */; };
+		555834A42221EFE900C1E887 /* scrolldown.json in Resources */ = {isa = PBXBuildFile; fileRef = 5558349F2221EFE900C1E887 /* scrolldown.json */; };
 		55870EA821F00CEE004631B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EA721F00CEE004631B7 /* AppDelegate.swift */; };
 		55870EAA21F00CEE004631B7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EA921F00CEE004631B7 /* HomeView.swift */; };
 		55870EAF21F00CF0004631B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55870EAE21F00CF0004631B7 /* Assets.xcassets */; };
 		55870EB221F00CF0004631B7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55870EB021F00CF0004631B7 /* LaunchScreen.storyboard */; };
 		55870EBA21F00E69004631B7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EB921F00E69004631B7 /* HomeViewModel.swift */; };
-		55870EBC21F013AC004631B7 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EBB21F013AC004631B7 /* CalendarView.swift */; };
+		55870EBC21F013AC004631B7 /* CalendarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EBB21F013AC004631B7 /* CalendarScreenView.swift */; };
 		55870EBE21F0159D004631B7 /* GreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EBD21F0159C004631B7 /* GreetingView.swift */; };
 		55870EC021F0186A004631B7 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EBF21F0186A004631B7 /* WelcomeView.swift */; };
 		55870EC221F01875004631B7 /* BioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EC121F01875004631B7 /* BioView.swift */; };
+		7FB810AC2208997A007AB5D5 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB810AB2208997A007AB5D5 /* EventCell.swift */; };
+		7FB810AE220899A4007AB5D5 /* EventCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB810AD220899A4007AB5D5 /* EventCellViewModel.swift */; };
+		7FB810B0220899D9007AB5D5 /* CalendarScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB810AF220899D9007AB5D5 /* CalendarScreenViewModel.swift */; };
+		7FB810B222089AAC007AB5D5 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB810B122089AAC007AB5D5 /* Event.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		555834952221EFD900C1E887 /* AdventPro-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AdventPro-SemiBold.ttf"; sourceTree = "<group>"; };
+		555834962221EFD900C1E887 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		5558349B2221EFE900C1E887 /* img_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_1.png; sourceTree = "<group>"; };
+		5558349C2221EFE900C1E887 /* img_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_0.png; sourceTree = "<group>"; };
+		5558349D2221EFE900C1E887 /* heart-red.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "heart-red.json"; sourceTree = "<group>"; };
+		5558349E2221EFE900C1E887 /* heart-green.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "heart-green.json"; sourceTree = "<group>"; };
+		5558349F2221EFE900C1E887 /* scrolldown.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = scrolldown.json; sourceTree = "<group>"; };
 		55870EA421F00CEE004631B7 /* CTC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CTC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55870EA721F00CEE004631B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55870EA921F00CEE004631B7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -26,10 +45,17 @@
 		55870EB121F00CF0004631B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		55870EB321F00CF0004631B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55870EB921F00E69004631B7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		55870EBB21F013AC004631B7 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		55870EBB21F013AC004631B7 /* CalendarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarScreenView.swift; sourceTree = "<group>"; };
 		55870EBD21F0159C004631B7 /* GreetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingView.swift; sourceTree = "<group>"; };
 		55870EBF21F0186A004631B7 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		55870EC121F01875004631B7 /* BioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioView.swift; sourceTree = "<group>"; };
+		7FB810AB2208997A007AB5D5 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
+		7FB810AD220899A4007AB5D5 /* EventCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCellViewModel.swift; sourceTree = "<group>"; };
+		7FB810AF220899D9007AB5D5 /* CalendarScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarScreenViewModel.swift; sourceTree = "<group>"; };
+		7FB810B122089AAC007AB5D5 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		84FE14F013CE5A36605D79E9 /* Pods-CTC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CTC.release.xcconfig"; path = "Pods/Target Support Files/Pods-CTC/Pods-CTC.release.xcconfig"; sourceTree = "<group>"; };
+		A8B31AA846FFF8CD17AC60D4 /* Pods-CTC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CTC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CTC/Pods-CTC.debug.xcconfig"; sourceTree = "<group>"; };
+		B72ED0A88CDD17F1BA897BA1 /* Pods_CTC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CTC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,17 +63,66 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E2D255F0CA68E878031D508 /* Pods_CTC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3830E63318DC30442B8E3EDE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A8B31AA846FFF8CD17AC60D4 /* Pods-CTC.debug.xcconfig */,
+				84FE14F013CE5A36605D79E9 /* Pods-CTC.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		531BF5F62FF89EAC6EE25F62 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B72ED0A88CDD17F1BA897BA1 /* Pods_CTC.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		555834942221EFD900C1E887 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				555834952221EFD900C1E887 /* AdventPro-SemiBold.ttf */,
+				555834962221EFD900C1E887 /* Globals.swift */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		555834992221EFE900C1E887 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				5558349A2221EFE900C1E887 /* images */,
+				5558349D2221EFE900C1E887 /* heart-red.json */,
+				5558349E2221EFE900C1E887 /* heart-green.json */,
+				5558349F2221EFE900C1E887 /* scrolldown.json */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
+		5558349A2221EFE900C1E887 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				5558349B2221EFE900C1E887 /* img_1.png */,
+				5558349C2221EFE900C1E887 /* img_0.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		55870E9B21F00CEE004631B7 = {
 			isa = PBXGroup;
 			children = (
 				55870EA621F00CEE004631B7 /* CTC */,
 				55870EA521F00CEE004631B7 /* Products */,
+				3830E63318DC30442B8E3EDE /* Pods */,
+				531BF5F62FF89EAC6EE25F62 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,6 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				55870EA721F00CEE004631B7 /* AppDelegate.swift */,
+				555834992221EFE900C1E887 /* Animations */,
+				555834942221EFD900C1E887 /* Fonts */,
 				55870EC421F018A5004631B7 /* Home */,
 				55870EC321F01883004631B7 /* Greeting */,
 				55870EAE21F00CF0004631B7 /* Assets.xcassets */,
@@ -95,9 +172,29 @@
 		55870EC621F01913004631B7 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				55870EBB21F013AC004631B7 /* CalendarView.swift */,
+				7FB810B322089AC7007AB5D5 /* Model */,
+				7FB810AA22089952007AB5D5 /* View */,
 			);
 			path = Calendar;
+			sourceTree = "<group>";
+		};
+		7FB810AA22089952007AB5D5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7FB810AB2208997A007AB5D5 /* EventCell.swift */,
+				7FB810AD220899A4007AB5D5 /* EventCellViewModel.swift */,
+				55870EBB21F013AC004631B7 /* CalendarScreenView.swift */,
+				7FB810AF220899D9007AB5D5 /* CalendarScreenViewModel.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7FB810B322089AC7007AB5D5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7FB810B122089AAC007AB5D5 /* Event.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -107,9 +204,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55870EB621F00CF0004631B7 /* Build configuration list for PBXNativeTarget "CTC" */;
 			buildPhases = (
+				B062BA94526CE608E27021DA /* [CP] Check Pods Manifest.lock */,
 				55870EA021F00CEE004631B7 /* Sources */,
 				55870EA121F00CEE004631B7 /* Frameworks */,
 				55870EA221F00CEE004631B7 /* Resources */,
+				C0AE06E448AF105CF28A9DD6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -158,12 +257,63 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				555834A32221EFE900C1E887 /* heart-green.json in Resources */,
+				555834A22221EFE900C1E887 /* heart-red.json in Resources */,
+				555834A12221EFE900C1E887 /* img_0.png in Resources */,
 				55870EB221F00CF0004631B7 /* LaunchScreen.storyboard in Resources */,
+				555834A02221EFE900C1E887 /* img_1.png in Resources */,
 				55870EAF21F00CF0004631B7 /* Assets.xcassets in Resources */,
+				555834A42221EFE900C1E887 /* scrolldown.json in Resources */,
+				555834972221EFD900C1E887 /* AdventPro-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B062BA94526CE608E27021DA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CTC-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C0AE06E448AF105CF28A9DD6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CTC/Pods-CTC-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BulletinBoard/BLTNBoard.framework",
+				"${BUILT_PRODUCTS_DIR}/LUNSegmentedControl/LUNSegmentedControl.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BLTNBoard.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LUNSegmentedControl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CTC/Pods-CTC-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		55870EA021F00CEE004631B7 /* Sources */ = {
@@ -171,11 +321,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				55870EAA21F00CEE004631B7 /* HomeView.swift in Sources */,
+				7FB810AC2208997A007AB5D5 /* EventCell.swift in Sources */,
 				55870EC021F0186A004631B7 /* WelcomeView.swift in Sources */,
+				7FB810B222089AAC007AB5D5 /* Event.swift in Sources */,
 				55870EBA21F00E69004631B7 /* HomeViewModel.swift in Sources */,
-				55870EBC21F013AC004631B7 /* CalendarView.swift in Sources */,
+				7FB810AE220899A4007AB5D5 /* EventCellViewModel.swift in Sources */,
+				55870EBC21F013AC004631B7 /* CalendarScreenView.swift in Sources */,
 				55870EBE21F0159D004631B7 /* GreetingView.swift in Sources */,
+				555834982221EFD900C1E887 /* Globals.swift in Sources */,
 				55870EC221F01875004631B7 /* BioView.swift in Sources */,
+				7FB810B0220899D9007AB5D5 /* CalendarScreenViewModel.swift in Sources */,
 				55870EA821F00CEE004631B7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,11 +467,13 @@
 		};
 		55870EB721F00CF0004631B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A8B31AA846FFF8CD17AC60D4 /* Pods-CTC.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 27M48FAK5G;
 				INFOPLIST_FILE = CTC/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -330,11 +487,13 @@
 		};
 		55870EB821F00CF0004631B7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 84FE14F013CE5A36605D79E9 /* Pods-CTC.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 27M48FAK5G;
 				INFOPLIST_FILE = CTC/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
