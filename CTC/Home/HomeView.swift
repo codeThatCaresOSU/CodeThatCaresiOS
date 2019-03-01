@@ -22,16 +22,15 @@ class HomeView: UIViewController, bulletinDelegate {
         self.view.backgroundColor = Globals.constants.backgroundColor
         
         view.addSubview(backgroundScrollView)
-        view.addSubview(invisiblecollectionView)
         view.addSubview(segmentedControl)
         updateConstraints()
 
-        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+//        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
 //        if !launchedBefore {
-            UserDefaults.standard.set(true, forKey: "launchedBefore")
+//            UserDefaults.standard.set(true, forKey: "launchedBefore")
 //            view.addSubview(greetingView)
-            greetingView.bioView.delegate = self
-            prepareForBulletin()
+//            greetingView.bioView.delegate = self
+//            prepareForBulletin()
 //            self.viewModel.updateUi?.subscribe({ (event) in
 //                self.updateUI()
 //            })
@@ -40,11 +39,7 @@ class HomeView: UIViewController, bulletinDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        /* Set invisible collection view and segmented control to start */
         self.segmentedControl(self.segmentedControl, didScrollWithXOffset: 0)
-        let maximumOffset = invisiblecollectionView.contentSize.width - invisiblecollectionView.frame.width
-        invisiblecollectionView.setContentOffset(CGPoint(x: maximumOffset, y: 0), animated: false)
     }
     
     private lazy var segmentedControl: LUNSegmentedControl = {
@@ -58,10 +53,15 @@ class HomeView: UIViewController, bulletinDelegate {
         seg.translatesAutoresizingMaskIntoConstraints = false
         return seg
     }()
-    private lazy var backgroundScrollView: UIScrollView = {
-        let scrollView = UIScrollView(frame: CGRect(x:0, y:0, width: view.bounds.width, height: view.bounds.height))
-        scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height)
-        scrollView.isUserInteractionEnabled = true
+    private lazy var backgroundScrollView: UICollectionView = {
+        let collectionView = UICollectionView(frame: CGRect(x:0, y:0, width: view.bounds.width, height: view.bounds.height), collectionViewLayout: flowLayout)
+        collectionView.contentSize = CGSize(width: view.frame.width, height: view.frame.height)
+        collectionView.isUserInteractionEnabled = true
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
         let background = UIImageView(image: UIImage(named: "background"))
         background.isUserInteractionEnabled = true
         /* Width adds 1.5x to account for scrolling slightly past the end of the first and last page.
@@ -72,23 +72,8 @@ class HomeView: UIViewController, bulletinDelegate {
         background.addSubview(view1)
         background.addSubview(view2)
         background.addSubview(settings)
-        scrollView.addSubview(background)
-        return scrollView
-    }()
-    
-    /* This collection view is invisible and overlays the view to allow for side scrolling to change pages */
-    private lazy var invisiblecollectionView: UICollectionView = {
-        let collec = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collec.delegate = self
-        collec.dataSource = self
-        collec.transform = CGAffineTransform(scaleX:-1,y: 1)
-        collec.backgroundColor = .clear
-        collec.showsHorizontalScrollIndicator = false
-        collec.isUserInteractionEnabled = true
-        collec.translatesAutoresizingMaskIntoConstraints = false
-        collec.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        collec.isPagingEnabled = true
-        return collec
+        collectionView.addSubview(background)
+        return collectionView
     }()
     private lazy var flowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -162,11 +147,6 @@ class HomeView: UIViewController, bulletinDelegate {
         segmentedControl.heightAnchor.constraint(equalToConstant: 40).isActive = true
         segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
         segmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        invisiblecollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        invisiblecollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        invisiblecollectionView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true
-        invisiblecollectionView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
     }
 }
 
@@ -188,17 +168,12 @@ extension HomeView: LUNSegmentedControlDataSource, LUNSegmentedControlDelegate {
     }
     
     func segmentedControl(_ segmentedControl: LUNSegmentedControl!, didScrollWithXOffset offset: CGFloat) {
-        let maxOffset: CGFloat = self.segmentedControl.frame.size.width/CGFloat(self.segmentedControl.statesCount)
-        let width: CGFloat = self.view.frame.size.width
-        let leftDistance: CGFloat = (self.backgroundScrollView.contentSize.width - width)
-        let rightDistance: CGFloat = (self.backgroundScrollView.contentSize.width - width)
-        let backgroundScrollViewOffset: CGFloat = leftDistance + ((offset / maxOffset) * (self.backgroundScrollView.contentSize.width - rightDistance - leftDistance))
-        backgroundScrollView.setContentOffset(CGPoint(x: backgroundScrollViewOffset, y: 0), animated: false)
-        
-        if(!collectionViewIsActive){
-            let percentageOffsetSeg = 1 - (offset / maxOffset / 2)
-            let collecPos = percentageOffsetSeg * (invisiblecollectionView.contentSize.width - invisiblecollectionView.frame.width)
-            invisiblecollectionView.setContentOffset(CGPoint(x: collecPos, y: invisiblecollectionView.contentOffset.y), animated: false)
+        if (!collectionViewIsActive){
+            let maxOffset: CGFloat = self.segmentedControl.frame.size.width/CGFloat(self.segmentedControl.statesCount)
+            let percentageOffsetSeg = offset / maxOffset / 2
+            let maxBackgroundOffset: CGFloat = backgroundScrollView.frame.size.width * 2
+            let backgroundScrollViewOffset: CGFloat = maxBackgroundOffset * percentageOffsetSeg
+            backgroundScrollView.setContentOffset(CGPoint(x: backgroundScrollViewOffset, y: 0), animated: false)
         }
     }
     
@@ -218,15 +193,22 @@ extension HomeView: LUNSegmentedControlDataSource, LUNSegmentedControlDelegate {
 }
 @available(iOS 11.0, *)
 extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = invisiblecollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath as IndexPath)
-        return cell
-    }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
     }
-    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath as IndexPath)
+        return cell
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if(collectionViewIsActive){
+            let maximumOffset = scrollView.contentSize.width - scrollView.frame.width
+            let currentOffset = scrollView.contentOffset.x
+            let percentageOffset = 1 - (currentOffset / maximumOffset)
+            let segPos = percentageOffset * (segmentedControl.scrollView.contentSize.width - segmentedControl.scrollView.frame.width)
+            segmentedControl.scrollView.setContentOffset(CGPoint(x: segPos, y: segmentedControl.scrollView.contentOffset.y), animated: false)
+        }
+    }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return collectionView.frame.size
     }
@@ -236,14 +218,4 @@ extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         collectionViewIsActive = true
     }
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if(collectionViewIsActive){
-            let maximumOffset = scrollView.contentSize.width - scrollView.frame.width
-            let currentOffset = scrollView.contentOffset.x
-            let percentageOffset = currentOffset / maximumOffset
-            let segPos = percentageOffset * (segmentedControl.scrollView.contentSize.width - segmentedControl.scrollView.frame.width)
-            segmentedControl.scrollView.setContentOffset(CGPoint(x: segPos, y: segmentedControl.scrollView.contentOffset.y), animated: false)
-        }
-    }
-    
 }

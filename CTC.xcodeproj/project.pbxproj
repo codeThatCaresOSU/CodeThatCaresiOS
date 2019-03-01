@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1E2D255F0CA68E878031D508 /* Pods_CTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72ED0A88CDD17F1BA897BA1 /* Pods_CTC.framework */; };
-		5519D2FE2229D9D10056CE31 /* CollectionViewPassthrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5519D2FD2229D9D10056CE31 /* CollectionViewPassthrough.swift */; };
-		5519D3002229E1010056CE31 /* testView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5519D2FF2229E1010056CE31 /* testView.swift */; };
 		555834972221EFD900C1E887 /* AdventPro-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 555834952221EFD900C1E887 /* AdventPro-SemiBold.ttf */; };
 		555834982221EFD900C1E887 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555834962221EFD900C1E887 /* Globals.swift */; };
 		555834A02221EFE900C1E887 /* img_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5558349B2221EFE900C1E887 /* img_1.png */; };
@@ -33,8 +31,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5519D2FD2229D9D10056CE31 /* CollectionViewPassthrough.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewPassthrough.swift; sourceTree = "<group>"; };
-		5519D2FF2229E1010056CE31 /* testView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testView.swift; sourceTree = "<group>"; };
 		555834952221EFD900C1E887 /* AdventPro-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AdventPro-SemiBold.ttf"; sourceTree = "<group>"; };
 		555834962221EFD900C1E887 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		5558349B2221EFE900C1E887 /* img_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_1.png; sourceTree = "<group>"; };
@@ -166,9 +162,7 @@
 		55870EC421F018A5004631B7 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				5519D2FD2229D9D10056CE31 /* CollectionViewPassthrough.swift */,
 				55870EA921F00CEE004631B7 /* HomeView.swift */,
-				5519D2FF2229E1010056CE31 /* testView.swift */,
 				55870EB921F00E69004631B7 /* HomeViewModel.swift */,
 				55870EC621F01913004631B7 /* Calendar */,
 			);
@@ -327,14 +321,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				55870EAA21F00CEE004631B7 /* HomeView.swift in Sources */,
-				5519D2FE2229D9D10056CE31 /* CollectionViewPassthrough.swift in Sources */,
 				7FB810AC2208997A007AB5D5 /* EventCell.swift in Sources */,
 				55870EC021F0186A004631B7 /* WelcomeView.swift in Sources */,
 				7FB810B222089AAC007AB5D5 /* Event.swift in Sources */,
 				55870EBA21F00E69004631B7 /* HomeViewModel.swift in Sources */,
 				7FB810AE220899A4007AB5D5 /* EventCellViewModel.swift in Sources */,
 				55870EBC21F013AC004631B7 /* CalendarScreenView.swift in Sources */,
-				5519D3002229E1010056CE31 /* testView.swift in Sources */,
 				55870EBE21F0159D004631B7 /* GreetingView.swift in Sources */,
 				555834982221EFD900C1E887 /* Globals.swift in Sources */,
 				55870EC221F01875004631B7 /* BioView.swift in Sources */,
