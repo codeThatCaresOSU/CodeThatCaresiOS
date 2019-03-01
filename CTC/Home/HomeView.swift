@@ -14,44 +14,40 @@ import LUNSegmentedControl
 class HomeView: UIViewController, bulletinDelegate {
 
     private var viewModel: HomeViewModel = HomeViewModel()
-    let pageTitles = ["Home", "Calendar", "Settings"]
+    private let pageTitles = ["Home", "Calendar", "Settings"]
+    private var collectionViewIsActive = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = Globals.constants.backgroundColor
         
         view.addSubview(backgroundScrollView)
+        view.addSubview(invisiblecollectionView)
         view.addSubview(segmentedControl)
-        constrainSegmentedControl()
+        updateConstraints()
 
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
 //        if !launchedBefore {
             UserDefaults.standard.set(true, forKey: "launchedBefore")
-            view.addSubview(greetingView)
+//            view.addSubview(greetingView)
             greetingView.bioView.delegate = self
             prepareForBulletin()
 //            self.viewModel.updateUi?.subscribe({ (event) in
 //                self.updateUI()
 //            })
 //        }
-
-        /* Temporary fix for swiping until I find a better way to handle this */
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-        leftSwipe.direction = .left
-        rightSwipe.direction = .right
-        view.addGestureRecognizer(leftSwipe)
-        view.addGestureRecognizer(rightSwipe)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        /* Set invisible collection view and segmented control to start */
         self.segmentedControl(self.segmentedControl, didScrollWithXOffset: 0)
+        let maximumOffset = invisiblecollectionView.contentSize.width - invisiblecollectionView.frame.width
+        invisiblecollectionView.setContentOffset(CGPoint(x: maximumOffset, y: 0), animated: false)
     }
-
-    private lazy var greetingView = GreetingView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
     
-    lazy var segmentedControl: LUNSegmentedControl = {
+    private lazy var segmentedControl: LUNSegmentedControl = {
         let seg = LUNSegmentedControl()
         seg.delegate = self
         seg.dataSource = self
@@ -62,7 +58,7 @@ class HomeView: UIViewController, bulletinDelegate {
         seg.translatesAutoresizingMaskIntoConstraints = false
         return seg
     }()
-    lazy var backgroundScrollView: UIScrollView = {
+    private lazy var backgroundScrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: CGRect(x:0, y:0, width: view.bounds.width, height: view.bounds.height))
         scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height)
         scrollView.isUserInteractionEnabled = true
@@ -79,19 +75,44 @@ class HomeView: UIViewController, bulletinDelegate {
         scrollView.addSubview(background)
         return scrollView
     }()
+    
+    /* This collection view is invisible and overlays the view to allow for side scrolling to change pages */
+    private lazy var invisiblecollectionView: UICollectionView = {
+        let collec = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collec.delegate = self
+        collec.dataSource = self
+        collec.transform = CGAffineTransform(scaleX:-1,y: 1)
+        collec.backgroundColor = .clear
+        collec.showsHorizontalScrollIndicator = false
+        collec.isUserInteractionEnabled = true
+        collec.translatesAutoresizingMaskIntoConstraints = false
+        collec.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collec.isPagingEnabled = true
+        return collec
+    }()
+    private lazy var flowLayout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        return layout
+    }()
+    
+    private lazy var greetingView = GreetingView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+    
     /* Each new page must add to the x point view.bounds.width to keep it aligned in scrollview.
      To add a 4th page, use this code:
      lazy var templateView4 = CalendarView(frame: CGRect(x: view.bounds.width * 1.5 / 2 + view.bounds.width * 3, y: 0, width: view.bounds.width, height: view.bounds.height))
      */
-    lazy var view1 = CalendarView(frame: CGRect(x: view.bounds.width * 1.5 / 2, y: 0, width: view.bounds.width, height: view.bounds.height))
-    lazy var view2 = CalendarView(frame: CGRect(x: view.bounds.width * 1.5 / 2 + view.bounds.width, y: 0, width: view.bounds.width, height: view.bounds.height))
-    lazy var settings = CalendarView(frame: CGRect(x: view.bounds.width * 1.5 / 2 + view.bounds.width * 2, y: 0, width: view.bounds.width, height: view.bounds.height))
+    private lazy var view1 = CalendarView(frame: CGRect(x: view.bounds.width * 1.5 / 2, y: 0, width: view.bounds.width, height: view.bounds.height))
+    private lazy var view2 = CalendarView(frame: CGRect(x: view.bounds.width * 1.5 / 2 + view.bounds.width, y: 0, width: view.bounds.width, height: view.bounds.height))
+    private lazy var settings = CalendarView(frame: CGRect(x: view.bounds.width * 1.5 / 2 + view.bounds.width * 2, y: 0, width: view.bounds.width, height: view.bounds.height))
 
-    lazy var bulletinManager: BLTNItemManager = {
+    private lazy var bulletinManager: BLTNItemManager = {
         let rootItem: BLTNItem = notificationBulletin
         return BLTNItemManager(rootItem: rootItem)
     }()
-    lazy var notificationBulletin: BLTNPageItem = {
+    private lazy var notificationBulletin: BLTNPageItem = {
         let page = BLTNPageItem(title: "Push Notifications")
         page.descriptionText = "Please enable push notifications to hear about meetings and important events."
         page.actionButtonTitle = "Subscribe"
@@ -136,11 +157,16 @@ class HomeView: UIViewController, bulletinDelegate {
     /*
      Constraints
      */
-    func constrainSegmentedControl(){
+    func updateConstraints(){
         segmentedControl.widthAnchor.constraint(equalToConstant: 350).isActive = true
         segmentedControl.heightAnchor.constraint(equalToConstant: 40).isActive = true
         segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
         segmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        invisiblecollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        invisiblecollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        invisiblecollectionView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true
+        invisiblecollectionView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
     }
 }
 
@@ -168,6 +194,12 @@ extension HomeView: LUNSegmentedControlDataSource, LUNSegmentedControlDelegate {
         let rightDistance: CGFloat = (self.backgroundScrollView.contentSize.width - width)
         let backgroundScrollViewOffset: CGFloat = leftDistance + ((offset / maxOffset) * (self.backgroundScrollView.contentSize.width - rightDistance - leftDistance))
         backgroundScrollView.setContentOffset(CGPoint(x: backgroundScrollViewOffset, y: 0), animated: false)
+        
+        if(!collectionViewIsActive){
+            let percentageOffsetSeg = 1 - (offset / maxOffset / 2)
+            let collecPos = percentageOffsetSeg * (invisiblecollectionView.contentSize.width - invisiblecollectionView.frame.width)
+            invisiblecollectionView.setContentOffset(CGPoint(x: collecPos, y: invisiblecollectionView.contentOffset.y), animated: false)
+        }
     }
     
     func segmentedControl(_ segmentedControl: LUNSegmentedControl!, gradientColorsForStateAt index: Int) -> [UIColor]! {
@@ -183,4 +215,35 @@ extension HomeView: LUNSegmentedControlDataSource, LUNSegmentedControlDelegate {
         }
         return nil
     }
+}
+@available(iOS 11.0, *)
+extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = invisiblecollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath as IndexPath)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return collectionView.frame.size
+    }
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        collectionViewIsActive = false
+    }
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        collectionViewIsActive = true
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if(collectionViewIsActive){
+            let maximumOffset = scrollView.contentSize.width - scrollView.frame.width
+            let currentOffset = scrollView.contentOffset.x
+            let percentageOffset = currentOffset / maximumOffset
+            let segPos = percentageOffset * (segmentedControl.scrollView.contentSize.width - segmentedControl.scrollView.frame.width)
+            segmentedControl.scrollView.setContentOffset(CGPoint(x: segPos, y: segmentedControl.scrollView.contentOffset.y), animated: false)
+        }
+    }
+    
 }
