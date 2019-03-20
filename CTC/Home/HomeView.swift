@@ -16,6 +16,7 @@ class HomeView: UIViewController, bulletinDelegate {
     private var viewModel: HomeViewModel = HomeViewModel()
     private let pageTitles = ["Home", "Calendar", "Settings"]
     private var collectionViewIsActive = true
+    private lazy var pages = [calendarView, view2, settings]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +41,12 @@ class HomeView: UIViewController, bulletinDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.segmentedControl(self.segmentedControl, didScrollWithXOffset: 0)
+        
+        let yPadding: CGFloat = 10 // Padding below segmentedControl for views
+        let yOffset = segmentedControl.frame.size.height + segmentedControl.frame.origin.y + yPadding
+        for page in pages {
+            page.updateFrames(frame: CGRect(x: page.frame.origin.x, y: yOffset, width: page.frame.size.width, height: page.frame.size.height - yOffset))
+        }
     }
     
     private lazy var segmentedControl: LUNSegmentedControl = {
@@ -62,16 +69,14 @@ class HomeView: UIViewController, bulletinDelegate {
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
-        let background = UIImageView(image: UIImage(named: "background"))
+        let background = UIImageView(image: UIImage(named: "leaf"))
         background.isUserInteractionEnabled = true
-        /* Width adds 1.5x to account for scrolling slightly past the end of the first and last page.
-         To add a 4th page, use this code:
-         background.frame = CGRect(x: -view.bounds.width * 1.5 / 2, y: 0, width: view.bounds.width * 4 + view.bounds.width * 1.5, height: view.bounds.height)
-         */
-        background.frame = CGRect(x: -view.bounds.width * 1.5 / 2, y: 0, width: view.bounds.width * 3 + view.bounds.width * 1.5, height: view.bounds.height)
-        background.addSubview(view1)
-        background.addSubview(view2)
-        background.addSubview(settings)
+        
+        /* Width adds 1.5x to account for scrolling slightly past the end of the first and last page. */
+        background.frame = CGRect(x: -view.bounds.width * 1.5 / 2, y: 0, width: view.bounds.width * CGFloat(pages.count) + view.bounds.width * 1.5, height: view.bounds.height)
+        for page in pages {
+            background.addSubview(page)
+        }
         collectionView.addSubview(background)
         return collectionView
     }()
@@ -82,16 +87,24 @@ class HomeView: UIViewController, bulletinDelegate {
         layout.minimumLineSpacing = 0
         return layout
     }()
-    
     private lazy var greetingView = GreetingView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
     
     /* Each new page must add to the x point view.bounds.width to keep it aligned in scrollview.
      To add a 4th page, use this code:
      lazy var templateView4 = CalendarView(frame: CGRect(x: view.bounds.width * 1.5 / 2 + view.bounds.width * 3, y: 0, width: view.bounds.width, height: view.bounds.height))
      */
-    private lazy var view1 = CalendarView(frame: CGRect(x: view.bounds.width * 1.5 / 2, y: 0, width: view.bounds.width, height: view.bounds.height))
-    private lazy var view2 = CalendarView(frame: CGRect(x: view.bounds.width * 1.5 / 2 + view.bounds.width, y: 0, width: view.bounds.width, height: view.bounds.height))
-    private lazy var settings = CalendarView(frame: CGRect(x: view.bounds.width * 1.5 / 2 + view.bounds.width * 2, y: 0, width: view.bounds.width, height: view.bounds.height))
+    private lazy var calendarView: CalendarView = {
+        let view = CalendarView(frame: CGRect(x: self.view.frame.width * 1.5 / 2, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+        return view
+    }()
+    private lazy var view2: CalendarView = {
+        let view = CalendarView(frame: CGRect(x: self.view.bounds.width * 1.5 / 2 + self.view.bounds.width, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
+        return view
+    }()
+    private lazy var settings: CalendarView = {
+        let view = CalendarView(frame: CGRect(x: self.view.bounds.width * 1.5 / 2 + self.view.bounds.width * 2, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
+        return view
+    }()
 
     private lazy var bulletinManager: BLTNItemManager = {
         let rootItem: BLTNItem = notificationBulletin
@@ -154,11 +167,11 @@ class HomeView: UIViewController, bulletinDelegate {
 extension HomeView: LUNSegmentedControlDataSource, LUNSegmentedControlDelegate {
     
     func numberOfStates(in segmentedControl: LUNSegmentedControl!) -> Int {
-        return 3
+        return pages.count
     }
     
     func segmentedControl(_ segmentedControl: LUNSegmentedControl!, attributedTitleForStateAt index: Int) -> NSAttributedString! {
-        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont(name: "AvenirNext-Medium", size: 12)!]
+        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont(name: "AvenirNext-Medium", size: 13)!]
         return NSAttributedString(string: pageTitles[index], attributes: attrs)
     }
     
@@ -194,7 +207,7 @@ extension HomeView: LUNSegmentedControlDataSource, LUNSegmentedControlDelegate {
 @available(iOS 11.0, *)
 extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return pages.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath as IndexPath)

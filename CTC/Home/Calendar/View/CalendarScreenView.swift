@@ -15,26 +15,41 @@ class CalendarView: UIView, UITableViewDelegate, UITableViewDataSource {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        let label = UILabel(frame: CGRect(x: 10, y: 125, width: frame.width - 20, height: 75))
+        updateFrames(frame: frame)
+        self.addSubview(label)
+        self.addSubview(card)
+        card.addSubview(calendarListTableView)
+    }
+    private lazy var label: UILabel = {
+        let label = UILabel()
         label.text = "Code that Cares"
         label.font = label.font.withSize(40)
-        self.addSubview(label)
-        
-        // 10 pt margin on both sides
-        // y: label.frame.y + label.frame.height + 10 pt margin
-        // height: frame.height - card.frame.y - 65 pt margin
-        let card = UIView(frame: CGRect(x: 10, y: 210, width: frame.width - 20, height: frame.height - 275))
-        card.backgroundColor = .white
-        card.layer.cornerRadius = 5
-        self.addSubview(card)
-        
-        let calendarListTableView = UITableView(frame: CGRect(x: 0, y: 0, width: card.frame.width, height: card.frame.height))
-        calendarListTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        calendarListTableView.backgroundColor = .white
-        calendarListTableView.layer.cornerRadius = 5
-        calendarListTableView.delegate = self
-        calendarListTableView.dataSource = self
-        card.addSubview(calendarListTableView)
+        return label
+    }()
+    private lazy var card: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 5
+        return view
+    }()
+    private lazy var calendarListTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.backgroundColor = .white
+        tableView.layer.cornerRadius = 5
+        tableView.delegate = self
+        tableView.dataSource = self
+        return tableView
+    }()
+    public func updateFrames(frame: CGRect){
+        self.frame = frame
+        label.frame = CGRect(x: 10, y: 10, width: frame.width - 20, height: label.intrinsicContentSize.height)
+        card.frame =  CGRect(x: 10, y: label.frame.maxY + 20, width: frame.width - 20, height: frame.height - card.frame.origin.y - 30)
+        calendarListTableView.frame = CGRect(x: 0, y: 0, width: card.frame.width, height: card.frame.height)
+        self.setNeedsDisplay()
+        label.setNeedsDisplay()
+        card.setNeedsDisplay()
+        calendarListTableView.setNeedsDisplay()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
