@@ -15,7 +15,7 @@ class HomeView: UIViewController, bulletinDelegate {
 
     private var viewModel: HomeViewModel = HomeViewModel()
     private let pageTitles = ["Home", "Calendar", "Settings"]
-    private var collectionViewIsActive = true
+    private var collectionViewIsActive = false
     private lazy var pages = [calendarView, view2, settings]
     
     override func viewDidLoad() {

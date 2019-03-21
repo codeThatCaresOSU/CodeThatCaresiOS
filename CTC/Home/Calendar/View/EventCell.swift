@@ -12,7 +12,8 @@ class EventCell: UITableViewCell {
     
     private lazy var leftContainer: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red:0.36, green:0.30, blue:0.51, alpha:1.0) //#5d4c83
+        view.backgroundColor = Globals.constants.purpleColor
+//        view.backgroundColor = Globals.constants.darkCTCColor
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
