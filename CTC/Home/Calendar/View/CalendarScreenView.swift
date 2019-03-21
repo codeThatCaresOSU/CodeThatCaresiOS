@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import EventKit
 
 class CalendarView: UIView {
-    
     private var viewModel = CalendarScreenViewModel()
     private let cellSpacingHeight: CGFloat = 10
+    private let store = EKEventStore()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,7 +32,7 @@ class CalendarView: UIView {
         tableView.register(EventCell.self, forCellReuseIdentifier: "cell")
         tableView.backgroundColor = .clear
         tableView.showsVerticalScrollIndicator = false
-        tableView.allowsSelection = false
+//        tableView.allowsSelection = false
         tableView.layer.cornerRadius = 5
         tableView.clipsToBounds = false
         tableView.delegate = self
@@ -78,12 +79,77 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! EventCell
+        cell.cellCalendarDelegate = self
         cell.title = "Whiteboard Coding!"
-        cell.day = "21"
-        cell.month = "January"
-        cell.time = "6:00 PM"
         cell.detail = "Test your coding ability while practicing valuable skills for interviews."
         cell.location = "Enarson 245"
+        cell.month = 3
+        cell.day = 21
+        cell.year = 2019
+        cell.time = "6:00"
+        cell.amOrPM = "PM"
+        cell.durationHours = 1
         return cell
+    }
+}
+extension CalendarView: calendarDelegate {
+    func addToCalendar(title: String, eventStartDate: Date, eventEndDate: Date, location: String, detail: String) {
+        store.requestAccess(to: .event) { (success, error) in
+            var alertTitle = "Error"
+            var alertMessage = "Unkown error adding event to calendar."
+            if  error == nil {
+                let event = EKEvent.init(eventStore: self.store)
+                event.title = title
+                event.calendar = self.store.defaultCalendarForNewEvents // this will return deafult calendar from device calendars
+                event.startDate = eventStartDate
+                event.endDate = eventEndDate
+                event.location = location
+                event.notes = detail
+                
+                do {
+                    try self.store.save(event, span: .thisEvent)
+                    alertTitle = "Success!"
+                    alertMessage = "Successfully added event to calendar!"
+                } catch let error as NSError {
+                    print("Failed to add event with error: \(error)")
+                }
+
+            } else {
+                //we have error in getting access to device calnedar
+                alertTitle = "Error"
+                alertMessage = "Error accessing calendar."
+            }
+            DispatchQueue.main.async {
+                let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                alertController.show()
+            }
+        }
+    }
+}
+// Utility for presenting alert
+extension UIAlertController {
+    
+    func show() {
+        present(animated: true, completion: nil)
+    }
+    
+    func present(animated: Bool, completion: (() -> Void)?) {
+        if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
+            presentFromController(controller: rootVC, animated: animated, completion: completion)
+        }
+    }
+    
+    private func presentFromController(controller: UIViewController, animated: Bool, completion: (() -> Void)?) {
+        if let navVC = controller as? UINavigationController,
+            let visibleVC = navVC.visibleViewController {
+            presentFromController(controller: visibleVC, animated: animated, completion: completion)
+        } else
+            if let tabVC = controller as? UITabBarController,
+                let selectedVC = tabVC.selectedViewController {
+                presentFromController(controller: selectedVC, animated: animated, completion: completion)
+            } else {
+                controller.present(self, animated: animated, completion: completion);
+        }
     }
 }

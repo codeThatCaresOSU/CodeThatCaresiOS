@@ -1,12 +1,22 @@
 import UIKit
 
+protocol calendarDelegate: class {
+    func addToCalendar(title: String, eventStartDate: Date, eventEndDate: Date, location: String, detail: String)
+}
+
 class EventCell: UITableViewCell {
+    
+    weak var cellCalendarDelegate: calendarDelegate?
+    
     var title: String!
-    var location: String!
     var detail: String!
-    var day: String!
+    var location: String!
+    var month: Int!
+    var day: Int!
+    var year: Int!
     var time: String!
-    var month: String!
+    var amOrPM: String!
+    var durationHours: Int!
     
     private var viewModel: EventCellViewModel?
     
@@ -51,7 +61,7 @@ class EventCell: UITableViewCell {
     }()
     private lazy var dayLabel: UILabel = {
         let label = UILabel()
-        label.text = day
+        label.text = "\(day!)"
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 50)
         label.textAlignment = .center
@@ -60,7 +70,7 @@ class EventCell: UITableViewCell {
     }()
     private lazy var timeLabel: UILabel = {
         let label = UILabel()
-        label.text = time
+        label.text = "\(time!) \(amOrPM!)"
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -69,7 +79,7 @@ class EventCell: UITableViewCell {
     }()
     private lazy var monthLabel: UILabel = {
         let label = UILabel()
-        label.text = month
+        label.text = DateFormatter().monthSymbols[month - 1]
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -105,6 +115,9 @@ class EventCell: UITableViewCell {
         backgroundColor = UIColor.white
         layer.cornerRadius = 8
         clipsToBounds = true
+        
+        
+        addToCalendarButton.addTarget(self, action: #selector(addButtonPressed(_:)), for: .touchUpInside)
         
         addSubview(leftContainer)
         addSubview(rightContainer)
@@ -172,5 +185,14 @@ class EventCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+    }
+    
+    @objc func addButtonPressed(_ sender: UIButton){
+        let calendar = Calendar.current
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a MM/dd/yyyy"
+        let startDate = formatter.date(from: "\(time!) \(amOrPM!) \(month!)/\(day!)/\(year!)")
+        let endDate = calendar.date(byAdding: .hour, value: durationHours, to: startDate!)
+        cellCalendarDelegate?.addToCalendar(title: "CTC - \(title!)", eventStartDate: startDate!, eventEndDate: endDate!, location: location, detail: detail)
     }
 }
