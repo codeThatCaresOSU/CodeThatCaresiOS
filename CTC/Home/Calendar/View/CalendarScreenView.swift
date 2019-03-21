@@ -38,6 +38,7 @@ class CalendarView: UIView {
         tableView.register(EventCell.self, forCellReuseIdentifier: "cell")
         tableView.backgroundColor = .clear
         tableView.layer.cornerRadius = 5
+        tableView.allowsSelection = false
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
