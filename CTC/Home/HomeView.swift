@@ -16,7 +16,7 @@ class HomeView: UIViewController, bulletinDelegate {
     private var viewModel: HomeViewModel = HomeViewModel()
     private let pageTitles = ["Home", "Calendar", "Settings"]
     private var collectionViewIsActive = false
-    private lazy var pages = [calendarView, view2, settings]
+    private lazy var pages = [homeView, calendarView, settingsView]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,15 +93,15 @@ class HomeView: UIViewController, bulletinDelegate {
      To add a 4th page, use this code:
      lazy var templateView4 = CalendarView(frame: CGRect(x: view.bounds.width * 1.5 / 2 + view.bounds.width * 3, y: 0, width: view.bounds.width, height: view.bounds.height))
      */
-    private lazy var calendarView: CalendarView = {
+    private lazy var homeView: CalendarView = {
         let view = CalendarView(frame: CGRect(x: self.view.frame.width * 1.5 / 2, y: 0, width: self.view.frame.width, height: self.view.frame.height))
         return view
     }()
-    private lazy var view2: CalendarView = {
+    private lazy var calendarView: CalendarView = {
         let view = CalendarView(frame: CGRect(x: self.view.bounds.width * 1.5 / 2 + self.view.bounds.width, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
         return view
     }()
-    private lazy var settings: CalendarView = {
+    private lazy var settingsView: CalendarView = {
         let view = CalendarView(frame: CGRect(x: self.view.bounds.width * 1.5 / 2 + self.view.bounds.width * 2, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
         return view
     }()

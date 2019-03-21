@@ -11,46 +11,39 @@ import UIKit
 class CalendarView: UIView {
     
     private var viewModel = CalendarScreenViewModel()
-    let cellSpacingHeight: CGFloat = 10
+    private let cellSpacingHeight: CGFloat = 10
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         updateFrames(frame: frame)
-        self.addSubview(label)
-        self.addSubview(card)
-        card.addSubview(calendarListTableView)
+        self.addSubview(titleLabel)
+        self.addSubview(calendarListTableView)
     }
-    private lazy var label: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Upcoming Events"
         label.font = UIFont.boldSystemFont(ofSize: 40)
         return label
     }()
-    private lazy var card: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        view.layer.cornerRadius = 5
-        return view
-    }()
     private lazy var calendarListTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(EventCell.self, forCellReuseIdentifier: "cell")
         tableView.backgroundColor = .clear
-        tableView.layer.cornerRadius = 5
+        tableView.showsVerticalScrollIndicator = false
         tableView.allowsSelection = false
+        tableView.layer.cornerRadius = 5
+        tableView.clipsToBounds = false
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
     }()
     public func updateFrames(frame: CGRect){
         self.frame = frame
-        label.frame = CGRect(x: 10, y: 10, width: frame.width - 20, height: label.intrinsicContentSize.height)
-        card.frame =  CGRect(x: 10, y: label.frame.maxY + 20, width: frame.width - 20, height: frame.height - card.frame.origin.y - 30)
-        calendarListTableView.frame = CGRect(x: 0, y: 0, width: card.frame.width, height: card.frame.height)
+        titleLabel.frame = CGRect(x: 10, y: 10, width: frame.width - 20, height: titleLabel.intrinsicContentSize.height)
+        calendarListTableView.frame =  CGRect(x: 10, y: titleLabel.frame.maxY + 20, width: frame.width - 20, height: frame.height - calendarListTableView.frame.origin.y - 30)
         self.setNeedsDisplay()
-        label.setNeedsDisplay()
-        card.setNeedsDisplay()
+        titleLabel.setNeedsDisplay()
         calendarListTableView.setNeedsDisplay()
     }
     

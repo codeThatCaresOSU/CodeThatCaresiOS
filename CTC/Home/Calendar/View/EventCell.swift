@@ -40,6 +40,8 @@ class EventCell: UITableViewCell {
     private lazy var detailLabel: UITextView = {
         let textView = UITextView()
         textView.text = detail
+        textView.textContainerInset = UIEdgeInsets.zero
+        textView.textContainer.lineFragmentPadding = 0
         textView.textColor = .black
         textView.isEditable = false
         textView.isSelectable = false
@@ -74,6 +76,19 @@ class EventCell: UITableViewCell {
         label.textAlignment = .center
         return label
     }()
+    private let addToCalendarButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.tintColor = .blue
+        button.setTitle("+", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 22)
+        button.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
+        button.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment.center
+        button.layer.cornerRadius = 4
+        button.setTitleColor(Globals.constants.purpleColor, for: .normal)
+        button.backgroundColor = .lightGray
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
     convenience init(event: Event, frame: CGRect) {
         self.init()
@@ -93,12 +108,13 @@ class EventCell: UITableViewCell {
         
         addSubview(leftContainer)
         addSubview(rightContainer)
-        rightContainer.addSubview(titleLabel)
-        rightContainer.addSubview(detailLabel)
-        rightContainer.addSubview(locationLabel)
         leftContainer.addSubview(dayLabel)
         leftContainer.addSubview(monthLabel)
         leftContainer.addSubview(timeLabel)
+        leftContainer.addSubview(addToCalendarButton)
+        rightContainer.addSubview(titleLabel)
+        rightContainer.addSubview(detailLabel)
+        rightContainer.addSubview(locationLabel)
         addSubview(titleLabel)
         constrain()
     }
@@ -135,14 +151,19 @@ class EventCell: UITableViewCell {
         titleLabel.topAnchor.constraint(equalTo: rightContainer.topAnchor, constant: 20).isActive = true
         
         detailLabel.widthAnchor.constraint(equalTo: rightContainer.widthAnchor, constant: -20).isActive = true
-        detailLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
+        detailLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5).isActive = true
         detailLabel.centerXAnchor.constraint(equalTo: rightContainer.centerXAnchor).isActive = true
-        detailLabel.bottomAnchor.constraint(equalTo: locationLabel.topAnchor).isActive = true
+        detailLabel.bottomAnchor.constraint(equalTo: locationLabel.topAnchor, constant: -5).isActive = true
         
         locationLabel.widthAnchor.constraint(equalToConstant: locationLabel.intrinsicContentSize.width).isActive = true
         locationLabel.heightAnchor.constraint(equalToConstant: locationLabel.intrinsicContentSize.height).isActive = true
         locationLabel.centerXAnchor.constraint(equalTo: rightContainer.centerXAnchor).isActive = true
         locationLabel.bottomAnchor.constraint(equalTo: rightContainer.bottomAnchor, constant: -10).isActive = true
+        
+        addToCalendarButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        addToCalendarButton.centerXAnchor.constraint(equalTo: leftContainer.centerXAnchor).isActive = true
+        addToCalendarButton.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 5).isActive = true
+        addToCalendarButton.bottomAnchor.constraint(equalTo: leftContainer.bottomAnchor, constant: -10).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
