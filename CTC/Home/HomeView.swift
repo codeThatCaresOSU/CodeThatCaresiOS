@@ -55,7 +55,7 @@ class HomeView: UIViewController, bulletinDelegate {
         seg.dataSource = self
         seg.selectorViewColor = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 0)
         seg.backgroundColor = UIColor(red: 37.0/255.0, green: 37.0/255.0, blue: 37.0/255.0, alpha: 0.5)
-        seg.cornerRadius = 15
+        seg.cornerRadius = 18
         seg.applyCornerRadiusToSelectorView = true
         seg.translatesAutoresizingMaskIntoConstraints = false
         return seg
@@ -198,11 +198,14 @@ extension HomeView: LUNSegmentedControlDataSource, LUNSegmentedControlDelegate {
     func segmentedControl(_ segmentedControl: LUNSegmentedControl!, gradientColorsForStateAt index: Int) -> [UIColor]! {
         switch(index){
         case 0:
-            return [UIColor(red:0.63, green:0.87, blue:0.22, alpha:1.0), UIColor(red:0.69, green:1.00, blue:0.00, alpha:1.0)]
+            return [UIColor(red:0.51, green:0.38, blue:0.76, alpha:1.0), UIColor(red:0.34, green:0.33, blue:0.76, alpha:1.0)]
+//            return [UIColor(red:0.63, green:0.87, blue:0.22, alpha:1.0), UIColor(red:0.69, green:1.00, blue:0.00, alpha:1.0)]
         case 1:
-            return [UIColor(red:0.31, green:0.99, blue:0.82, alpha:1.0), UIColor(red:0.20, green:0.78, blue:0.96, alpha:1.0)]
+            return [UIColor(red:0.29, green:0.44, blue:0.76, alpha:1.0), UIColor(red:0.25, green:0.58, blue:0.75, alpha:1.0)]
+//            return [UIColor(red:0.31, green:0.99, blue:0.82, alpha:1.0), UIColor(red:0.20, green:0.78, blue:0.96, alpha:1.0)]
         case 2:
-            return [UIColor(red:0.70, green:0.00, blue:0.92, alpha:1.0), UIColor(red:0.91, green:0.00, blue:0.58, alpha:1.0)]
+            return [UIColor(red:0.22, green:0.74, blue:0.75, alpha:1.0), UIColor(red:0.18, green:0.75, blue:0.56, alpha:1.0)]
+//            return [UIColor(red:0.70, green:0.00, blue:0.92, alpha:1.0), UIColor(red:0.91, green:0.00, blue:0.58, alpha:1.0)]
         default:
             break
         }
