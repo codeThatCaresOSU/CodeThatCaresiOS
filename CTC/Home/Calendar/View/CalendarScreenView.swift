@@ -32,9 +32,9 @@ class CalendarView: UIView {
         tableView.register(EventCell.self, forCellReuseIdentifier: "cell")
         tableView.backgroundColor = .clear
         tableView.showsVerticalScrollIndicator = false
-//        tableView.allowsSelection = false
+        tableView.allowsSelection = false
         tableView.layer.cornerRadius = 5
-        tableView.clipsToBounds = false
+        tableView.clipsToBounds = true
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
@@ -77,7 +77,6 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! EventCell
         cell.cellCalendarDelegate = self
         cell.title = "Whiteboard Coding!"

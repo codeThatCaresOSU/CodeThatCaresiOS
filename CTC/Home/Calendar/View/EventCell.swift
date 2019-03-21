@@ -23,7 +23,6 @@ class EventCell: UITableViewCell {
     private lazy var leftContainer: UIView = {
         let view = UIView()
         view.backgroundColor = Globals.constants.purpleColor
-//        view.backgroundColor = Globals.constants.darkCTCColor
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -90,12 +89,12 @@ class EventCell: UITableViewCell {
         let button = UIButton(type: .custom)
         button.tintColor = .blue
         button.setTitle("+", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 22)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
         button.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment.center
         button.layer.cornerRadius = 4
         button.setTitleColor(Globals.constants.purpleColor, for: .normal)
-        button.backgroundColor = .lightGray
+        button.backgroundColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
