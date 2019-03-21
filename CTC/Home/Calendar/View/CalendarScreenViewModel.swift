@@ -13,11 +13,12 @@ class CalendarScreenViewModel {
     
     public var mainLabel: String?
     public var events: [Event]?
-    public var eventCount: Int {
-        get {
-            return self.events?.count ?? 0
-        }
-    }
+//    public var eventCount: Int {
+//        get {
+//            return self.events?.count ?? 0
+//        }
+//    }
+    public var eventCount = 20
     
     init() {
         self.events = Array<Event>()
