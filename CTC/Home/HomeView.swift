@@ -156,9 +156,14 @@ class HomeView: UIViewController, bulletinDelegate {
      Constraints
      */
     func updateConstraints(){
-        segmentedControl.widthAnchor.constraint(equalToConstant: 350).isActive = true
-        segmentedControl.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
+//        segmentedControl.widthAnchor.constraint(equalToConstant: 350).isActive = true
+//        segmentedControl.heightAnchor.constraint(equalToConstant: 40).isActive = true
+//        segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
+//        segmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        segmentedControl.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -20).isActive = true
+        segmentedControl.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant:10).isActive = true
         segmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 }
@@ -171,12 +176,12 @@ extension HomeView: LUNSegmentedControlDataSource, LUNSegmentedControlDelegate {
     }
     
     func segmentedControl(_ segmentedControl: LUNSegmentedControl!, attributedTitleForStateAt index: Int) -> NSAttributedString! {
-        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont(name: "AvenirNext-Medium", size: 13)!]
+        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont(name: "AvenirNext-Medium", size: 15)!]
         return NSAttributedString(string: pageTitles[index], attributes: attrs)
     }
     
     func segmentedControl(_ segmentedControl: LUNSegmentedControl!, attributedTitleForSelectedStateAt index: Int) -> NSAttributedString! {
-        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont(name: "AvenirNext-Medium", size: 16)!]
+        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont(name: "AvenirNext-Medium", size: 18)!]
         return NSAttributedString(string: pageTitles[index], attributes: attrs)
     }
     

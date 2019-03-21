@@ -23,8 +23,8 @@ class CalendarView: UIView {
     }
     private lazy var label: UILabel = {
         let label = UILabel()
-        label.text = "Code that Cares"
-        label.font = label.font.withSize(40)
+        label.text = "Upcoming Events"
+        label.font = UIFont.boldSystemFont(ofSize: 40)
         return label
     }()
     private lazy var card: UIView = {
