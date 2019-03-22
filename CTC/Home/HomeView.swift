@@ -10,7 +10,6 @@ import UIKit
 import BLTNBoard
 import LUNSegmentedControl
 
-@available(iOS 11.0, *)
 class HomeView: UIViewController, bulletinDelegate {
 
     private var viewModel: HomeViewModel = HomeViewModel()
@@ -160,7 +159,6 @@ class HomeView: UIViewController, bulletinDelegate {
     }
 }
 
-@available(iOS 11.0, *)
 extension HomeView: LUNSegmentedControlDataSource, LUNSegmentedControlDelegate {
     
     func numberOfStates(in segmentedControl: LUNSegmentedControl!) -> Int {
@@ -204,7 +202,6 @@ extension HomeView: LUNSegmentedControlDataSource, LUNSegmentedControlDelegate {
         return nil
     }
 }
-@available(iOS 11.0, *)
 extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return pages.count

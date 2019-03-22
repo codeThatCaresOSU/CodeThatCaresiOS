@@ -21,12 +21,8 @@ class GreetingView: UIScrollView, UICollectionViewDelegateFlowLayout {
         
         self.backgroundColor = Globals.constants.backgroundColor
         self.delegate = self
-        if #available(iOS 11.0, *) {
-            self.contentInsetAdjustmentBehavior = .never
-        } else {
-            // Fallback on earlier versions
-            // TODO
-        }
+        self.contentInsetAdjustmentBehavior = .never
+        
         self.showsVerticalScrollIndicator = false
         self.welcomeView.swipeAnimationView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(scrollToBottom)))
         heartAnimationView.frame = CGRect(x: 0, y: 0, width: heartSize, height: heartSize)

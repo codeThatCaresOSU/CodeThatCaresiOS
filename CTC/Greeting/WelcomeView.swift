@@ -48,17 +48,13 @@ class WelcomeView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        if #available(iOS 11.0, *) {
-            welcomeLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
-            welcomeLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
-            welcomeLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
-            
-            swipeAnimationView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor).isActive = true
-            swipeAnimationView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        } else {
-            // Fallback on earlier versions
-            // TODO
-        }
+        welcomeLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
+        welcomeLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
+        welcomeLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+        
+        swipeAnimationView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        swipeAnimationView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor).isActive = true
+    
         welcomeLabel.heightAnchor.constraint(equalToConstant: welcomeLabel.intrinsicContentSize.height).isActive = true
         swipeAnimationView.widthAnchor.constraint(equalToConstant: 800).isActive = true
         swipeAnimationView.heightAnchor.constraint(equalToConstant: 100).isActive = true
