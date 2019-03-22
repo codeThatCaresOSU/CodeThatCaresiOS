@@ -109,6 +109,8 @@ class EventCell: UITableViewCell {
         layer.cornerRadius = 8
         clipsToBounds = true
         addToCalendarButton.addTarget(self, action: #selector(addButtonPressed(_:)), for: .touchUpInside)
+        layer.borderColor = UIColor(hexString: event!.displayColor!).cgColor
+        layer.borderWidth = 4
         
         addSubview(leftContainer)
         addSubview(rightContainer)
