@@ -7,58 +7,126 @@
 //
 
 import UIKit
+import EventKit
 
-class CalendarView: UIView, UITableViewDelegate, UITableViewDataSource {
+class CalendarView: UIView {
     
     private var viewModel = CalendarScreenViewModel()
-
+    private let cellSpacingHeight: CGFloat = 15
+    private let store = EKEventStore()
+    private var events: [Event]?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        let label = UILabel(frame: CGRect(x: 10, y: 125, width: frame.width - 20, height: 75))
-        label.text = "Code that Cares"
-        label.font = label.font.withSize(40)
-        self.addSubview(label)
-        
-        // 10 pt margin on both sides
-        // y: label.frame.y + label.frame.height + 10 pt margin
-        // height: frame.height - card.frame.y - 65 pt margin
-        let card = UIView(frame: CGRect(x: 10, y: 210, width: frame.width - 20, height: frame.height - 275))
-        card.backgroundColor = .white
-        card.layer.cornerRadius = 5
-        self.addSubview(card)
-        
-        let calendarListTableView = UITableView(frame: CGRect(x: 0, y: 0, width: card.frame.width, height: card.frame.height))
-        calendarListTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        calendarListTableView.backgroundColor = .white
-        calendarListTableView.layer.cornerRadius = 5
-        calendarListTableView.delegate = self
-        calendarListTableView.dataSource = self
-        card.addSubview(calendarListTableView)
+        viewModel.getAllEvents(){(events:[Event]) in
+            self.events = events
+            self.calendarListTableView.reloadData()
+        }
+        updateFrames(frame: frame)
+        self.addSubview(titleLabel)
+        self.addSubview(calendarListTableView)
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Calendar Cell: \(indexPath.row)")
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.eventCount
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-    {
-        return 100
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath as IndexPath)
-        let cell = EventCell(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 100), title: self.viewModel.events?[indexPath.row].title as! String, date: self.viewModel.events?[indexPath.row].date as! String, location: self.viewModel.events?[indexPath.row].location as! String, time: self.viewModel.events?[indexPath.row].time as! String, length: self.viewModel.events?[indexPath.row].length as! String)
-        
-        return cell
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Upcoming Events"
+        label.font = UIFont.boldSystemFont(ofSize: 40)
+        return label
+    }()
+    private lazy var calendarListTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(EventCell.self, forCellReuseIdentifier: "cell")
+        tableView.backgroundColor = .clear
+        tableView.showsVerticalScrollIndicator = false
+        tableView.allowsSelection = false
+        tableView.layer.cornerRadius = 5
+        tableView.clipsToBounds = true
+        tableView.separatorStyle = .none
+        tableView.delegate = self
+        tableView.dataSource = self
+        return tableView
+    }()
+    public func updateFrames(frame: CGRect){
+        self.frame = frame
+        titleLabel.frame = CGRect(x: 10, y: 10, width: frame.width - 20, height: titleLabel.intrinsicContentSize.height)
+        calendarListTableView.frame =  CGRect(x: 10, y: titleLabel.frame.maxY + 20, width: frame.width - 20, height: frame.height - calendarListTableView.frame.origin.y - 30)
+        self.setNeedsDisplay()
+        titleLabel.setNeedsDisplay()
+        calendarListTableView.setNeedsDisplay()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
+
+extension CalendarView: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.eventCount
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if (section == 0){
+            return 0
+        }
+        return cellSpacingHeight
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+        return 150
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! EventCell
+        cell.cellCalendarDelegate = self
+        cell.event = events![indexPath.section]
+        
+        return cell
+    }
+}
+
+extension CalendarView: calendarDelegate {
+    func addToCalendar(title: String, eventStartDate: Date, eventEndDate: Date, location: String, detail: String) {
+        store.requestAccess(to: .event) { (success, error) in
+            var alertTitle = "Error"
+            var alertMessage = "Unkown error adding event to calendar."
+            if  error == nil {
+                let event = EKEvent.init(eventStore: self.store)
+                event.title = title
+                event.calendar = self.store.defaultCalendarForNewEvents
+                event.startDate = eventStartDate
+                event.endDate = eventEndDate
+                event.location = location
+                event.notes = detail
+                
+                do {
+                    try self.store.save(event, span: .thisEvent)
+                    alertTitle = "Success!"
+                    alertMessage = "Successfully added event to calendar!"
+                } catch let error as NSError {
+                    print("Failed to add event with error: \(error)")
+                }
+
+            } else {
+                //we have error in getting access to device calnedar
+                alertTitle = "Error"
+                alertMessage = "Error accessing calendar."
+            }
+            DispatchQueue.main.async {
+                let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                alertController.show()
+            }
+        }
+    }
+}
+

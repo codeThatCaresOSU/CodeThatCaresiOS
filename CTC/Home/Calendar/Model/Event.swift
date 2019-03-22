@@ -9,9 +9,15 @@
 import Foundation
 
 struct Event {
-    var time: String?
-    var location: String?
-    var length: Int?
     var title: String?
-    var date: Date?
+    var detail: String?
+    var location: String?
+    var month: Int?
+    var day: Int?
+    var year: Int?
+    var time: String?
+    var amORpm: String?
+    var durationMinutes: Int?
+    var displayColor: String?
+    var startDate: Date?
 }
