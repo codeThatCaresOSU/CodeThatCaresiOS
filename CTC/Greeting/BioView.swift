@@ -20,7 +20,7 @@ class BioView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Futura-Medium", size: 35)
-        label.text = "...We're a student organization at OSU dedicated to creating mobile applications for charities and nonprofits"
+        label.text = "We're a student organization at OSU dedicated to creating mobile applications for charities and nonprofits."
         label.textColor = .white
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0

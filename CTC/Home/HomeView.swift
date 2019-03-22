@@ -26,12 +26,19 @@ class HomeView: UIViewController, bulletinDelegate {
         updateConstraints()
 
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
-        if !launchedBefore {
+//        if !launchedBefore {
             UserDefaults.standard.set(true, forKey: "launchedBefore")
             view.addSubview(greetingView)
             greetingView.bioView.delegate = self
             prepareForBulletin()
+//        }
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if(bulletinManager.isShowingBulletin){
+            return .default
         }
+        return .lightContent
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -132,6 +139,7 @@ class HomeView: UIViewController, bulletinDelegate {
     func showBulletin(){
         bulletinManager.backgroundViewStyle = .blurredDark
         bulletinManager.showBulletin(above: self)
+        setNeedsStatusBarAppearanceUpdate()
     }
     
     /* Temporary function to handle gestures */

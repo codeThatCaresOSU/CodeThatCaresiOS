@@ -15,7 +15,7 @@ class WelcomeView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Futura-Medium", size: 45)
-        label.text = "Welcome To \nCode That Cares..."
+        label.text = "Welcome To \nCode That Cares!"
         label.textColor = .white
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0

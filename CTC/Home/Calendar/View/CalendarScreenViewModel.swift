@@ -31,7 +31,7 @@ class CalendarScreenViewModel {
             do{
                 let jsonResponse = try JSONSerialization.jsonObject(with:
                     dataResponse, options: [])
-                print(jsonResponse)
+//                print(jsonResponse)
                 
                 guard let jsonArray = jsonResponse as? [[String: Any]] else {return}
                 

@@ -36,6 +36,8 @@
 	<string>UIStatusBarStyleLightContent</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>This application needs access to the calendar</string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
