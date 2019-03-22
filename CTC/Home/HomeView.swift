@@ -26,13 +26,13 @@ class HomeView: UIViewController, bulletinDelegate {
         view.addSubview(segmentedControl)
         updateConstraints()
 
-//        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
-//        if !launchedBefore {
-//            UserDefaults.standard.set(true, forKey: "launchedBefore")
-//            view.addSubview(greetingView)
-//            greetingView.bioView.delegate = self
-//            prepareForBulletin()
-//        }
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        if !launchedBefore {
+            UserDefaults.standard.set(true, forKey: "launchedBefore")
+            view.addSubview(greetingView)
+            greetingView.bioView.delegate = self
+            prepareForBulletin()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -153,11 +153,6 @@ class HomeView: UIViewController, bulletinDelegate {
      Constraints
      */
     func updateConstraints(){
-//        segmentedControl.widthAnchor.constraint(equalToConstant: 350).isActive = true
-//        segmentedControl.heightAnchor.constraint(equalToConstant: 40).isActive = true
-//        segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
-//        segmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
         segmentedControl.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -20).isActive = true
         segmentedControl.heightAnchor.constraint(equalToConstant: 45).isActive = true
         segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant:10).isActive = true

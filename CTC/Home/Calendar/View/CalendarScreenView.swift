@@ -12,7 +12,7 @@ import EventKit
 class CalendarView: UIView {
     
     private var viewModel = CalendarScreenViewModel()
-    private let cellSpacingHeight: CGFloat = 10
+    private let cellSpacingHeight: CGFloat = 15
     private let store = EKEventStore()
     private var events: [Event]?
     
@@ -40,6 +40,7 @@ class CalendarView: UIView {
         tableView.allowsSelection = false
         tableView.layer.cornerRadius = 5
         tableView.clipsToBounds = true
+        tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
@@ -68,6 +69,9 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if (section == 0){
+            return 0
+        }
         return cellSpacingHeight
     }
     
@@ -81,10 +85,6 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
         return 150
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return UIView()
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! EventCell
         cell.cellCalendarDelegate = self
@@ -92,6 +92,7 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 }
+
 extension CalendarView: calendarDelegate {
     func addToCalendar(title: String, eventStartDate: Date, eventEndDate: Date, location: String, detail: String) {
         store.requestAccess(to: .event) { (success, error) in
@@ -100,7 +101,7 @@ extension CalendarView: calendarDelegate {
             if  error == nil {
                 let event = EKEvent.init(eventStore: self.store)
                 event.title = title
-                event.calendar = self.store.defaultCalendarForNewEvents // this will return deafult calendar from device calendars
+                event.calendar = self.store.defaultCalendarForNewEvents
                 event.startDate = eventStartDate
                 event.endDate = eventEndDate
                 event.location = location
@@ -127,29 +128,4 @@ extension CalendarView: calendarDelegate {
         }
     }
 }
-// Utility for presenting alert
-extension UIAlertController {
-    
-    func show() {
-        present(animated: true, completion: nil)
-    }
-    
-    func present(animated: Bool, completion: (() -> Void)?) {
-        if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
-            presentFromController(controller: rootVC, animated: animated, completion: completion)
-        }
-    }
-    
-    private func presentFromController(controller: UIViewController, animated: Bool, completion: (() -> Void)?) {
-        if let navVC = controller as? UINavigationController,
-            let visibleVC = navVC.visibleViewController {
-            presentFromController(controller: visibleVC, animated: animated, completion: completion)
-        } else
-            if let tabVC = controller as? UITabBarController,
-                let selectedVC = tabVC.selectedViewController {
-                presentFromController(controller: selectedVC, animated: animated, completion: completion)
-            } else {
-                controller.present(self, animated: animated, completion: completion);
-        }
-    }
-}
+

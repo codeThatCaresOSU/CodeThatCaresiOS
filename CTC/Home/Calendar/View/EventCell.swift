@@ -108,8 +108,6 @@ class EventCell: UITableViewCell {
         backgroundColor = UIColor.white
         layer.cornerRadius = 8
         clipsToBounds = true
-        
-        
         addToCalendarButton.addTarget(self, action: #selector(addButtonPressed(_:)), for: .touchUpInside)
         
         addSubview(leftContainer)
@@ -174,10 +172,7 @@ class EventCell: UITableViewCell {
     
     @objc func addButtonPressed(_ sender: UIButton){
         let calendar = Calendar.current
-        let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm a MM/dd/yyyy"
-        let startDate = formatter.date(from: "\(event!.time!) \(event!.amORpm!) \(event!.month!)/\(event!.day!)/\(event!.year!)")
-        let endDate = calendar.date(byAdding: .minute, value: event!.durationMinutes!, to: startDate!)
-        cellCalendarDelegate?.addToCalendar(title: "CTC - \(event!.title!)", eventStartDate: startDate!, eventEndDate: endDate!, location: event!.location!, detail: event!.detail!)
+        let endDate = calendar.date(byAdding: .minute, value: event!.durationMinutes!, to: event!.startDate!)
+        cellCalendarDelegate?.addToCalendar(title: "CTC - \(event!.title!)", eventStartDate: event!.startDate!, eventEndDate: endDate!, location: event!.location!, detail: event!.detail!)
     }
 }

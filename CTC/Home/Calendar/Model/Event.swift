@@ -19,4 +19,5 @@ struct Event {
     var amORpm: String?
     var durationMinutes: Int?
     var displayColor: String?
+    var startDate: Date?
 }

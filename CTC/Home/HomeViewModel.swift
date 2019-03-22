@@ -11,27 +11,4 @@ import RxSwift
 
 class HomeViewModel {
     
-//    var backgroundImageName = "background"
-//    var updateUi: PublishSubject<Any?>?
-//    var pages = 2
-//    var pageLabelText: String? = ""
-//
-//    init() {
-//        self.updateUi = PublishSubject<Any?>()
-//    }
-//    
-//    func viewScrolled(index: CGFloat) {
-//        switch index {
-//        case 0 ..< 1:
-//            self.pageLabelText = "What's Next"
-//            
-//        case 1 ..< 2:
-//            self.pageLabelText = "Settings"
-//            
-//        default:
-//            self.pageLabelText = "\(index)"
-//        }
-//        
-//        self.updateUi?.onNext(nil)
-//    }
 }

@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class CalendarScreenViewModel {
     
     public var mainLabel: String?
@@ -30,7 +29,6 @@ class CalendarScreenViewModel {
                     print(err?.localizedDescription ?? "Response Error")
                     return }
             do{
-                
                 let jsonResponse = try JSONSerialization.jsonObject(with:
                     dataResponse, options: [])
                 print(jsonResponse)
@@ -61,17 +59,20 @@ class CalendarScreenViewModel {
                     event.amORpm = amORpm
                     event.durationMinutes = durationMinutes
                     event.displayColor = displayColor
+                    
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "h:mm a MM/dd/yyyy"
+                    let startDate = formatter.date(from: "\(time) \(amORpm) \(month)/\(day)/\(year)")
+                    event.startDate = startDate
                     self.events?.append(event)
                 }
-                
-//                print("eventArray has \(self.events!.count) event")
+                self.events = self.events!.sorted(by: { $0.startDate! < $1.startDate!})
                 DispatchQueue.main.async {
                     completion(self.events!)
                 }
-                
             } catch let parsingError {
                 print("Error", parsingError)
             }
-            }.resume()
+        }.resume()
     }
 }
