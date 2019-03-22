@@ -13,20 +13,65 @@ class CalendarScreenViewModel {
     
     public var mainLabel: String?
     public var events: [Event]?
-//    public var eventCount: Int {
-//        get {
-//            return self.events?.count ?? 0
-//        }
-//    }
-    public var eventCount = 20
-    
-    init() {
+    public var eventCount: Int {
+        get {
+            return self.events?.count ?? 0
+        }
+    }
+    public func getAllEvents(completion: @escaping ([Event]) -> ()){
         self.events = Array<Event>()
-        var event = Event()
-        event.length = 1
-        event.date = Date()
-        event.location = "Enarson 245"
-        event.time = "7:00pm"
-        event.title = "UX Technical"
+        
+        let urlString = "https://us-central1-ctcios.cloudfunctions.net/getAllEvents"
+        
+        guard let url = URL(string: urlString) else {return}
+        URLSession.shared.dataTask(with: url){(data,response,err) in
+            guard let dataResponse = data,
+                err == nil else {
+                    print(err?.localizedDescription ?? "Response Error")
+                    return }
+            do{
+                
+                let jsonResponse = try JSONSerialization.jsonObject(with:
+                    dataResponse, options: [])
+                print(jsonResponse)
+                
+                guard let jsonArray = jsonResponse as? [[String: Any]] else {return}
+                
+                for dic in jsonArray{
+                    var event = Event()
+                    
+                    guard let title = dic["title"] as? String else { return }
+                    guard let detail = dic["detail"] as? String else { return }
+                    guard let location = dic["location"] as? String else { return }
+                    guard let month = dic["month"] as? Int else { return }
+                    guard let day = dic["day"] as? Int else { return }
+                    guard let year = dic["year"] as? Int else { return }
+                    guard let time = dic["time"] as? String else { return }
+                    guard let amORpm = dic["amORpm"] as? String else { return }
+                    guard let durationMinutes = dic["durationMinutes"] as? Int else { return }
+                    guard let displayColor = dic["displayColor"] as? String else { return }
+                    
+                    event.title = title
+                    event.detail = detail
+                    event.location = location
+                    event.month = month
+                    event.day = day
+                    event.year = year
+                    event.time = time
+                    event.amORpm = amORpm
+                    event.durationMinutes = durationMinutes
+                    event.displayColor = displayColor
+                    self.events?.append(event)
+                }
+                
+//                print("eventArray has \(self.events!.count) event")
+                DispatchQueue.main.async {
+                    completion(self.events!)
+                }
+                
+            } catch let parsingError {
+                print("Error", parsingError)
+            }
+            }.resume()
     }
 }

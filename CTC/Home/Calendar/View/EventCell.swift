@@ -8,21 +8,11 @@ class EventCell: UITableViewCell {
     
     weak var cellCalendarDelegate: calendarDelegate?
     
-    var title: String!
-    var detail: String!
-    var location: String!
-    var month: Int!
-    var day: Int!
-    var year: Int!
-    var time: String!
-    var amOrPM: String!
-    var durationHours: Int!
-    
-    private var viewModel: EventCellViewModel?
+    var event: Event?
     
     private lazy var leftContainer: UIView = {
         let view = UIView()
-        view.backgroundColor = Globals.constants.purpleColor
+        view.backgroundColor = UIColor(hexString: event!.displayColor!)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -33,14 +23,14 @@ class EventCell: UITableViewCell {
     }()
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = title
+        label.text = event!.title
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     private lazy var locationLabel: UILabel = {
         let label = UILabel()
-        label.text = location
+        label.text = event!.location
         label.textColor = .gray
         label.font = UIFont.systemFont(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -48,7 +38,7 @@ class EventCell: UITableViewCell {
     }()
     private lazy var detailLabel: UITextView = {
         let textView = UITextView()
-        textView.text = detail
+        textView.text = event!.detail
         textView.textContainerInset = UIEdgeInsets.zero
         textView.textContainer.lineFragmentPadding = 0
         textView.textColor = .black
@@ -60,7 +50,7 @@ class EventCell: UITableViewCell {
     }()
     private lazy var dayLabel: UILabel = {
         let label = UILabel()
-        label.text = "\(day!)"
+        label.text = "\(event!.day!)"
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 50)
         label.textAlignment = .center
@@ -69,7 +59,7 @@ class EventCell: UITableViewCell {
     }()
     private lazy var timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "\(time!) \(amOrPM!)"
+        label.text = "\(event!.time!) \(event!.amORpm!)"
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -78,14 +68,14 @@ class EventCell: UITableViewCell {
     }()
     private lazy var monthLabel: UILabel = {
         let label = UILabel()
-        label.text = DateFormatter().monthSymbols[month - 1]
+        label.text = DateFormatter().monthSymbols[event!.month! - 1]
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         return label
     }()
-    private let addToCalendarButton: UIButton = {
+    private lazy var addToCalendarButton: UIButton = {
         let button = UIButton(type: .custom)
         button.tintColor = .blue
         button.setTitle("+", for: .normal)
@@ -93,19 +83,23 @@ class EventCell: UITableViewCell {
         button.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
         button.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment.center
         button.layer.cornerRadius = 4
-        button.setTitleColor(Globals.constants.purpleColor, for: .normal)
+        let color = UIColor(hexString: event!.displayColor!)
+        button.setTitleColor(color, for: .normal)
         button.backgroundColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    convenience init(event: Event, frame: CGRect) {
-        self.init()
-        self.viewModel = EventCellViewModel(event: event)
-    }
-    
     init(frame: CGRect, title: String, date: String, location: String, time: String, length: String) {
         super.init(style: UITableViewCell.CellStyle.default, reuseIdentifier: "cell")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
     override func layoutSubviews() {
@@ -178,20 +172,12 @@ class EventCell: UITableViewCell {
         addToCalendarButton.bottomAnchor.constraint(equalTo: leftContainer.bottomAnchor, constant: -10).isActive = true
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-    }
-    
     @objc func addButtonPressed(_ sender: UIButton){
         let calendar = Calendar.current
         let formatter = DateFormatter()
         formatter.dateFormat = "h:mm a MM/dd/yyyy"
-        let startDate = formatter.date(from: "\(time!) \(amOrPM!) \(month!)/\(day!)/\(year!)")
-        let endDate = calendar.date(byAdding: .hour, value: durationHours, to: startDate!)
-        cellCalendarDelegate?.addToCalendar(title: "CTC - \(title!)", eventStartDate: startDate!, eventEndDate: endDate!, location: location, detail: detail)
+        let startDate = formatter.date(from: "\(event!.time!) \(event!.amORpm!) \(event!.month!)/\(event!.day!)/\(event!.year!)")
+        let endDate = calendar.date(byAdding: .minute, value: event!.durationMinutes!, to: startDate!)
+        cellCalendarDelegate?.addToCalendar(title: "CTC - \(event!.title!)", eventStartDate: startDate!, eventEndDate: endDate!, location: event!.location!, detail: event!.detail!)
     }
 }

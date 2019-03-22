@@ -10,13 +10,18 @@ import UIKit
 import EventKit
 
 class CalendarView: UIView {
+    
     private var viewModel = CalendarScreenViewModel()
     private let cellSpacingHeight: CGFloat = 10
     private let store = EKEventStore()
+    private var events: [Event]?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        viewModel.getAllEvents(){(events:[Event]) in
+            self.events = events
+            self.calendarListTableView.reloadData()
+        }
         updateFrames(frame: frame)
         self.addSubview(titleLabel)
         self.addSubview(calendarListTableView)
@@ -76,18 +81,14 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
         return 150
     }
     
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! EventCell
         cell.cellCalendarDelegate = self
-        cell.title = "Whiteboard Coding!"
-        cell.detail = "Test your coding ability while practicing valuable skills for interviews."
-        cell.location = "Enarson 245"
-        cell.month = 3
-        cell.day = 21
-        cell.year = 2019
-        cell.time = "6:00"
-        cell.amOrPM = "PM"
-        cell.durationHours = 1
+        cell.event = events![indexPath.section]
         return cell
     }
 }

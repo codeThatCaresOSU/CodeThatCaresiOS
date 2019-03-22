@@ -32,9 +32,6 @@ class HomeView: UIViewController, bulletinDelegate {
 //            view.addSubview(greetingView)
 //            greetingView.bioView.delegate = self
 //            prepareForBulletin()
-//            self.viewModel.updateUi?.subscribe({ (event) in
-//                self.updateUI()
-//            })
 //        }
     }
     
