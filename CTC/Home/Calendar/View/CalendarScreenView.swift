@@ -15,6 +15,7 @@ class CalendarView: UIView {
     private let cellSpacingHeight: CGFloat = 15
     private let store = EKEventStore()
     private var events: [Event]?
+    private var finishedLoadingInitialTableCells = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -83,6 +84,32 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.contentView.layer.masksToBounds = true
+        
+        /*
+            Code for animating the loading of cells
+         */
+        var lastInitialDisplayableCell = false
+        //change flag as soon as last displayable cell is being loaded (which will mean table has initially loaded)
+        if viewModel.eventCount > 0 && !finishedLoadingInitialTableCells {
+            if let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows,
+                let lastIndexPath = indexPathsForVisibleRows.last, lastIndexPath.row == indexPath.row {
+                lastInitialDisplayableCell = true
+            }
+        }
+        
+        if !finishedLoadingInitialTableCells {
+            if lastInitialDisplayableCell {
+                finishedLoadingInitialTableCells = true
+            }
+            //animates the cell as it is being displayed for the first time
+            cell.transform = CGAffineTransform(translationX: 0, y: calendarListTableView.rowHeight/2)
+            cell.alpha = 0
+            
+            UIView.animate(withDuration: 0.5, delay: 0.05*Double(indexPath.row), options: [.curveEaseInOut], animations: {
+                cell.transform = CGAffineTransform(translationX: 0, y: 0)
+                cell.alpha = 1
+            }, completion: nil)
+        }
     }
 }
 
