@@ -27,10 +27,10 @@ class HomeView: UIViewController, bulletinDelegate {
 
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
 //        if !launchedBefore {
-//            UserDefaults.standard.set(true, forKey: "launchedBefore")
-//            view.addSubview(greetingView)
-//            greetingView.bioView.delegate = self
-//            prepareForBulletin()
+            UserDefaults.standard.set(true, forKey: "launchedBefore")
+            view.addSubview(greetingView)
+            greetingView.bioView.delegate = self
+            prepareForBulletin()
 //        }
     }
     
@@ -127,13 +127,11 @@ class HomeView: UIViewController, bulletinDelegate {
     func prepareForBulletin(){
         notificationBulletin.actionHandler = {(item: BLTNActionItem) in
             UserDefaults.standard.set(true, forKey: "setupComplete")
-            self.bulletinManager.dismissBulletin()
-            self.greetingView.removeFromSuperview()
+            self.afterBulletin()
         }
         notificationBulletin.alternativeHandler = {(item: BLTNActionItem) in
             UserDefaults.standard.set(true, forKey: "setupComplete")
-            self.bulletinManager.dismissBulletin()
-            self.greetingView.removeFromSuperview()
+            self.afterBulletin()
         }
     }
     func showBulletin(){
@@ -154,6 +152,13 @@ class HomeView: UIViewController, bulletinDelegate {
                 segmentedControl.setCurrentState(segmentedControl.currentState - 1, animated: true)
             }
         }
+    }
+    func afterBulletin(){
+        self.bulletinManager.dismissBulletin()
+        self.greetingView.removeFromSuperview()
+        self.calendarView.showCalendar()
+        self.homeView.showCalendar()
+        self.settingsView.showCalendar()
     }
     
     /*

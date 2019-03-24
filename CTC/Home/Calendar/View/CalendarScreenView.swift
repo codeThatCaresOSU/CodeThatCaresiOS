@@ -25,7 +25,7 @@ class CalendarView: UIView {
         }
         updateFrames(frame: frame)
         self.addSubview(titleLabel)
-        self.addSubview(calendarListTableView)
+//        self.addSubview(calendarListTableView)
     }
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -55,6 +55,11 @@ class CalendarView: UIView {
         calendarListTableView.setNeedsDisplay()
     }
     
+    public func showCalendar(){
+        self.addSubview(calendarListTableView)
+        updateFrames(frame: frame)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -77,9 +82,7 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! EventCell
         cell.cellCalendarDelegate = self
         cell.event = events![indexPath.row]
-        
         return cell
-        
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
