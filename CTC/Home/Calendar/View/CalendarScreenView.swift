@@ -102,13 +102,15 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
                 finishedLoadingInitialTableCells = true
             }
             //animates the cell as it is being displayed for the first time
-            cell.transform = CGAffineTransform(translationX: 0, y: calendarListTableView.rowHeight/2)
-            cell.alpha = 0
+            cell.transform = CGAffineTransform(translationX: tableView.bounds.width, y: 0)
             
-            UIView.animate(withDuration: 0.5, delay: 0.05*Double(indexPath.row), options: [.curveEaseInOut], animations: {
-                cell.transform = CGAffineTransform(translationX: 0, y: 0)
-                cell.alpha = 1
-            }, completion: nil)
+            UIView.animate(
+                withDuration: 0.3,
+                delay: 0.05 * Double(indexPath.row),
+                options: [.curveEaseInOut],
+                animations: {
+                    cell.transform = CGAffineTransform(translationX: 0, y: 0)
+            })
         }
     }
 }
