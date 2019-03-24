@@ -61,36 +61,28 @@ class CalendarView: UIView {
 
 extension CalendarView: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.eventCount
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if (section == 0){
-            return 0
-        }
-        return cellSpacingHeight
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = UIColor.clear
-        return headerView
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.eventCount
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
-        return 150
+        return 150 + 10 // + cell spacing
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! EventCell
         cell.cellCalendarDelegate = self
-        cell.event = events![indexPath.section]
+        cell.event = events![indexPath.row]
         
         return cell
+        
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.contentView.layer.masksToBounds = true
     }
 }
 

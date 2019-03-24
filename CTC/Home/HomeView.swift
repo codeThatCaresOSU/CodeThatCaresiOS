@@ -27,10 +27,10 @@ class HomeView: UIViewController, bulletinDelegate {
 
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
 //        if !launchedBefore {
-            UserDefaults.standard.set(true, forKey: "launchedBefore")
-            view.addSubview(greetingView)
-            greetingView.bioView.delegate = self
-            prepareForBulletin()
+//            UserDefaults.standard.set(true, forKey: "launchedBefore")
+//            view.addSubview(greetingView)
+//            greetingView.bioView.delegate = self
+//            prepareForBulletin()
 //        }
     }
     

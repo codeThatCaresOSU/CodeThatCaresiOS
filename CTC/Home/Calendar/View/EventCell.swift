@@ -7,8 +7,11 @@ protocol calendarDelegate: class {
 class EventCell: UITableViewCell {
     
     weak var cellCalendarDelegate: calendarDelegate?
-    
     var event: Event?
+    
+    let borderWidth: CGFloat = 4
+    let cellSpacing: CGFloat = 10
+    let cornerRadius: CGFloat = 8
     
     private lazy var leftContainer: UIView = {
         let view = UIView()
@@ -105,15 +108,21 @@ class EventCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        backgroundColor = UIColor.white
-        layer.cornerRadius = 8
-        clipsToBounds = true
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: cellSpacing, bottom: cellSpacing, right: cellSpacing))
         addToCalendarButton.addTarget(self, action: #selector(addButtonPressed(_:)), for: .touchUpInside)
-        layer.borderColor = UIColor(hexString: event!.displayColor!).cgColor
-        layer.borderWidth = 4
+        contentView.layer.borderColor = UIColor(hexString: event!.displayColor!).cgColor
+        contentView.layer.borderWidth = borderWidth
+        backgroundColor = .clear
+        layer.masksToBounds = false
+        layer.shadowOpacity = 0.23
+        layer.shadowRadius = borderWidth
+        layer.shadowOffset = CGSize(width: 0, height: borderWidth)
+        layer.shadowColor = UIColor.black.cgColor
+        contentView.backgroundColor = .white
+        contentView.layer.cornerRadius = cornerRadius
         
-        addSubview(leftContainer)
-        addSubview(rightContainer)
+        contentView.addSubview(leftContainer)
+        contentView.addSubview(rightContainer)
         leftContainer.addSubview(dayLabel)
         leftContainer.addSubview(monthLabel)
         leftContainer.addSubview(timeLabel)
@@ -121,20 +130,23 @@ class EventCell: UITableViewCell {
         rightContainer.addSubview(titleLabel)
         rightContainer.addSubview(detailLabel)
         rightContainer.addSubview(locationLabel)
-        addSubview(titleLabel)
+        rightContainer.layer.cornerRadius = cornerRadius
+        rightContainer.layer.borderWidth = borderWidth
+        rightContainer.layer.borderColor = UIColor(hexString: event!.displayColor!).cgColor
+        contentView.addSubview(titleLabel)
         constrain()
     }
     
     func constrain(){
-        leftContainer.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        leftContainer.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
-        leftContainer.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        leftContainer.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+        leftContainer.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
+        leftContainer.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         leftContainer.widthAnchor.constraint(equalToConstant: 110).isActive = true
         
-        rightContainer.leftAnchor.constraint(equalTo: leftContainer.rightAnchor).isActive = true
-        rightContainer.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
-        rightContainer.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        rightContainer.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        rightContainer.leftAnchor.constraint(equalTo: leftContainer.rightAnchor, constant: -borderWidth).isActive = true
+        rightContainer.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
+        rightContainer.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        rightContainer.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
         
         dayLabel.topAnchor.constraint(equalTo: leftContainer.topAnchor, constant: 10).isActive = true
         dayLabel.heightAnchor.constraint(equalToConstant: dayLabel.intrinsicContentSize.height).isActive = true
