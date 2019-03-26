@@ -66,9 +66,8 @@ class CalendarScreenViewModel {
                     event.startDate = startDate
                     self.events?.append(event)
                 }
-                self.events = self.events!.sorted(by: { $0.startDate! < $1.startDate!})
                 DispatchQueue.main.async {
-                    completion(self.events!)
+                    completion(self.events!.sorted(by: { $0.startDate!.compare($1.startDate!) == .orderedAscending}))
                 }
             } catch let parsingError {
                 print("Error", parsingError)
