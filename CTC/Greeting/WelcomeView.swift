@@ -44,18 +44,18 @@ class WelcomeView: UIView {
         self.addSubview(welcomeLabel)
         swipeAnimationView.play()
         self.addSubview(swipeAnimationView)
+        layoutSubviews()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        welcomeLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
+        welcomeLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
         welcomeLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
         welcomeLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+        welcomeLabel.heightAnchor.constraint(equalToConstant: welcomeLabel.intrinsicContentSize.height).isActive = true
         
         swipeAnimationView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor).isActive = true
         swipeAnimationView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor).isActive = true
-    
-        welcomeLabel.heightAnchor.constraint(equalToConstant: welcomeLabel.intrinsicContentSize.height).isActive = true
         swipeAnimationView.widthAnchor.constraint(equalToConstant: 800).isActive = true
         swipeAnimationView.heightAnchor.constraint(equalToConstant: 100).isActive = true
     }

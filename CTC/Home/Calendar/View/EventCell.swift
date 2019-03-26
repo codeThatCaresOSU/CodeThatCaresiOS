@@ -15,7 +15,6 @@ class EventCell: UITableViewCell {
     
     private lazy var leftContainer: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(hexString: event!.displayColor!)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -26,14 +25,16 @@ class EventCell: UITableViewCell {
     }()
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = event!.title
+        label.text = "Title"
+        label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     private lazy var locationLabel: UILabel = {
         let label = UILabel()
-        label.text = event!.location
+        label.text = "Location"
+        label.textAlignment = .center
         label.textColor = .gray
         label.font = UIFont.systemFont(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -41,7 +42,7 @@ class EventCell: UITableViewCell {
     }()
     private lazy var detailLabel: UITextView = {
         let textView = UITextView()
-        textView.text = event!.detail
+        textView.text = "Details"
         textView.textContainerInset = UIEdgeInsets.zero
         textView.textContainer.lineFragmentPadding = 0
         textView.textColor = .black
@@ -53,7 +54,7 @@ class EventCell: UITableViewCell {
     }()
     private lazy var dayLabel: UILabel = {
         let label = UILabel()
-        label.text = "\(event!.day!)"
+        label.text = "1"
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 50)
         label.textAlignment = .center
@@ -62,7 +63,7 @@ class EventCell: UITableViewCell {
     }()
     private lazy var timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "\(event!.time!) \(event!.amORpm!)"
+        label.text = "2:30 PM"
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +72,7 @@ class EventCell: UITableViewCell {
     }()
     private lazy var monthLabel: UILabel = {
         let label = UILabel()
-        label.text = DateFormatter().monthSymbols[event!.month! - 1]
+        label.text = DateFormatter().monthSymbols[1]
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -86,8 +87,6 @@ class EventCell: UITableViewCell {
         button.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
         button.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment.center
         button.layer.cornerRadius = 4
-        let color = UIColor(hexString: event!.displayColor!)
-        button.setTitleColor(color, for: .normal)
         button.backgroundColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -110,8 +109,7 @@ class EventCell: UITableViewCell {
 
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: cellSpacing, bottom: cellSpacing, right: cellSpacing))
         addToCalendarButton.addTarget(self, action: #selector(addButtonPressed(_:)), for: .touchUpInside)
-        contentView.layer.borderColor = UIColor(hexString: event!.displayColor!).cgColor
-        contentView.layer.borderWidth = borderWidth
+//        enableBorder()
         backgroundColor = .clear
         layer.masksToBounds = false
         layer.shadowOpacity = 0.23
@@ -131,8 +129,6 @@ class EventCell: UITableViewCell {
         rightContainer.addSubview(detailLabel)
         rightContainer.addSubview(locationLabel)
         rightContainer.layer.cornerRadius = cornerRadius
-        rightContainer.layer.borderWidth = borderWidth
-        rightContainer.layer.borderColor = UIColor(hexString: event!.displayColor!).cgColor
         contentView.addSubview(titleLabel)
         constrain()
     }
@@ -151,19 +147,19 @@ class EventCell: UITableViewCell {
         dayLabel.topAnchor.constraint(equalTo: leftContainer.topAnchor, constant: 10).isActive = true
         dayLabel.heightAnchor.constraint(equalToConstant: dayLabel.intrinsicContentSize.height).isActive = true
         dayLabel.centerXAnchor.constraint(equalTo: leftContainer.centerXAnchor).isActive = true
-        dayLabel.widthAnchor.constraint(equalToConstant: dayLabel.intrinsicContentSize.width).isActive = true
+        dayLabel.widthAnchor.constraint(equalTo: leftContainer.widthAnchor).isActive = true
 
         monthLabel.topAnchor.constraint(equalTo: dayLabel.bottomAnchor).isActive = true
         monthLabel.heightAnchor.constraint(equalToConstant: monthLabel.intrinsicContentSize.height).isActive = true
         monthLabel.centerXAnchor.constraint(equalTo: leftContainer.centerXAnchor).isActive = true
-        monthLabel.widthAnchor.constraint(equalToConstant: monthLabel.intrinsicContentSize.width).isActive = true
+        monthLabel.widthAnchor.constraint(equalTo: leftContainer.widthAnchor).isActive = true
 
         timeLabel.topAnchor.constraint(equalTo: monthLabel.bottomAnchor, constant: 10).isActive = true
         timeLabel.heightAnchor.constraint(equalToConstant: timeLabel.intrinsicContentSize.height).isActive = true
         timeLabel.centerXAnchor.constraint(equalTo: leftContainer.centerXAnchor).isActive = true
-        timeLabel.widthAnchor.constraint(equalToConstant: timeLabel.intrinsicContentSize.width).isActive = true
+        timeLabel.widthAnchor.constraint(equalTo: leftContainer.widthAnchor).isActive = true
         
-        titleLabel.widthAnchor.constraint(equalToConstant: titleLabel.intrinsicContentSize.width).isActive = true
+        titleLabel.widthAnchor.constraint(equalTo: rightContainer.widthAnchor).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: titleLabel.intrinsicContentSize.height).isActive = true
         titleLabel.centerXAnchor.constraint(equalTo: rightContainer.centerXAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: rightContainer.topAnchor, constant: 20).isActive = true
@@ -173,7 +169,7 @@ class EventCell: UITableViewCell {
         detailLabel.centerXAnchor.constraint(equalTo: rightContainer.centerXAnchor).isActive = true
         detailLabel.bottomAnchor.constraint(equalTo: locationLabel.topAnchor, constant: -5).isActive = true
         
-        locationLabel.widthAnchor.constraint(equalToConstant: locationLabel.intrinsicContentSize.width).isActive = true
+        locationLabel.widthAnchor.constraint(equalTo: rightContainer.widthAnchor).isActive = true
         locationLabel.heightAnchor.constraint(equalToConstant: locationLabel.intrinsicContentSize.height).isActive = true
         locationLabel.centerXAnchor.constraint(equalTo: rightContainer.centerXAnchor).isActive = true
         locationLabel.bottomAnchor.constraint(equalTo: rightContainer.bottomAnchor, constant: -10).isActive = true
@@ -188,5 +184,29 @@ class EventCell: UITableViewCell {
         let calendar = Calendar.current
         let endDate = calendar.date(byAdding: .minute, value: event!.durationMinutes!, to: event!.startDate!)
         cellCalendarDelegate?.addToCalendar(title: "CTC - \(event!.title!)", eventStartDate: event!.startDate!, eventEndDate: endDate!, location: event!.location!, detail: event!.detail!)
+    }
+    
+    public func updateUI(){
+        let color = event?.displayColor ?? "#ffffff"
+        leftContainer.backgroundColor = UIColor(hexString: color)
+        titleLabel.text = event?.title ?? "Title"
+        locationLabel.text = event?.location ?? "location"
+        detailLabel.text = event?.detail ?? "Detail"
+        let day = event?.day ?? 1
+        dayLabel.text = "\(day)"
+        let time = event?.time ?? "12:30"
+        let amORpm = event?.amORpm ?? "AM"
+        timeLabel.text = "\(time) \(amORpm)"
+        let month = (event?.month ?? 2) - 1
+        monthLabel.text = DateFormatter().monthSymbols[month]
+        let buttonColor = UIColor(hexString: color)
+        addToCalendarButton.setTitleColor(buttonColor, for: .normal)
+        contentView.layer.borderColor = UIColor(hexString: color).cgColor
+        rightContainer.layer.borderColor = UIColor(hexString: color).cgColor
+    }
+    
+    func enableBorder(){
+        contentView.layer.borderWidth = borderWidth
+        rightContainer.layer.borderWidth = borderWidth
     }
 }

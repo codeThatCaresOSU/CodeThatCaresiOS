@@ -14,22 +14,27 @@ class CalendarView: UIView {
     private var viewModel = CalendarScreenViewModel()
     private let cellSpacingHeight: CGFloat = 15
     private let store = EKEventStore()
-    private var events: [Event]?
+    var events: [Event]?
     private var finishedLoadingInitialTableCells = false
+    private let loadingAnimation = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        loadingAnimation.startAnimating()
+        self.addSubview(loadingAnimation)
+        
         viewModel.getAllEvents(){(events:[Event]) in
             self.events = events
             self.calendarListTableView.reloadData()
+            self.loadingAnimation.stopAnimating()
         }
         updateFrames(frame: frame)
         self.addSubview(titleLabel)
-//        self.addSubview(calendarListTableView)
     }
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Upcoming Events"
+        label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 40)
         return label
     }()
@@ -50,6 +55,8 @@ class CalendarView: UIView {
         self.frame = frame
         titleLabel.frame = CGRect(x: 10, y: 10, width: frame.width - 20, height: titleLabel.intrinsicContentSize.height)
         calendarListTableView.frame =  CGRect(x: 10, y: titleLabel.frame.maxY + 20, width: frame.width - 20, height: frame.height - calendarListTableView.frame.origin.y - 30)
+        loadingAnimation.center = CGPoint(x: calendarListTableView.center.x, y: calendarListTableView.center.y - titleLabel.frame.maxY + 20)
+        
         self.setNeedsDisplay()
         titleLabel.setNeedsDisplay()
         calendarListTableView.setNeedsDisplay()
@@ -71,7 +78,8 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.eventCount
+//        return viewModel.eventCount
+        return 10
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
@@ -81,13 +89,16 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! EventCell
         cell.cellCalendarDelegate = self
-        cell.event = events![indexPath.row]
+//        cell.event = events?[indexPath.row] ?? Event()
+        cell.event = events?[indexPath.row % 3] ?? Event()
+        cell.updateUI()
+        cell.contentView.alpha = 0
         return cell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.contentView.layer.masksToBounds = true
-        
+
         /*
             Code for animating the loading of cells
          */
@@ -99,14 +110,14 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
                 lastInitialDisplayableCell = true
             }
         }
-        
+
         if !finishedLoadingInitialTableCells {
             if lastInitialDisplayableCell {
                 finishedLoadingInitialTableCells = true
             }
             //animates the cell as it is being displayed for the first time
             cell.transform = CGAffineTransform(translationX: tableView.bounds.width, y: 0)
-            
+
             UIView.animate(
                 withDuration: 0.3,
                 delay: 0.05 * Double(indexPath.row),
@@ -114,6 +125,11 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
                 animations: {
                     cell.transform = CGAffineTransform(translationX: 0, y: 0)
             })
+        }
+        
+        
+        UIView.animate(withDuration: 0.4) {
+            cell.contentView.alpha = 1
         }
     }
 }
