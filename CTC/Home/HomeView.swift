@@ -10,26 +10,28 @@ import UIKit
 import BLTNBoard
 import LUNSegmentedControl
 
-class HomeView: UIViewController, bulletinDelegate {
+class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
 
     private var viewModel: HomeViewModel = HomeViewModel()
     private let pageTitles = ["Calendar", "Settings"]
     private var collectionViewIsActive = false
     private lazy var pages = [calendarView, settingsView]
+    private var isStatusBarLight = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = Globals.constants.backgroundColor
+        self.view.backgroundColor = Globals.constants.greyColor
         
         view.addSubview(backgroundScrollView)
         view.addSubview(segmentedControl)
         updateConstraints()
 
 //        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
-        let launchedBefore = true
+        let launchedBefore = false
         if !launchedBefore {
             UserDefaults.standard.set(true, forKey: "launchedBefore")
             view.addSubview(greetingView)
+            greetingView.homeDelegate = self
             greetingView.bioView.delegate = self
             prepareForBulletin()
         } else {
@@ -37,11 +39,16 @@ class HomeView: UIViewController, bulletinDelegate {
         }
     }
     
+    func setStatusBar(style: UIStatusBarStyle) {
+        isStatusBarLight = style == .lightContent
+        setNeedsStatusBarAppearanceUpdate()
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        if(bulletinManager.isShowingBulletin){
-            return .default
+        if(isStatusBarLight){
+            return .lightContent
         }
-        return .lightContent
+        return .default
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -141,7 +148,6 @@ class HomeView: UIViewController, bulletinDelegate {
     func showBulletin(){
         bulletinManager.backgroundViewStyle = .blurredDark
         bulletinManager.showBulletin(above: self)
-        setNeedsStatusBarAppearanceUpdate()
     }
     
     /* Temporary function to handle gestures */

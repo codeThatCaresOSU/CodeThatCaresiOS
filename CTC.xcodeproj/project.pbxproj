@@ -25,6 +25,9 @@
 		55870EC021F0186A004631B7 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EBF21F0186A004631B7 /* WelcomeView.swift */; };
 		55870EC221F01875004631B7 /* BioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EC121F01875004631B7 /* BioView.swift */; };
 		55DD771C2243F10200E3B25A /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55DD771B2243F10200E3B25A /* EventKit.framework */; };
+		55DE1EA0224AA61A00138731 /* heart-grey.json in Resources */ = {isa = PBXBuildFile; fileRef = 55DE1E9F224AA61900138731 /* heart-grey.json */; };
+		55DE1EA2224AA93400138731 /* scrolldown-dark.json in Resources */ = {isa = PBXBuildFile; fileRef = 55DE1EA1224AA93400138731 /* scrolldown-dark.json */; };
+		55DE1EA4224AAC3100138731 /* scrolldown2-dark.json in Resources */ = {isa = PBXBuildFile; fileRef = 55DE1EA3224AAC3100138731 /* scrolldown2-dark.json */; };
 		55F42C2A2244570B00F3BEC2 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F42C292244570B00F3BEC2 /* Utility.swift */; };
 		7FB810AC2208997A007AB5D5 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB810AB2208997A007AB5D5 /* EventCell.swift */; };
 		7FB810B0220899D9007AB5D5 /* CalendarScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB810AF220899D9007AB5D5 /* CalendarScreenViewModel.swift */; };
@@ -51,6 +54,9 @@
 		55870EBF21F0186A004631B7 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		55870EC121F01875004631B7 /* BioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioView.swift; sourceTree = "<group>"; };
 		55DD771B2243F10200E3B25A /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		55DE1E9F224AA61900138731 /* heart-grey.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "heart-grey.json"; sourceTree = "<group>"; };
+		55DE1EA1224AA93400138731 /* scrolldown-dark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "scrolldown-dark.json"; sourceTree = "<group>"; };
+		55DE1EA3224AAC3100138731 /* scrolldown2-dark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "scrolldown2-dark.json"; sourceTree = "<group>"; };
 		55F42C292244570B00F3BEC2 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		7FB810AB2208997A007AB5D5 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		7FB810AF220899D9007AB5D5 /* CalendarScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarScreenViewModel.swift; sourceTree = "<group>"; };
@@ -107,7 +113,10 @@
 				5558349A2221EFE900C1E887 /* images */,
 				5558349D2221EFE900C1E887 /* heart-red.json */,
 				5558349E2221EFE900C1E887 /* heart-green.json */,
+				55DE1EA3224AAC3100138731 /* scrolldown2-dark.json */,
+				55DE1E9F224AA61900138731 /* heart-grey.json */,
 				5558349F2221EFE900C1E887 /* scrolldown.json */,
+				55DE1EA1224AA93400138731 /* scrolldown-dark.json */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -265,9 +274,12 @@
 				555834A22221EFE900C1E887 /* heart-red.json in Resources */,
 				555834A12221EFE900C1E887 /* img_0.png in Resources */,
 				55870EB221F00CF0004631B7 /* LaunchScreen.storyboard in Resources */,
+				55DE1EA4224AAC3100138731 /* scrolldown2-dark.json in Resources */,
+				55DE1EA0224AA61A00138731 /* heart-grey.json in Resources */,
 				555834A02221EFE900C1E887 /* img_1.png in Resources */,
 				55870EAF21F00CF0004631B7 /* Assets.xcassets in Resources */,
 				555834A42221EFE900C1E887 /* scrolldown.json in Resources */,
+				55DE1EA2224AA93400138731 /* scrolldown-dark.json in Resources */,
 				555834972221EFD900C1E887 /* AdventPro-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

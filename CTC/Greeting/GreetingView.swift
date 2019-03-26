@@ -9,7 +9,13 @@
 import UIKit
 import Lottie
 
-class GreetingView: UIScrollView, UICollectionViewDelegateFlowLayout {
+protocol HomeDelegate: class {
+    func setStatusBar(style: UIStatusBarStyle)
+}
+
+class GreetingView: UIScrollView {
+    
+    weak var homeDelegate: HomeDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,7 +25,7 @@ class GreetingView: UIScrollView, UICollectionViewDelegateFlowLayout {
         self.addSubview(welcomeView)
         self.addSubview(bioView)
         
-        self.backgroundColor = Globals.constants.backgroundColor
+        self.backgroundColor = Globals.constants.ctcColor
         self.delegate = self
         self.contentInsetAdjustmentBehavior = .never
         
@@ -46,7 +52,7 @@ class GreetingView: UIScrollView, UICollectionViewDelegateFlowLayout {
     
     let heartSize: CGFloat = 300
     let heartAnimationView: LOTAnimationView = {
-        let animationView = LOTAnimationView(name: "heart-green")
+        let animationView = LOTAnimationView(name: "heart-grey")
         animationView.contentMode = .scaleAspectFit
         animationView.animationSpeed = 0.5
         animationView.loopAnimation = false
@@ -57,7 +63,7 @@ class GreetingView: UIScrollView, UICollectionViewDelegateFlowLayout {
         let label = UILabel()
         label.font = UIFont(name: "AdventPro-SemiBold", size: 200)
         label.text = "<"
-        label.textColor = Globals.constants.ctcColor
+        label.textColor = Globals.constants.greyColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -66,7 +72,7 @@ class GreetingView: UIScrollView, UICollectionViewDelegateFlowLayout {
         let label = UILabel()
         label.font = UIFont(name: "AdventPro-SemiBold", size: 200)
         label.text = ">"
-        label.textColor = Globals.constants.ctcColor
+        label.textColor = Globals.constants.greyColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -84,36 +90,6 @@ class GreetingView: UIScrollView, UICollectionViewDelegateFlowLayout {
         rightBracket.widthAnchor.constraint(equalToConstant: rightBracket.intrinsicContentSize.width).isActive = true
     }
     
-}
-
-extension GreetingView: UICollectionViewDelegate {
-    
-}
-
-extension GreetingView: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        if indexPath.row == 0 {
-            cell.backgroundColor = .red
-            cell.addSubview(CalendarView(frame: collectionView.frame))
-        } else {
-            cell.backgroundColor = .gray
-        }
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return collectionView.frame.size
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
 }
 
 extension GreetingView: UIScrollViewDelegate {
@@ -144,12 +120,14 @@ extension GreetingView: UIScrollViewDelegate {
         if progress <= 1 && progress >= heartAnimationStartTime {
             heartAnimationView.animationProgress = progress
         } else if progress >= 2.0 { // Hides heart after done scrolling
+            homeDelegate?.setStatusBar(style: UIStatusBarStyle.lightContent)
             UIView.animate(withDuration: animationDuration, animations: {
                 self.heartAnimationView.isHidden = true
             })
             bioView.showView(duration: animationDuration)
         } else { // Shows heart if scrolling back up
             bioView.hideView()
+            homeDelegate?.setStatusBar(style: UIStatusBarStyle.default)
             UIView.animate(withDuration: animationDuration, animations: {
                 self.heartAnimationView.isHidden = false
             })
