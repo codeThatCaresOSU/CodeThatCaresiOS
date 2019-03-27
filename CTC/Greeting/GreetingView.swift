@@ -33,7 +33,7 @@ class GreetingView: UIScrollView {
         self.welcomeView.swipeAnimationView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(scrollToBottom)))
         heartAnimationView.frame = CGRect(x: 0, y: 0, width: heartSize, height: heartSize)
         heartAnimationView.center = self.center
-        heartAnimationView.animationProgress = heartAnimationStartTime
+        heartAnimationView.currentProgress = heartAnimationStartTime
         heartAnimationView.isUserInteractionEnabled = false
         self.addSubview(leftBracket)
         self.addSubview(rightBracket)
@@ -51,11 +51,12 @@ class GreetingView: UIScrollView {
     lazy var bioView = BioView(frame: CGRect(x: 0, y: self.frame.maxY, width: self.frame.width, height: self.frame.height))
     
     let heartSize: CGFloat = 300
-    let heartAnimationView: LOTAnimationView = {
-        let animationView = LOTAnimationView(name: "heart-grey")
+    let heartAnimationView: AnimationView = {
+        let animationView = AnimationView(name: "heart-grey")
+        animationView.backgroundColor = .clear
         animationView.contentMode = .scaleAspectFit
         animationView.animationSpeed = 0.5
-        animationView.loopAnimation = false
+        animationView.loopMode = .loop
         return animationView
     }()
     
@@ -113,12 +114,12 @@ extension GreetingView: UIScrollViewDelegate {
             heartAnimationView.transform = pinPositionAnimation
             leftBracket.transform = pinPositionAnimation
             rightBracket.transform = pinPositionAnimation
-            heartAnimationView.animationProgress = heartAnimationStartTime
+            heartAnimationView.currentProgress = heartAnimationStartTime
         } else {
             welcomeView.setSwipeAlpha(alpha: 1.0, duration: animationDuration)
         }
         if progress <= 1 && progress >= heartAnimationStartTime {
-            heartAnimationView.animationProgress = progress
+            heartAnimationView.currentProgress = progress
         } else if progress >= 2.0 { // Hides heart after done scrolling
             homeDelegate?.setStatusBar(style: UIStatusBarStyle.lightContent)
             UIView.animate(withDuration: animationDuration, animations: {

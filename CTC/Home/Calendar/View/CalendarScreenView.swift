@@ -31,11 +31,11 @@ class CalendarView: UIView {
         updateFrames(frame: frame)
         self.addSubview(titleLabel)
     }
-    private let loadingAnimation: LOTAnimationView = {
-        let animationView = LOTAnimationView(name: "loading")
+    private let loadingAnimation: AnimationView = {
+        let animationView = AnimationView(name: "loading")
         animationView.contentMode = .scaleAspectFit
         animationView.animationSpeed = 1.0
-        animationView.loopAnimation = true
+        animationView.loopMode = .loop
         return animationView
     }()
     private lazy var titleLabel: UILabel = {

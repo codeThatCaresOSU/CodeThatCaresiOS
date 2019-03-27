@@ -22,11 +22,11 @@ class WelcomeView: UIView {
         return label
     }()
     
-    lazy var swipeAnimationView: LOTAnimationView = {
-        let animationView = LOTAnimationView(name: "scrolldown2-dark")
+    lazy var swipeAnimationView: AnimationView = {
+        let animationView = AnimationView(name: "scrolldown2-dark")
         animationView.translatesAutoresizingMaskIntoConstraints = false
         animationView.contentMode = .scaleAspectFit
-        animationView.loopAnimation = true
+        animationView.loopMode = .loop
         return animationView
     }()
     
