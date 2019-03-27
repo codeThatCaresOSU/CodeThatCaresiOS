@@ -8,6 +8,7 @@
 
 import UIKit
 import EventKit
+import Lottie
 
 class CalendarView: UIView {
     
@@ -16,21 +17,27 @@ class CalendarView: UIView {
     private let store = EKEventStore()
     var events: [Event]?
     private var finishedLoadingInitialTableCells = false
-    private let loadingAnimation = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        loadingAnimation.startAnimating()
+        loadingAnimation.play()
         self.addSubview(loadingAnimation)
         
         viewModel.getAllEvents(){(events:[Event]) in
             self.events = events
             self.calendarListTableView.reloadData()
-            self.loadingAnimation.stopAnimating()
+            self.loadingAnimation.isHidden = true
         }
         updateFrames(frame: frame)
         self.addSubview(titleLabel)
     }
+    private let loadingAnimation: LOTAnimationView = {
+        let animationView = LOTAnimationView(name: "loading")
+        animationView.contentMode = .scaleAspectFit
+        animationView.animationSpeed = 1.0
+        animationView.loopAnimation = true
+        return animationView
+    }()
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Upcoming Events"
@@ -55,6 +62,7 @@ class CalendarView: UIView {
         self.frame = frame
         titleLabel.frame = CGRect(x: 10, y: 10, width: frame.width - 20, height: titleLabel.intrinsicContentSize.height)
         calendarListTableView.frame =  CGRect(x: 10, y: titleLabel.frame.maxY + 20, width: frame.width - 20, height: frame.height - calendarListTableView.frame.origin.y - 30)
+        loadingAnimation.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         loadingAnimation.center = CGPoint(x: calendarListTableView.center.x, y: calendarListTableView.center.y - titleLabel.frame.maxY + 20)
         
         self.setNeedsDisplay()

@@ -15,6 +15,7 @@
 		555834A22221EFE900C1E887 /* heart-red.json in Resources */ = {isa = PBXBuildFile; fileRef = 5558349D2221EFE900C1E887 /* heart-red.json */; };
 		555834A32221EFE900C1E887 /* heart-green.json in Resources */ = {isa = PBXBuildFile; fileRef = 5558349E2221EFE900C1E887 /* heart-green.json */; };
 		555834A42221EFE900C1E887 /* scrolldown.json in Resources */ = {isa = PBXBuildFile; fileRef = 5558349F2221EFE900C1E887 /* scrolldown.json */; };
+		5559664B224BF0A400700846 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 5559664A224BF0A400700846 /* loading.json */; };
 		55870EA821F00CEE004631B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EA721F00CEE004631B7 /* AppDelegate.swift */; };
 		55870EAA21F00CEE004631B7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EA921F00CEE004631B7 /* HomeView.swift */; };
 		55870EAF21F00CF0004631B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55870EAE21F00CF0004631B7 /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 		5558349D2221EFE900C1E887 /* heart-red.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "heart-red.json"; sourceTree = "<group>"; };
 		5558349E2221EFE900C1E887 /* heart-green.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "heart-green.json"; sourceTree = "<group>"; };
 		5558349F2221EFE900C1E887 /* scrolldown.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = scrolldown.json; sourceTree = "<group>"; };
+		5559664A224BF0A400700846 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		55870EA421F00CEE004631B7 /* CTC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CTC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55870EA721F00CEE004631B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55870EA921F00CEE004631B7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				55DE1E9F224AA61900138731 /* heart-grey.json */,
 				5558349F2221EFE900C1E887 /* scrolldown.json */,
 				55DE1EA1224AA93400138731 /* scrolldown-dark.json */,
+				5559664A224BF0A400700846 /* loading.json */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 			files = (
 				555834A32221EFE900C1E887 /* heart-green.json in Resources */,
 				555834A22221EFE900C1E887 /* heart-red.json in Resources */,
+				5559664B224BF0A400700846 /* loading.json in Resources */,
 				555834A12221EFE900C1E887 /* img_0.png in Resources */,
 				55870EB221F00CF0004631B7 /* LaunchScreen.storyboard in Resources */,
 				55DE1EA4224AAC3100138731 /* scrolldown2-dark.json in Resources */,
