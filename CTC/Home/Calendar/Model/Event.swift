@@ -12,12 +12,8 @@ struct Event {
     var title: String?
     var detail: String?
     var location: String?
-    var month: Int?
-    var day: Int?
-    var year: Int?
-    var time: String?
+    var date: Date?
     var amORpm: String?
     var durationMinutes: Int?
     var displayColor: String?
-    var startDate: Date?
 }

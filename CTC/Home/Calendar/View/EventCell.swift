@@ -182,8 +182,8 @@ class EventCell: UITableViewCell {
     
     @objc func addButtonPressed(_ sender: UIButton){
         let calendar = Calendar.current
-        let endDate = calendar.date(byAdding: .minute, value: event!.durationMinutes!, to: event!.startDate!)
-        cellCalendarDelegate?.addToCalendar(title: "CTC - \(event!.title!)", eventStartDate: event!.startDate!, eventEndDate: endDate!, location: event!.location!, detail: event!.detail!)
+        let endDate = calendar.date(byAdding: .minute, value: event!.durationMinutes!, to: event!.date!)
+        cellCalendarDelegate?.addToCalendar(title: "CTC - \(event!.title!)", eventStartDate: event!.date!, eventEndDate: endDate!, location: event!.location!, detail: event!.detail!)
     }
     
     public func updateUI(){
@@ -192,13 +192,15 @@ class EventCell: UITableViewCell {
         titleLabel.text = event?.title ?? "Title"
         locationLabel.text = event?.location ?? "location"
         detailLabel.text = event?.detail ?? "Detail"
-        let day = event?.day ?? 1
+        let date = event?.date ?? Date()
+        let day = Calendar.current.component(.day, from: date)
         dayLabel.text = "\(day)"
-        let time = event?.time ?? "12:30"
-        let amORpm = event?.amORpm ?? "AM"
-        timeLabel.text = "\(time) \(amORpm)"
-        let month = (event?.month ?? 2) - 1
-        monthLabel.text = DateFormatter().monthSymbols[month]
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
+        let time = formatter.string(from: date)
+        timeLabel.text = "\(time)"
+        let month = Calendar.current.component(.month, from: date)
+        monthLabel.text = DateFormatter().monthSymbols[month - 1]
         let buttonColor = UIColor(hexString: color)
         addToCalendarButton.setTitleColor(buttonColor, for: .normal)
         contentView.layer.borderColor = UIColor(hexString: color).cgColor
