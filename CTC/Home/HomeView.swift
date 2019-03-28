@@ -14,7 +14,7 @@ import LUNSegmentedControl
 class HomeView: UIViewController, bulletinDelegate {
 
     private var viewModel: HomeViewModel = HomeViewModel()
-    let pageTitles = ["Home", "Calendar", "Settings"]
+    let pageTitles = ["Calendar", "Settings", "Sponsors"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +84,7 @@ class HomeView: UIViewController, bulletinDelegate {
      lazy var templateView4 = CalendarView(frame: CGRect(x: view.bounds.width * 1.5 / 2 + view.bounds.width * 3, y: 0, width: view.bounds.width, height: view.bounds.height))
      */
     lazy var view1 = CalendarView(frame: CGRect(x: view.bounds.width * 1.5 / 2, y: 0, width: view.bounds.width, height: view.bounds.height))
-    lazy var view2 = CalendarView(frame: CGRect(x: view.bounds.width * 1.5 / 2 + view.bounds.width, y: 0, width: view.bounds.width, height: view.bounds.height))
+    lazy var view2 = SettingsView(frame: CGRect(x: view.bounds.width * 1.5 / 2 + view.bounds.width, y: 0, width: view.bounds.width, height: view.bounds.height))
     lazy var settings = CalendarView(frame: CGRect(x: view.bounds.width * 1.5 / 2 + view.bounds.width * 2, y: 0, width: view.bounds.width, height: view.bounds.height))
 
     lazy var bulletinManager: BLTNItemManager = {
@@ -123,12 +123,12 @@ class HomeView: UIViewController, bulletinDelegate {
     @objc func handleSwipes(_ sender:UISwipeGestureRecognizer) {
         if (sender.direction == .left) {
             if (segmentedControl.currentState != 2) {
-                segmentedControl.setCurrentState(segmentedControl.currentState + 1, animated: true)
+                //segmentedControl.setCurrentState(segmentedControl.currentState + 1, animated: true)
             }
         }
         if (sender.direction == .right) {
             if (segmentedControl.currentState != 0) {
-                segmentedControl.setCurrentState(segmentedControl.currentState - 1, animated: true)
+                //segmentedControl.setCurrentState(segmentedControl.currentState - 1, animated: true)
             }
         }
     }
