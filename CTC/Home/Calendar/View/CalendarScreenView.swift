@@ -86,8 +86,8 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.eventCount
-//        return 10
+//        return viewModel.eventCount
+        return 10
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
@@ -97,8 +97,8 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! EventCell
         cell.cellCalendarDelegate = self
-        cell.event = events?[indexPath.row] ?? Event()
-//        cell.event = events?[indexPath.row % viewModel.eventCount] ?? Event()
+//        cell.event = events?[indexPath.row] ?? Event()
+        cell.event = events?[indexPath.row % viewModel.eventCount] ?? Event()
         cell.updateUI()
         cell.contentView.alpha = 0
         return cell
@@ -134,7 +134,6 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
                     cell.transform = CGAffineTransform(translationX: 0, y: 0)
             })
         }
-        
         
         UIView.animate(withDuration: 0.4) {
             cell.contentView.alpha = 1

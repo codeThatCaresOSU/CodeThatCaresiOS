@@ -27,7 +27,7 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
         updateConstraints()
 
 //        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
-        let launchedBefore = false
+        let launchedBefore = true
         if !launchedBefore {
             UserDefaults.standard.set(true, forKey: "launchedBefore")
             view.addSubview(greetingView)
