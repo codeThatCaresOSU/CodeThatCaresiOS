@@ -17,7 +17,6 @@ class CalendarScreenViewModel {
             return self.events?.count ?? 0
         }
     }
-    let decoder = JSONDecoder()
 
     public func getAllEvents(completion: @escaping ([Event]) -> ()){
         self.events = Array<Event>()
@@ -27,9 +26,9 @@ class CalendarScreenViewModel {
         URLSession.shared.dataTask(with: url){(data,response,err) in
             guard let dataResponse = data else {return}
             do{
-                self.events = try self.decoder.decode([Event].self, from: dataResponse)
+                self.events = try JSONDecoder().decode([Event].self, from: dataResponse).sorted{ $0.date! < $1.date! }
                 DispatchQueue.main.async {
-                    completion(self.events!.sorted(by: { $0.date! < $1.date! }))
+                    completion(self.events!)
                 }
             } catch let parsingError {
                 print("Error", parsingError)

@@ -98,9 +98,15 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! EventCell
         cell.cellCalendarDelegate = self
 //        cell.event = events?[indexPath.row] ?? Event()
-        cell.event = events?[indexPath.row % viewModel.eventCount] ?? Event()
-        cell.updateUI()
+        guard let data = events?[indexPath.row % viewModel.eventCount] else {
+            cell.event = Event()
+            cell.contentView.alpha = 0
+            cell.alpha = 0
+            return cell
+        }
+        cell.event = data
         cell.contentView.alpha = 0
+        cell.updateUI()
         return cell
     }
     
