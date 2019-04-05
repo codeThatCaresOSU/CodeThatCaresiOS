@@ -61,7 +61,7 @@ class CalendarView: UIView {
     public func updateFrames(frame: CGRect){
         self.frame = frame
         titleLabel.frame = CGRect(x: 10, y: 10, width: frame.width - 20, height: titleLabel.intrinsicContentSize.height)
-        calendarListTableView.frame =  CGRect(x: 10, y: titleLabel.frame.maxY + 20, width: frame.width - 20, height: frame.height - calendarListTableView.frame.origin.y - 30)
+        calendarListTableView.frame =  CGRect(x: 10, y: titleLabel.frame.maxY + 20, width: frame.width - 20, height: frame.height - calendarListTableView.frame.origin.y)
         loadingAnimation.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         loadingAnimation.center = CGPoint(x: calendarListTableView.center.x, y: calendarListTableView.center.y - titleLabel.frame.maxY + 20)
         
