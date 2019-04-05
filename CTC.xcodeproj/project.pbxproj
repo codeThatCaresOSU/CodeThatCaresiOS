@@ -29,6 +29,7 @@
 		55DE1EA2224AA93400138731 /* scrolldown-dark.json in Resources */ = {isa = PBXBuildFile; fileRef = 55DE1EA1224AA93400138731 /* scrolldown-dark.json */; };
 		55DE1EA4224AAC3100138731 /* scrolldown2-dark.json in Resources */ = {isa = PBXBuildFile; fileRef = 55DE1EA3224AAC3100138731 /* scrolldown2-dark.json */; };
 		55F42C2A2244570B00F3BEC2 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F42C292244570B00F3BEC2 /* Utility.swift */; };
+		55F6FE7E2257E2D800D593B4 /* UILabelPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F6FE7D2257E2D800D593B4 /* UILabelPadding.swift */; };
 		7FB810AC2208997A007AB5D5 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB810AB2208997A007AB5D5 /* EventCell.swift */; };
 		7FB810B0220899D9007AB5D5 /* CalendarScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB810AF220899D9007AB5D5 /* CalendarScreenViewModel.swift */; };
 		7FB810B222089AAC007AB5D5 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB810B122089AAC007AB5D5 /* Event.swift */; };
@@ -58,6 +59,7 @@
 		55DE1EA1224AA93400138731 /* scrolldown-dark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "scrolldown-dark.json"; sourceTree = "<group>"; };
 		55DE1EA3224AAC3100138731 /* scrolldown2-dark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "scrolldown2-dark.json"; sourceTree = "<group>"; };
 		55F42C292244570B00F3BEC2 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		55F6FE7D2257E2D800D593B4 /* UILabelPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelPadding.swift; sourceTree = "<group>"; };
 		7FB810AB2208997A007AB5D5 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		7FB810AF220899D9007AB5D5 /* CalendarScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarScreenViewModel.swift; sourceTree = "<group>"; };
 		7FB810B122089AAC007AB5D5 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				555834952221EFD900C1E887 /* AdventPro-SemiBold.ttf */,
 				555834962221EFD900C1E887 /* Globals.swift */,
 				55F42C292244570B00F3BEC2 /* Utility.swift */,
+				55F6FE7D2257E2D800D593B4 /* UILabelPadding.swift */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				555834982221EFD900C1E887 /* Globals.swift in Sources */,
 				55F42C2A2244570B00F3BEC2 /* Utility.swift in Sources */,
 				55870EC221F01875004631B7 /* BioView.swift in Sources */,
+				55F6FE7E2257E2D800D593B4 /* UILabelPadding.swift in Sources */,
 				7FB810B0220899D9007AB5D5 /* CalendarScreenViewModel.swift in Sources */,
 				55870EA821F00CEE004631B7 /* AppDelegate.swift in Sources */,
 			);
