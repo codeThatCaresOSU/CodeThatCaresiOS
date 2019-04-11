@@ -11,7 +11,7 @@ import BLTNBoard
 
 class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
 
-    private var viewModel: HomeViewModel = HomeViewModel()
+    //private var viewModel: HomeViewModel = HomeViewModel()
     private let pageTitles = ["Calendar", "Settings"]
     private var collectionViewIsActive = false
     private lazy var pages = [calendarView, settingsView]
