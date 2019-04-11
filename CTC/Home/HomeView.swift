@@ -186,13 +186,11 @@ extension HomeView: LUNSegmentedControlDataSource, LUNSegmentedControlDelegate {
     }
     
     func segmentedControl(_ segmentedControl: LUNSegmentedControl!, attributedTitleForStateAt index: Int) -> NSAttributedString! {
-//        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont(name: "AvenirNext-Medium", size: 15)!]
         let attrs: [NSAttributedString.Key: Any] = [.font: UIFont(name: "AvenirNext-Medium", size: 18)!]
         return NSAttributedString(string: pageTitles[index], attributes: attrs)
     }
     
     func segmentedControl(_ segmentedControl: LUNSegmentedControl!, attributedTitleForSelectedStateAt index: Int) -> NSAttributedString! {
-//        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont(name: "AvenirNext-Medium", size: 18)!]
         let attrs: [NSAttributedString.Key: Any] = [.font: UIFont(name: "AvenirNext-Medium", size: 23)!]
         return NSAttributedString(string: pageTitles[index], attributes: attrs)
     }
@@ -211,13 +209,10 @@ extension HomeView: LUNSegmentedControlDataSource, LUNSegmentedControlDelegate {
         switch(index){
         case 0:
             return [UIColor(red:0.51, green:0.38, blue:0.76, alpha:1.0), UIColor(red:0.34, green:0.33, blue:0.76, alpha:1.0)]
-//            return [UIColor(red:0.63, green:0.87, blue:0.22, alpha:1.0), UIColor(red:0.69, green:1.00, blue:0.00, alpha:1.0)]
         case 1:
             return [UIColor(red:0.29, green:0.44, blue:0.76, alpha:1.0), UIColor(red:0.25, green:0.58, blue:0.75, alpha:1.0)]
-//            return [UIColor(red:0.31, green:0.99, blue:0.82, alpha:1.0), UIColor(red:0.20, green:0.78, blue:0.96, alpha:1.0)]
         case 2:
             return [UIColor(red:0.22, green:0.74, blue:0.75, alpha:1.0), UIColor(red:0.18, green:0.75, blue:0.56, alpha:1.0)]
-//            return [UIColor(red:0.70, green:0.00, blue:0.92, alpha:1.0), UIColor(red:0.91, green:0.00, blue:0.58, alpha:1.0)]
         default:
             break
         }
