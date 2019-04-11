@@ -14,25 +14,25 @@ class WelcomeView: UIView {
     lazy var welcomeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "Futura-Medium", size: 45)
+        label.font = UIFont(name: "Futura-Bold", size: 45)
         label.text = "Welcome To \nCode That Cares!"
-        label.textColor = .white
+        label.textColor = Globals.constants.greyColor
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         return label
     }()
     
-    lazy var swipeAnimationView: LOTAnimationView = {
-        let animationView = LOTAnimationView(name: "scrolldown")
+    lazy var swipeAnimationView: AnimationView = {
+        let animationView = AnimationView(name: "scrolldown2-dark")
         animationView.translatesAutoresizingMaskIntoConstraints = false
-        animationView.contentMode = .scaleAspectFill
-        animationView.loopAnimation = true
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .loop
         return animationView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = Globals.constants.backgroundColor
+        self.backgroundColor = Globals.constants.ctcColor
         self.setupView()
     }
     
@@ -44,20 +44,18 @@ class WelcomeView: UIView {
         self.addSubview(welcomeLabel)
         swipeAnimationView.play()
         self.addSubview(swipeAnimationView)
+        layoutSubviews()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        welcomeLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
+        welcomeLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
         welcomeLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
         welcomeLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
         
         swipeAnimationView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor).isActive = true
         swipeAnimationView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor).isActive = true
-    
-        welcomeLabel.heightAnchor.constraint(equalToConstant: welcomeLabel.intrinsicContentSize.height).isActive = true
-        swipeAnimationView.widthAnchor.constraint(equalToConstant: 800).isActive = true
-        swipeAnimationView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        swipeAnimationView.heightAnchor.constraint(equalToConstant: 140).isActive = true
     }
     
     func setSwipeAlpha(alpha: CGFloat, duration: Double) {

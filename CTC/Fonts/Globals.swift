@@ -16,7 +16,7 @@ class Globals: UIView {
         static let orangeColor = UIColor(hexString: "#c4824a")
         static let blueColor = UIColor(hexString: "#4a8cc4")
 //        static let redColor = UIColor(red:0.96, green:0.31, blue:0.40, alpha:1.0)
-        static let backgroundColor = UIColor(hexString: "#262626")
+        static let greyColor = UIColor(hexString: "#262626")
     }
 
 }

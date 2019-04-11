@@ -21,7 +21,7 @@ class BioView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Futura-Medium", size: 35)
         label.text = "We're a student organization at OSU dedicated to creating mobile applications for charities and nonprofits."
-        label.textColor = .white
+        label.textColor = Globals.constants.ctcColor
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.alpha = 0.0
@@ -33,7 +33,7 @@ class BioView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Futura-Medium", size: 35)
         label.text = "Please enable push notifications to stay up to date on meetings and important events!"
-        label.textColor = .white
+        label.textColor = Globals.constants.ctcColor
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.alpha = 0.0
@@ -46,7 +46,8 @@ class BioView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 25
         button.layer.masksToBounds = true
-        button.backgroundColor = UIColor.black
+        button.setTitleColor(Globals.constants.greyColor, for: .normal)
+        button.backgroundColor = Globals.constants.ctcColor
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(readyButtonPressed), for: .touchUpInside)
         return button
@@ -69,8 +70,8 @@ class BioView: UIView {
     }
     
     func showView(duration: Double){
-        self.backgroundColor = Globals.constants.ctcColor
-        self.superview?.backgroundColor = Globals.constants.ctcColor
+        self.backgroundColor = Globals.constants.greyColor
+        self.superview?.backgroundColor = Globals.constants.greyColor
         UIView.animate(withDuration: duration, animations: {
             self.topLabel.alpha = 1.0
             self.bottomLabel.alpha = 1.0
@@ -79,8 +80,8 @@ class BioView: UIView {
     }
     
     func hideView(){
-        self.backgroundColor = Globals.constants.backgroundColor
-        self.superview?.backgroundColor = Globals.constants.backgroundColor
+        self.backgroundColor = Globals.constants.ctcColor
+        self.superview?.backgroundColor = Globals.constants.ctcColor
         self.topLabel.alpha = 0.0
         self.bottomLabel.alpha = 0.0
         self.readyButton.alpha = 0.0

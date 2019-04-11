@@ -8,37 +8,46 @@
 
 import UIKit
 import BLTNBoard
-import LUNSegmentedControl
 
-class HomeView: UIViewController, bulletinDelegate {
+class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
 
-    private var viewModel: HomeViewModel = HomeViewModel()
-    private let pageTitles = ["Home", "Calendar", "Settings"]
+    //private var viewModel: HomeViewModel = HomeViewModel()
+    private let pageTitles = ["Calendar", "Settings"]
     private var collectionViewIsActive = false
-    private lazy var pages = [homeView, calendarView, settingsView]
+    private lazy var pages = [calendarView, settingsView]
+    private var isStatusBarLight = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = Globals.constants.backgroundColor
+        self.view.backgroundColor = Globals.constants.greyColor
         
         view.addSubview(backgroundScrollView)
         view.addSubview(segmentedControl)
         updateConstraints()
 
-        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
-//        if !launchedBefore {
+//        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        let launchedBefore = true
+        if !launchedBefore {
             UserDefaults.standard.set(true, forKey: "launchedBefore")
             view.addSubview(greetingView)
+            greetingView.homeDelegate = self
             greetingView.bioView.delegate = self
             prepareForBulletin()
-//        }
+        } else {
+            self.calendarView.showCalendar()
+        }
+    }
+    
+    func setStatusBar(style: UIStatusBarStyle) {
+        isStatusBarLight = style == .lightContent
+        setNeedsStatusBarAppearanceUpdate()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        if(bulletinManager.isShowingBulletin){
-            return .default
+        if(isStatusBarLight){
+            return .lightContent
         }
-        return .lightContent
+        return .default
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -56,9 +65,9 @@ class HomeView: UIViewController, bulletinDelegate {
         let seg = LUNSegmentedControl()
         seg.delegate = self
         seg.dataSource = self
-        seg.selectorViewColor = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 0)
+        seg.selectorViewColor = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 0.1)
         seg.backgroundColor = UIColor(red: 37.0/255.0, green: 37.0/255.0, blue: 37.0/255.0, alpha: 0.5)
-        seg.cornerRadius = 18
+        seg.cornerRadius = 22 // 18 for 3 pages
         seg.applyCornerRadiusToSelectorView = true
         seg.translatesAutoresizingMaskIntoConstraints = false
         return seg
@@ -96,18 +105,18 @@ class HomeView: UIViewController, bulletinDelegate {
      To add a 4th page, use this code:
      lazy var templateView4 = CalendarView(frame: CGRect(x: view.bounds.width * 1.5 / 2 + view.bounds.width * 3, y: 0, width: view.bounds.width, height: view.bounds.height))
      */
-    private lazy var homeView: CalendarView = {
+    private lazy var calendarView: CalendarView = {
         let view = CalendarView(frame: CGRect(x: self.view.frame.width * 1.5 / 2, y: 0, width: self.view.frame.width, height: self.view.frame.height))
         return view
     }()
-    private lazy var calendarView: CalendarView = {
+    private lazy var settingsView: CalendarView = {
         let view = CalendarView(frame: CGRect(x: self.view.bounds.width * 1.5 / 2 + self.view.bounds.width, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
         return view
     }()
-    private lazy var settingsView: CalendarView = {
-        let view = CalendarView(frame: CGRect(x: self.view.bounds.width * 1.5 / 2 + self.view.bounds.width * 2, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
-        return view
-    }()
+//    private lazy var view3: CalendarView = {
+//        let view = CalendarView(frame: CGRect(x: self.view.bounds.width * 1.5 / 2 + self.view.bounds.width * 2, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
+//        return view
+//    }()
 
     private lazy var bulletinManager: BLTNItemManager = {
         let rootItem: BLTNItem = notificationBulletin
@@ -127,6 +136,7 @@ class HomeView: UIViewController, bulletinDelegate {
     func prepareForBulletin(){
         notificationBulletin.actionHandler = {(item: BLTNActionItem) in
             UserDefaults.standard.set(true, forKey: "setupComplete")
+            //TODO: Notifications
             self.afterBulletin()
         }
         notificationBulletin.alternativeHandler = {(item: BLTNActionItem) in
@@ -137,7 +147,6 @@ class HomeView: UIViewController, bulletinDelegate {
     func showBulletin(){
         bulletinManager.backgroundViewStyle = .blurredDark
         bulletinManager.showBulletin(above: self)
-        setNeedsStatusBarAppearanceUpdate()
     }
     
     /* Temporary function to handle gestures */
@@ -157,8 +166,6 @@ class HomeView: UIViewController, bulletinDelegate {
         self.bulletinManager.dismissBulletin()
         self.greetingView.removeFromSuperview()
         self.calendarView.showCalendar()
-        self.homeView.showCalendar()
-        self.settingsView.showCalendar()
     }
     
     /*
@@ -166,7 +173,7 @@ class HomeView: UIViewController, bulletinDelegate {
      */
     func updateConstraints(){
         segmentedControl.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -20).isActive = true
-        segmentedControl.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        segmentedControl.heightAnchor.constraint(equalToConstant: 60).isActive = true //45 for 3 pages
         segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant:10).isActive = true
         segmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
@@ -179,12 +186,12 @@ extension HomeView: LUNSegmentedControlDataSource, LUNSegmentedControlDelegate {
     }
     
     func segmentedControl(_ segmentedControl: LUNSegmentedControl!, attributedTitleForStateAt index: Int) -> NSAttributedString! {
-        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont(name: "AvenirNext-Medium", size: 15)!]
+        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont(name: "AvenirNext-Medium", size: 18)!]
         return NSAttributedString(string: pageTitles[index], attributes: attrs)
     }
     
     func segmentedControl(_ segmentedControl: LUNSegmentedControl!, attributedTitleForSelectedStateAt index: Int) -> NSAttributedString! {
-        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont(name: "AvenirNext-Medium", size: 18)!]
+        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont(name: "AvenirNext-Medium", size: 23)!]
         return NSAttributedString(string: pageTitles[index], attributes: attrs)
     }
     
@@ -202,13 +209,10 @@ extension HomeView: LUNSegmentedControlDataSource, LUNSegmentedControlDelegate {
         switch(index){
         case 0:
             return [UIColor(red:0.51, green:0.38, blue:0.76, alpha:1.0), UIColor(red:0.34, green:0.33, blue:0.76, alpha:1.0)]
-//            return [UIColor(red:0.63, green:0.87, blue:0.22, alpha:1.0), UIColor(red:0.69, green:1.00, blue:0.00, alpha:1.0)]
         case 1:
             return [UIColor(red:0.29, green:0.44, blue:0.76, alpha:1.0), UIColor(red:0.25, green:0.58, blue:0.75, alpha:1.0)]
-//            return [UIColor(red:0.31, green:0.99, blue:0.82, alpha:1.0), UIColor(red:0.20, green:0.78, blue:0.96, alpha:1.0)]
         case 2:
             return [UIColor(red:0.22, green:0.74, blue:0.75, alpha:1.0), UIColor(red:0.18, green:0.75, blue:0.56, alpha:1.0)]
-//            return [UIColor(red:0.70, green:0.00, blue:0.92, alpha:1.0), UIColor(red:0.91, green:0.00, blue:0.58, alpha:1.0)]
         default:
             break
         }
