@@ -8,7 +8,6 @@
 
 import UIKit
 import BLTNBoard
-import LUNSegmentedControl
 
 class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
 

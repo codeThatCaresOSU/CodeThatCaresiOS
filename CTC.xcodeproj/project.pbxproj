@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1E2D255F0CA68E878031D508 /* Pods_CTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72ED0A88CDD17F1BA897BA1 /* Pods_CTC.framework */; };
 		555834972221EFD900C1E887 /* AdventPro-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 555834952221EFD900C1E887 /* AdventPro-SemiBold.ttf */; };
 		555834982221EFD900C1E887 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555834962221EFD900C1E887 /* Globals.swift */; };
 		555834A02221EFE900C1E887 /* img_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5558349B2221EFE900C1E887 /* img_1.png */; };
@@ -15,6 +14,9 @@
 		555834A32221EFE900C1E887 /* heart-green.json in Resources */ = {isa = PBXBuildFile; fileRef = 5558349E2221EFE900C1E887 /* heart-green.json */; };
 		555834A42221EFE900C1E887 /* scrolldown.json in Resources */ = {isa = PBXBuildFile; fileRef = 5558349F2221EFE900C1E887 /* scrolldown.json */; };
 		5559664B224BF0A400700846 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 5559664A224BF0A400700846 /* loading.json */; };
+		55604787225FE99200316805 /* LUNGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55604781225FE99000316805 /* LUNGradientView.m */; };
+		55604788225FE99200316805 /* LUNSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 55604785225FE99100316805 /* LUNSegmentedControl.m */; };
+		55604789225FE99200316805 /* UIView+LUNRemoveConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = 55604786225FE99200316805 /* UIView+LUNRemoveConstraints.m */; };
 		55870EA821F00CEE004631B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EA721F00CEE004631B7 /* AppDelegate.swift */; };
 		55870EAA21F00CEE004631B7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55870EA921F00CEE004631B7 /* HomeView.swift */; };
 		55870EAF21F00CF0004631B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55870EAE21F00CF0004631B7 /* Assets.xcassets */; };
@@ -33,6 +35,7 @@
 		7FB810AC2208997A007AB5D5 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB810AB2208997A007AB5D5 /* EventCell.swift */; };
 		7FB810B0220899D9007AB5D5 /* CalendarScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB810AF220899D9007AB5D5 /* CalendarScreenViewModel.swift */; };
 		7FB810B222089AAC007AB5D5 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB810B122089AAC007AB5D5 /* Event.swift */; };
+		A7E4602B0F06425CEEA6405C /* Pods_CTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1C791FAFCE002D6B63EAD49 /* Pods_CTC.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +46,13 @@
 		5558349E2221EFE900C1E887 /* heart-green.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "heart-green.json"; sourceTree = "<group>"; };
 		5558349F2221EFE900C1E887 /* scrolldown.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = scrolldown.json; sourceTree = "<group>"; };
 		5559664A224BF0A400700846 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
+		55604780225FE98F00316805 /* CTC-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CTC-Bridging-Header.h"; sourceTree = "<group>"; };
+		55604781225FE99000316805 /* LUNGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LUNGradientView.m; sourceTree = "<group>"; };
+		55604782225FE99000316805 /* LUNSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LUNSegmentedControl.h; sourceTree = "<group>"; };
+		55604783225FE99100316805 /* LUNGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LUNGradientView.h; sourceTree = "<group>"; };
+		55604784225FE99100316805 /* UIView+LUNRemoveConstraints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LUNRemoveConstraints.h"; sourceTree = "<group>"; };
+		55604785225FE99100316805 /* LUNSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LUNSegmentedControl.m; sourceTree = "<group>"; };
+		55604786225FE99200316805 /* UIView+LUNRemoveConstraints.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LUNRemoveConstraints.m"; sourceTree = "<group>"; };
 		55870EA421F00CEE004631B7 /* CTC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CTC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55870EA721F00CEE004631B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55870EA921F00CEE004631B7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -63,9 +73,9 @@
 		7FB810AB2208997A007AB5D5 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		7FB810AF220899D9007AB5D5 /* CalendarScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarScreenViewModel.swift; sourceTree = "<group>"; };
 		7FB810B122089AAC007AB5D5 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		84FE14F013CE5A36605D79E9 /* Pods-CTC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CTC.release.xcconfig"; path = "Pods/Target Support Files/Pods-CTC/Pods-CTC.release.xcconfig"; sourceTree = "<group>"; };
-		A8B31AA846FFF8CD17AC60D4 /* Pods-CTC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CTC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CTC/Pods-CTC.debug.xcconfig"; sourceTree = "<group>"; };
-		B72ED0A88CDD17F1BA897BA1 /* Pods_CTC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CTC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1C791FAFCE002D6B63EAD49 /* Pods_CTC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CTC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C956CE34594BD25720F5A9B5 /* Pods-CTC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CTC.release.xcconfig"; path = "Target Support Files/Pods-CTC/Pods-CTC.release.xcconfig"; sourceTree = "<group>"; };
+		EBFEB3ED4785CE884EBD6C03 /* Pods-CTC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CTC.debug.xcconfig"; path = "Target Support Files/Pods-CTC/Pods-CTC.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,27 +84,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				55DD771C2243F10200E3B25A /* EventKit.framework in Frameworks */,
-				1E2D255F0CA68E878031D508 /* Pods_CTC.framework in Frameworks */,
+				A7E4602B0F06425CEEA6405C /* Pods_CTC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3830E63318DC30442B8E3EDE /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				A8B31AA846FFF8CD17AC60D4 /* Pods-CTC.debug.xcconfig */,
-				84FE14F013CE5A36605D79E9 /* Pods-CTC.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		531BF5F62FF89EAC6EE25F62 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				55DD771B2243F10200E3B25A /* EventKit.framework */,
-				B72ED0A88CDD17F1BA897BA1 /* Pods_CTC.framework */,
+				C1C791FAFCE002D6B63EAD49 /* Pods_CTC.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -133,13 +134,28 @@
 			path = images;
 			sourceTree = "<group>";
 		};
+		55604776225FE6B300316805 /* LUNSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				55604783225FE99100316805 /* LUNGradientView.h */,
+				55604781225FE99000316805 /* LUNGradientView.m */,
+				55604782225FE99000316805 /* LUNSegmentedControl.h */,
+				55604785225FE99100316805 /* LUNSegmentedControl.m */,
+				55604784225FE99100316805 /* UIView+LUNRemoveConstraints.h */,
+				55604786225FE99200316805 /* UIView+LUNRemoveConstraints.m */,
+				55604780225FE98F00316805 /* CTC-Bridging-Header.h */,
+			);
+			path = LUNSegmentedControl;
+			sourceTree = "<group>";
+		};
 		55870E9B21F00CEE004631B7 = {
 			isa = PBXGroup;
 			children = (
+				55604776225FE6B300316805 /* LUNSegmentedControl */,
 				55870EA621F00CEE004631B7 /* CTC */,
 				55870EA521F00CEE004631B7 /* Products */,
-				3830E63318DC30442B8E3EDE /* Pods */,
 				531BF5F62FF89EAC6EE25F62 /* Frameworks */,
+				725CB5B3E8DCAD2ECD1F60BB /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -195,6 +211,15 @@
 			path = Calendar;
 			sourceTree = "<group>";
 		};
+		725CB5B3E8DCAD2ECD1F60BB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EBFEB3ED4785CE884EBD6C03 /* Pods-CTC.debug.xcconfig */,
+				C956CE34594BD25720F5A9B5 /* Pods-CTC.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		7FB810AA22089952007AB5D5 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,11 +245,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55870EB621F00CF0004631B7 /* Build configuration list for PBXNativeTarget "CTC" */;
 			buildPhases = (
-				B062BA94526CE608E27021DA /* [CP] Check Pods Manifest.lock */,
+				89FF3B15507B508E980B17DA /* [CP] Check Pods Manifest.lock */,
 				55870EA021F00CEE004631B7 /* Sources */,
 				55870EA121F00CEE004631B7 /* Frameworks */,
 				55870EA221F00CEE004631B7 /* Resources */,
-				C0AE06E448AF105CF28A9DD6 /* [CP] Embed Pods Frameworks */,
+				9D54AA66EF6D963AC0C4B10F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -247,6 +272,7 @@
 				TargetAttributes = {
 					55870EA321F00CEE004631B7 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -290,16 +316,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		B062BA94526CE608E27021DA /* [CP] Check Pods Manifest.lock */ = {
+		89FF3B15507B508E980B17DA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-CTC-checkManifestLockResult.txt",
 			);
@@ -308,22 +338,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C0AE06E448AF105CF28A9DD6 /* [CP] Embed Pods Frameworks */ = {
+		9D54AA66EF6D963AC0C4B10F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputFileListPaths = (
+			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-CTC/Pods-CTC-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BulletinBoard/BLTNBoard.framework",
-				"${BUILT_PRODUCTS_DIR}/LUNSegmentedControl/LUNSegmentedControl.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BLTNBoard.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LUNSegmentedControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 			);
@@ -339,7 +371,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55604787225FE99200316805 /* LUNGradientView.m in Sources */,
+				55604789225FE99200316805 /* UIView+LUNRemoveConstraints.m in Sources */,
 				55870EAA21F00CEE004631B7 /* HomeView.swift in Sources */,
+				55604788225FE99200316805 /* LUNSegmentedControl.m in Sources */,
 				7FB810AC2208997A007AB5D5 /* EventCell.swift in Sources */,
 				55870EC021F0186A004631B7 /* WelcomeView.swift in Sources */,
 				7FB810B222089AAC007AB5D5 /* Event.swift in Sources */,
@@ -487,9 +522,10 @@
 		};
 		55870EB721F00CF0004631B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A8B31AA846FFF8CD17AC60D4 /* Pods-CTC.debug.xcconfig */;
+			baseConfigurationReference = EBFEB3ED4785CE884EBD6C03 /* Pods-CTC.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E6X7XRG34G;
 				INFOPLIST_FILE = CTC/Info.plist;
@@ -500,6 +536,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaveBeckerDevelopment.CTC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LUNSegmentedControl/CTC-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -507,9 +545,10 @@
 		};
 		55870EB821F00CF0004631B7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 84FE14F013CE5A36605D79E9 /* Pods-CTC.release.xcconfig */;
+			baseConfigurationReference = C956CE34594BD25720F5A9B5 /* Pods-CTC.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E6X7XRG34G;
 				INFOPLIST_FILE = CTC/Info.plist;
@@ -520,6 +559,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaveBeckerDevelopment.CTC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LUNSegmentedControl/CTC-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
