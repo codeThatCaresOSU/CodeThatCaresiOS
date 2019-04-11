@@ -56,9 +56,8 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
         
         let yPadding: CGFloat = 10 // Padding below segmentedControl for views
         let yOffset = segmentedControl.frame.size.height + segmentedControl.frame.origin.y + yPadding
-        for page in pages {
-            page.updateFrames(frame: CGRect(x: page.frame.origin.x, y: yOffset, width: page.frame.size.width, height: page.frame.size.height - yOffset))
-        }
+        calendarView.updateFrames(frame: CGRect(x: calendarView.frame.origin.x, y: yOffset, width: calendarView.frame.size.width, height: calendarView.frame.size.height - yOffset))
+        settingsView.updateFrames(frame: CGRect(x: settingsView.frame.origin.x, y: yOffset, width: settingsView.frame.size.width, height: settingsView.frame.size.height - yOffset))
     }
     
     private lazy var segmentedControl: LUNSegmentedControl = {
@@ -109,8 +108,8 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
         let view = CalendarView(frame: CGRect(x: self.view.frame.width * 1.5 / 2, y: 0, width: self.view.frame.width, height: self.view.frame.height))
         return view
     }()
-    private lazy var settingsView: CalendarView = {
-        let view = CalendarView(frame: CGRect(x: self.view.bounds.width * 1.5 / 2 + self.view.bounds.width, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
+    private lazy var settingsView: SettingsView = {
+        let view = SettingsView(frame: CGRect(x: self.view.bounds.width * 1.5 / 2 + self.view.bounds.width, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
         return view
     }()
 //    private lazy var view3: CalendarView = {
