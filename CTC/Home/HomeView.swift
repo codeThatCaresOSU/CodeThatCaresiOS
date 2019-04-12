@@ -8,6 +8,7 @@
 
 import UIKit
 import BLTNBoard
+import CTCKit
 
 class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
 
@@ -18,6 +19,11 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
     private var isStatusBarLight = false
     
     override func viewDidLoad() {
+        
+        
+        let date = Date.init().addingTimeInterval(10.0)
+        NotificationService.scheduleNotification(date: date, title: "Development Meeting", body: "We use this time to answer dev questions and work on projects", subtitle: "Come work and Learn with Us")
+        
         super.viewDidLoad()
         self.view.backgroundColor = Globals.constants.greyColor
         
