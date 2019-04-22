@@ -75,7 +75,8 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate, ShowGreetingDe
         seg.delegate = self
         seg.dataSource = self
         seg.selectorViewColor = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 0.1)
-        seg.backgroundColor = UIColor(red: 37.0/255.0, green: 37.0/255.0, blue: 37.0/255.0, alpha: 0.5)
+//        seg.backgroundColor = UIColor(red: 37.0/255.0, green: 37.0/255.0, blue: 37.0/255.0, alpha: 0.5)
+        seg.backgroundColor = UIColor(white: 1, alpha: 0.2)
         seg.cornerRadius = 22 // 18 for 3 pages
         seg.applyCornerRadiusToSelectorView = true
         seg.translatesAutoresizingMaskIntoConstraints = false
@@ -207,12 +208,18 @@ extension HomeView: LUNSegmentedControlDataSource, LUNSegmentedControlDelegate {
     }
     
     func segmentedControl(_ segmentedControl: LUNSegmentedControl!, attributedTitleForStateAt index: Int) -> NSAttributedString! {
-        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont(name: "AvenirNext-Medium", size: 18)!]
+        let attrs: [NSAttributedString.Key: Any] = [
+            .font: UIFont(name: "AvenirNext-Medium", size: 18)!,
+            .foregroundColor: UIColor.white
+        ]
         return NSAttributedString(string: pageTitles[index], attributes: attrs)
     }
     
     func segmentedControl(_ segmentedControl: LUNSegmentedControl!, attributedTitleForSelectedStateAt index: Int) -> NSAttributedString! {
-        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont(name: "AvenirNext-Medium", size: 23)!]
+        let attrs: [NSAttributedString.Key: Any] = [
+            .font: UIFont(name: "AvenirNext-Medium", size: 23)!,
+            .foregroundColor: UIColor.white
+        ]
         return NSAttributedString(string: pageTitles[index], attributes: attrs)
     }
     
