@@ -9,9 +9,8 @@
 import UIKit
 import BLTNBoard
 
-class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
+class HomeView: UIViewController, bulletinDelegate, HomeDelegate, ShowGreetingDelegate {
 
-    //private var viewModel: HomeViewModel = HomeViewModel()
     private let pageTitles = ["Calendar", "Settings"]
     private var collectionViewIsActive = false
     private lazy var pages = [calendarView, settingsView]
@@ -24,18 +23,29 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
         view.addSubview(backgroundScrollView)
         view.addSubview(segmentedControl)
         updateConstraints()
-
-//        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
-        let launchedBefore = true
+        //----- clear user defaults for testing
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
+        //----
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         if !launchedBefore {
             UserDefaults.standard.set(true, forKey: "launchedBefore")
-            view.addSubview(greetingView)
-            greetingView.homeDelegate = self
-            greetingView.bioView.delegate = self
+            showGreeting()
             prepareForBulletin()
         } else {
             self.calendarView.showCalendar()
         }
+    }
+    
+    func showGreeting(){
+        greetingView = GreetingView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+//        view.addSubview(greetingView)
+        UIView.transition(with: self.view, duration: 0.25, options: [.transitionCrossDissolve], animations: {
+            self.view.addSubview(self.greetingView)
+        }, completion: nil)
+        greetingView.bioView.delegate = self
+        greetingView.homeDelegate = self
     }
     
     func setStatusBar(style: UIStatusBarStyle) {
@@ -80,7 +90,7 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
-        let background = UIImageView(image: UIImage(named: "leaf"))
+        let background = UIImageView(image: UIImage(named: "particles"))
         background.isUserInteractionEnabled = true
         
         /* Width adds 1.5x to account for scrolling slightly past the end of the first and last page. */
@@ -110,6 +120,7 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
     }()
     private lazy var settingsView: SettingsView = {
         let view = SettingsView(frame: CGRect(x: self.view.bounds.width * 1.5 / 2 + self.view.bounds.width, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
+        view.greetingDelegate = self
         return view
     }()
 //    private lazy var view3: CalendarView = {
@@ -144,8 +155,13 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
         }
     }
     func showBulletin(){
-        bulletinManager.backgroundViewStyle = .blurredDark
-        bulletinManager.showBulletin(above: self)
+        let setupComplete = UserDefaults.standard.bool(forKey: "setupComplete")
+        if !setupComplete {
+            bulletinManager.backgroundViewStyle = .blurredDark
+            bulletinManager.showBulletin(above: self)
+        } else {
+            removeGreeting()
+        }
     }
     
     /* Temporary function to handle gestures */
@@ -163,7 +179,13 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
     }
     func afterBulletin(){
         self.bulletinManager.dismissBulletin()
-        self.greetingView.removeFromSuperview()
+        removeGreeting()
+    }
+    
+    func removeGreeting(){
+        UIView.transition(with: self.view, duration: 0.25, options: [.transitionCrossDissolve], animations: {
+            self.greetingView.removeFromSuperview()
+        }, completion: nil)
         self.calendarView.showCalendar()
     }
     

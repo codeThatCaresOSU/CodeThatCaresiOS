@@ -1,24 +1,36 @@
-//
-//  SettingsCell.swift
-//  CTC
-//
-//  Created by Dave Becker on 4/17/19.
-//  Copyright © 2019 Code That Cares. All rights reserved.
-//
-
 import UIKit
 
 class SettingsCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    
+    let borderWidth: CGFloat = 4
+    var cellSpacing: CGFloat = 5
+    let cornerRadius: CGFloat = 8
+    
+    init(frame: CGRect, spacing: CGFloat) {
+        super.init(style: UITableViewCell.CellStyle.default, reuseIdentifier: "cell")
+        cellSpacing = spacing
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: borderWidth, bottom: cellSpacing, right: borderWidth))
+        backgroundColor = .clear
+        layer.masksToBounds = false
+        layer.shadowOpacity = 0.23
+        layer.shadowRadius = borderWidth
+        layer.shadowOffset = CGSize(width: 0, height: borderWidth)
+        layer.shadowColor = UIColor.black.cgColor
+        contentView.backgroundColor = UIColor(hexString: "#F8F8FF")
+        contentView.layer.cornerRadius = cornerRadius
+    }
+    
 }

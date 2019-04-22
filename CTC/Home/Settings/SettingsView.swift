@@ -8,7 +8,12 @@
 
 import UIKit
 
+protocol ShowGreetingDelegate: class {
+    func showGreeting()
+}
 class SettingsView: UIView {
+    
+    weak var greetingDelegate: ShowGreetingDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,13 +45,15 @@ class SettingsView: UIView {
     }()
     private lazy var settingsTableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = .clear
         tableView.showsVerticalScrollIndicator = false
-        tableView.layer.cornerRadius = 5
         tableView.allowsSelection = false
+        tableView.layer.cornerRadius = 5
         tableView.clipsToBounds = true
+        tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.isScrollEnabled = false
         return tableView
     }()
 
@@ -57,15 +64,28 @@ class SettingsView: UIView {
 
 extension SettingsView: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
-    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 2{
-            return 2
-        }
         return 1
     }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        switch indexPath.row {
+        case 0:
+            return NotificationsCell(frame: frame, spacing: 15)
+        case 1:
+            let cell = ReplayIntroCell(frame: frame, spacing: 15)
+            cell.greetingDelegate = greetingDelegate
+            return cell
+        case 2:
+            return LinkCell(frame: frame, spacing: 15, text: "Contact us", url: "https://google.com")
+        case 3:
+            return LinkCell(frame: frame, spacing: 15, text: "Rate us on the app store!", url: "https://apple.com")
+        default:
+            return UITableViewCell()
+        }
     }
 }
