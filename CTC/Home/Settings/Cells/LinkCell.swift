@@ -10,6 +10,10 @@ class LinkCell: SettingsCell {
         button.contentHorizontalAlignment = .left
         button.titleLabel?.font = UIFont(name: "Avenir", size: 24)
         button.addTarget(self, action: #selector(self.buttonPressed), for: .touchUpInside)
+        button.layer.cornerRadius = cornerRadius
+        button.setBackgroundColor(color: .gray, forState: .selected)
+        button.setBackgroundColor(color: .gray, forState: .highlighted)
+        button.contentEdgeInsets = UIEdgeInsets(top: 5,left: 10,bottom: 5,right: 10)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -30,15 +34,15 @@ class LinkCell: SettingsCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.addSubview(button)
-        button.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -10).isActive = true
-        button.heightAnchor.constraint(equalTo: contentView.heightAnchor, constant: -10).isActive = true
+        button.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
+        button.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
         button.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         button.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
     }
     
     @objc func buttonPressed(){
         if let url = URL(string: link) {
-            UIApplication.shared.open(url, options: [:])
+//            UIApplication.shared.open(url, options: [:])
         }
     }
 }
