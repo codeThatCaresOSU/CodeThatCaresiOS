@@ -14,12 +14,17 @@ class SettingsView: UIView {
         super.init(frame: frame)
         updateFrames(frame: frame)
         self.addSubview(titleLabel)
+        self.addSubview(settingsTableView)
+        layer.shadowOpacity = 0.23
+        layer.shadowRadius = 4
+        layer.shadowOffset = CGSize(width: 0, height: 4)
+        layer.shadowColor = UIColor.black.cgColor
     }
     
     public func updateFrames(frame: CGRect){
         self.frame = frame
         titleLabel.frame = CGRect(x: 10, y: 10, width: frame.width - 20, height: titleLabel.intrinsicContentSize.height)
-        settingsTableView.frame =  CGRect(x: 10, y: titleLabel.frame.maxY + 20, width: frame.width - 20, height: frame.height - settingsTableView.frame.origin.y)
+        settingsTableView.frame =  CGRect(x: 20, y: titleLabel.frame.maxY + 20, width: frame.width - 40, height: frame.height - settingsTableView.frame.origin.y - 20)
         
         self.setNeedsDisplay()
         titleLabel.setNeedsDisplay()
@@ -35,12 +40,11 @@ class SettingsView: UIView {
     }()
     private lazy var settingsTableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = .white
         tableView.showsVerticalScrollIndicator = false
-        tableView.allowsSelection = false
         tableView.layer.cornerRadius = 5
+        tableView.allowsSelection = false
         tableView.clipsToBounds = true
-        tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
@@ -52,8 +56,14 @@ class SettingsView: UIView {
 }
 
 extension SettingsView: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        if section == 2{
+            return 2
+        }
+        return 1
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
