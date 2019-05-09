@@ -20,10 +20,6 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
     
     override func viewDidLoad() {
         
-        
-        let date = Date.init().addingTimeInterval(10.0)
-        NotificationService.scheduleNotification(date: date, title: "Development Meeting", body: "We use this time to answer dev questions and work on projects", subtitle: "Come work and Learn with Us")
-        
         super.viewDidLoad()
         self.view.backgroundColor = Globals.constants.greyColor
         
@@ -31,7 +27,7 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
         view.addSubview(segmentedControl)
         updateConstraints()
 
-//        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        // let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore"), this should all be moved to the view model
         let launchedBefore = true
         if !launchedBefore {
             UserDefaults.standard.set(true, forKey: "launchedBefore")
@@ -119,10 +115,6 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
         let view = CalendarView(frame: CGRect(x: self.view.bounds.width * 1.5 / 2 + self.view.bounds.width, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
         return view
     }()
-//    private lazy var view3: CalendarView = {
-//        let view = CalendarView(frame: CGRect(x: self.view.bounds.width * 1.5 / 2 + self.view.bounds.width * 2, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
-//        return view
-//    }()
 
     private lazy var bulletinManager: BLTNItemManager = {
         let rootItem: BLTNItem = notificationBulletin

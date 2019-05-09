@@ -8,9 +8,13 @@
 
 import Foundation
 
-public struct CTCNotification {
-    var title: String!
-    var subtitle: String!
-    var date: Date!
-    var body: String!
+open class CTCNotification {
+    public var title: String!
+    public var subtitle: String!
+    public var date: Date!
+    public var body: String!
+    
+    public init() {
+        
+    }
 }

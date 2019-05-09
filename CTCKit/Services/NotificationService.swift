@@ -16,7 +16,7 @@ open class NotificationService {
     public static func scheduleNotification(notification: CTCNotification) {
         
         checkAuth() { success in
-            if success {
+            if success && canSchedule(notification: notification){
                 let differenceInSeconds = abs(notification.date.timeIntervalSinceNow)
                 
                 let content = UNMutableNotificationContent()
@@ -35,6 +35,7 @@ open class NotificationService {
                 
             } else {
                 requestAuth(completion: nil)
+                print("Notification already scheduled or access denied")
             }
         }
     }
@@ -71,5 +72,9 @@ open class NotificationService {
         NC.getNotificationSettings() { (settings) in
             completion(settings.authorizationStatus == .authorized)
         }
+    }
+    
+    private static func canSchedule(notification: CTCNotification) -> Bool {
+        return !PersistenceService.isNotificationsStored(notification: notification)
     }
 }

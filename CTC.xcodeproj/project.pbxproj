@@ -34,17 +34,17 @@
 		7FB810AC2208997A007AB5D5 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB810AB2208997A007AB5D5 /* EventCell.swift */; };
 		7FB810B0220899D9007AB5D5 /* CalendarScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB810AF220899D9007AB5D5 /* CalendarScreenViewModel.swift */; };
 		7FB810B222089AAC007AB5D5 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB810B122089AAC007AB5D5 /* Event.swift */; };
-		7FCAFC5C2260ED0100713503 /* CTCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FD8AB05225FF4EC00DE2017 /* CTCKit.framework */; };
-		7FCAFC5D2260ED0100713503 /* CTCKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7FD8AB05225FF4EC00DE2017 /* CTCKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7FCAFC632260EE1100713503 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCAFC622260EE1100713503 /* PersistenceService.swift */; };
 		7FCAFC662260EE8500713503 /* CTCNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCAFC652260EE8500713503 /* CTCNotification.swift */; };
+		7FD1E9C3226DD48300ADFE36 /* CTCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FD8AB05225FF4EC00DE2017 /* CTCKit.framework */; };
+		7FD1E9C4226DD48300ADFE36 /* CTCKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7FD8AB05225FF4EC00DE2017 /* CTCKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7FD8AB09225FF4EC00DE2017 /* CTCKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FD8AB07225FF4EC00DE2017 /* CTCKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FD8AB0E225FF50500DE2017 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD8AB0D225FF50500DE2017 /* NotificationService.swift */; };
 		A7E4602B0F06425CEEA6405C /* Pods_CTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1C791FAFCE002D6B63EAD49 /* Pods_CTC.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7FCAFC5E2260ED0100713503 /* PBXContainerItemProxy */ = {
+		7FD1E9C5226DD48300ADFE36 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 55870E9C21F00CEE004631B7 /* Project object */;
 			proxyType = 1;
@@ -54,13 +54,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		7FCAFC602260ED0100713503 /* Embed Frameworks */ = {
+		7FD1E9C7226DD48400ADFE36 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7FCAFC5D2260ED0100713503 /* CTCKit.framework in Embed Frameworks */,
+				7FD1E9C4226DD48300ADFE36 /* CTCKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -119,7 +119,7 @@
 			files = (
 				55DD771C2243F10200E3B25A /* EventKit.framework in Frameworks */,
 				A7E4602B0F06425CEEA6405C /* Pods_CTC.framework in Frameworks */,
-				7FCAFC5C2260ED0100713503 /* CTCKit.framework in Frameworks */,
+				7FD1E9C3226DD48300ADFE36 /* CTCKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,12 +332,12 @@
 				55870EA121F00CEE004631B7 /* Frameworks */,
 				55870EA221F00CEE004631B7 /* Resources */,
 				9D54AA66EF6D963AC0C4B10F /* [CP] Embed Pods Frameworks */,
-				7FCAFC602260ED0100713503 /* Embed Frameworks */,
+				7FD1E9C7226DD48400ADFE36 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7FCAFC5F2260ED0100713503 /* PBXTargetDependency */,
+				7FD1E9C6226DD48300ADFE36 /* PBXTargetDependency */,
 			);
 			name = CTC;
 			productName = CTC;
@@ -516,10 +516,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7FCAFC5F2260ED0100713503 /* PBXTargetDependency */ = {
+		7FD1E9C6226DD48300ADFE36 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7FD8AB04225FF4EC00DE2017 /* CTCKit */;
-			targetProxy = 7FCAFC5E2260ED0100713503 /* PBXContainerItemProxy */;
+			targetProxy = 7FD1E9C5226DD48300ADFE36 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
