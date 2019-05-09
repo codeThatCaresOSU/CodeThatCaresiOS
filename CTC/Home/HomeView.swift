@@ -8,6 +8,7 @@
 
 import UIKit
 import BLTNBoard
+import CTCKit
 
 class HomeView: UIViewController, bulletinDelegate, HomeDelegate, ShowGreetingDelegate {
 
@@ -17,6 +18,7 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate, ShowGreetingDe
     private var isStatusBarLight = false
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         self.view.backgroundColor = Globals.constants.greyColor
         
@@ -29,6 +31,7 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate, ShowGreetingDe
         UserDefaults.standard.synchronize()
         //----
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+      
         if !launchedBefore {
             UserDefaults.standard.set(true, forKey: "launchedBefore")
             showGreeting()
@@ -124,10 +127,6 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate, ShowGreetingDe
         view.greetingDelegate = self
         return view
     }()
-//    private lazy var view3: CalendarView = {
-//        let view = CalendarView(frame: CGRect(x: self.view.bounds.width * 1.5 / 2 + self.view.bounds.width * 2, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
-//        return view
-//    }()
 
     private lazy var bulletinManager: BLTNItemManager = {
         let rootItem: BLTNItem = notificationBulletin

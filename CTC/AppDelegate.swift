@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CTCKit
 
 @available(iOS 11.0, *)
 @UIApplicationMain

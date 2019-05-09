@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CTCKit
 
 struct Event {
     var title: String?
@@ -35,8 +36,20 @@ extension Event: Decodable
         detail = try values.decode(String.self, forKey: .detail)
         location = try values.decode(String.self, forKey: .location)
         displayColor = try values.decode(String.self, forKey: .displayColor)
-        durationMinutes = try values.decode(Int.self, forKey: .durationMinutes)
+        durationMinutes = (try? values.decode(Int.self, forKey: .durationMinutes)) ?? 60
         let timeStamp = try values.decode(TimeInterval.self, forKey: .timeStamp)
         date = Date(timeIntervalSince1970: timeStamp)
+    }
+}
+
+extension Event {
+    func convertToNotification() -> CTCNotification {
+        let notification = CTCNotification()
+        notification.title = self.title
+        notification.body = self.detail
+        notification.date = self.date
+        notification.subtitle = self.location
+        
+        return notification
     }
 }

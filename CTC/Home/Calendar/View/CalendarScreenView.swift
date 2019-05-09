@@ -91,7 +91,7 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return viewModel.eventCount
-        return 10
+        return self.viewModel.eventCount
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
@@ -101,14 +101,18 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! EventCell
         cell.cellCalendarDelegate = self
-        guard let data = events?[indexPath.row % viewModel.eventCount] else {
-            cell.event = Event()
-            cell.isHidden = true
-            return cell
+        // This should all be moved
+        if viewModel.eventCount > 0 {
+            guard let data = events?[indexPath.row % viewModel.eventCount] else {
+                cell.event = Event()
+                cell.isHidden = true
+                return cell
+            }
+            cell.event = data
+            cell.contentView.alpha = 0
+            cell.updateUI()
         }
-        cell.event = data
-        cell.contentView.alpha = 0
-        cell.updateUI()
+       
         return cell
     }
     
@@ -149,6 +153,8 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+
+// This should not be here
 extension CalendarView: calendarDelegate {
     func addToCalendar(title: String, eventStartDate: Date, eventEndDate: Date, location: String, detail: String) {
         store.requestAccess(to: .event) { (success, error) in
