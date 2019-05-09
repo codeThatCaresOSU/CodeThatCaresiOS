@@ -43,6 +43,10 @@ class CalendarView: UIView {
         label.text = "Upcoming Events"
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 40)
+        label.layer.shadowOpacity = 0.23
+        label.layer.shadowRadius = 4
+        label.layer.shadowOffset = CGSize(width: 0, height: 4)
+        label.layer.shadowColor = UIColor.black.cgColor
         return label
     }()
     private lazy var calendarListTableView: UITableView = {

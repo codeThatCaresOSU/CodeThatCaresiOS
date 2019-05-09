@@ -76,7 +76,7 @@
 
 #pragma mark - Init defaults
 - (void)initDefaults {
-    self.textColor = [UIColor blackColor];
+    self.textColor = [UIColor whiteColor];
     self.selectedStateTextColor = [UIColor whiteColor];
     self.selectorViewColor = [UIColor greenColor];
     self.textFont = [UIFont systemFontOfSize:14];
