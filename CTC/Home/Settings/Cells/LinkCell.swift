@@ -2,7 +2,7 @@ import UIKit
 
 class LinkCell: SettingsCell {
     
-    var link: String = ""
+    var link: String = "mailto:codethatcares@gmail.com"
     
     lazy var button: UIButton = {
         let button = UIButton()
@@ -41,8 +41,8 @@ class LinkCell: SettingsCell {
     }
     
     @objc func buttonPressed(){
-        if let url = URL(string: link) {
-//            UIApplication.shared.open(url, options: [:])
+        if let url = URL(string: "mailto:codethatcares@gmail.com") {
+            UIApplication.shared.open(url, options: [:])
         }
     }
 }

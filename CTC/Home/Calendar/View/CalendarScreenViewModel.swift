@@ -8,6 +8,7 @@
 
 import Foundation
 import CTCKit
+import EventKit
 
 class CalendarScreenViewModel {
 
@@ -19,7 +20,7 @@ class CalendarScreenViewModel {
         }
     }
     public let API_URL = "https://us-central1-ctcios.cloudfunctions.net/getAllEvents"
-
+    private let store = EKEventStore()
     
     // TO-DO Clean this up
     public func getAllEvents(completion: @escaping ([Event]) -> ()){
@@ -32,7 +33,6 @@ class CalendarScreenViewModel {
                 self.events = try JSONDecoder().decode([Event].self, from: dataResponse).sorted{ $0.date! < $1.date! }
                 DispatchQueue.main.async {
                     guard let events = self.events else { return }
-                    self.scheduleNotificationFromEvent(events: events)
                     completion(events)
                     
                 }
@@ -42,9 +42,47 @@ class CalendarScreenViewModel {
             }.resume()
     }
     
-    private func scheduleNotificationFromEvent(events: [Event]) {
+    // TODO: Fix bug where events can be added multiple times to the calendar
+    func addToCalendar(title: String, eventStartDate: Date, eventEndDate: Date, location: String, detail: String, completion: @escaping (Bool, Event?) -> ()) {
+        store.requestAccess(to: .event) { (success, error) in
+            
+            if  error == nil {
+                let event = EKEvent.init(eventStore: self.store)
+                event.title = title
+                event.calendar = self.store.defaultCalendarForNewEvents
+                event.startDate = eventStartDate
+                event.endDate = eventEndDate
+                event.location = location
+                event.notes = detail
+                
+                do {
+                    try self.store.save(event, span: .thisEvent)
+                    
+                    let ctcEvent = Event(title: title, detail: detail, location: location, displayColor: nil, durationMinutes: Date.determineEventDurationInMinutes(startDate: eventStartDate, endDate: eventEndDate), date: eventStartDate)
+            
+                    
+                    DispatchQueue.main.async {
+                        completion(true, ctcEvent)
+                    }
+                } catch let error as NSError {
+                    print("Failed to add event with error: \(error)")
+                    DispatchQueue.main.async {
+                        completion(false, nil)
+                    }
+                }
+                
+            } else {
+                DispatchQueue.main.async {
+                    completion(false, nil)
+                }
+            }
+        }
+    }
+    
+    public func scheduleNotificationFromEvent(events: [Event], negativeOffsetInMinutes: Int = 0) {
         let notifications = events.map({ $0.convertToNotification() })
-        notifications.forEach({ NotificationService.scheduleNotification(notification: $0) })
-        print("Notifications scheduled")
+        notifications.forEach() {
+            NotificationService.scheduleNotification(notification: $0, negativeOffsetInMinutes: negativeOffsetInMinutes)
+        }
     }
 }

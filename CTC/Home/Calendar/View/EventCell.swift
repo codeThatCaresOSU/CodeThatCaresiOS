@@ -199,6 +199,7 @@ class EventCell: UITableViewCell {
         let calendar = Calendar.current
         let endDate = calendar.date(byAdding: .minute, value: event!.durationMinutes!, to: event!.date!)
         cellCalendarDelegate?.addToCalendar(title: "CTC - \(event!.title!)", eventStartDate: event!.date!, eventEndDate: endDate!, location: event!.location!, detail: event!.detail!)
+        print(event?.date)
     }
     
     public func updateUI(){

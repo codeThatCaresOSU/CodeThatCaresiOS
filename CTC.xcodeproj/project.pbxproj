@@ -41,15 +41,15 @@
 		7FB810B222089AAC007AB5D5 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB810B122089AAC007AB5D5 /* Event.swift */; };
 		7FCAFC632260EE1100713503 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCAFC622260EE1100713503 /* PersistenceService.swift */; };
 		7FCAFC662260EE8500713503 /* CTCNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCAFC652260EE8500713503 /* CTCNotification.swift */; };
-		7FD1E9C3226DD48300ADFE36 /* CTCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FD8AB05225FF4EC00DE2017 /* CTCKit.framework */; };
-		7FD1E9C4226DD48300ADFE36 /* CTCKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7FD8AB05225FF4EC00DE2017 /* CTCKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7FD1F2A2228B3F73004DFCB2 /* CTCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FD8AB05225FF4EC00DE2017 /* CTCKit.framework */; };
+		7FD1F2A3228B3F73004DFCB2 /* CTCKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7FD8AB05225FF4EC00DE2017 /* CTCKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7FD8AB09225FF4EC00DE2017 /* CTCKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FD8AB07225FF4EC00DE2017 /* CTCKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FD8AB0E225FF50500DE2017 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD8AB0D225FF50500DE2017 /* NotificationService.swift */; };
 		A7E4602B0F06425CEEA6405C /* Pods_CTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1C791FAFCE002D6B63EAD49 /* Pods_CTC.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7FD1E9C5226DD48300ADFE36 /* PBXContainerItemProxy */ = {
+		7FD1F2A4228B3F73004DFCB2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 55870E9C21F00CEE004631B7 /* Project object */;
 			proxyType = 1;
@@ -59,13 +59,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		7FD1E9C7226DD48400ADFE36 /* Embed Frameworks */ = {
+		7FD1F2A6228B3F73004DFCB2 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7FD1E9C4226DD48300ADFE36 /* CTCKit.framework in Embed Frameworks */,
+				7FD1F2A3228B3F73004DFCB2 /* CTCKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,7 +129,7 @@
 			files = (
 				55DD771C2243F10200E3B25A /* EventKit.framework in Frameworks */,
 				A7E4602B0F06425CEEA6405C /* Pods_CTC.framework in Frameworks */,
-				7FD1E9C3226DD48300ADFE36 /* CTCKit.framework in Frameworks */,
+				7FD1F2A2228B3F73004DFCB2 /* CTCKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,12 +363,12 @@
 				55870EA121F00CEE004631B7 /* Frameworks */,
 				55870EA221F00CEE004631B7 /* Resources */,
 				9D54AA66EF6D963AC0C4B10F /* [CP] Embed Pods Frameworks */,
-				7FD1E9C7226DD48400ADFE36 /* Embed Frameworks */,
+				7FD1F2A6228B3F73004DFCB2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7FD1E9C6226DD48300ADFE36 /* PBXTargetDependency */,
+				7FD1F2A5228B3F73004DFCB2 /* PBXTargetDependency */,
 			);
 			name = CTC;
 			productName = CTC;
@@ -552,10 +552,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7FD1E9C6226DD48300ADFE36 /* PBXTargetDependency */ = {
+		7FD1F2A5228B3F73004DFCB2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7FD8AB04225FF4EC00DE2017 /* CTCKit */;
-			targetProxy = 7FD1E9C5226DD48300ADFE36 /* PBXContainerItemProxy */;
+			targetProxy = 7FD1F2A4228B3F73004DFCB2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

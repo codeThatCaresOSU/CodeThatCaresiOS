@@ -78,3 +78,10 @@ extension UIButton {
         }
     }
 }
+
+extension Date {
+    public static func determineEventDurationInMinutes(startDate: Date, endDate: Date) -> Int {
+        let time = endDate.timeIntervalSince(startDate)
+        return Int(time)
+    }
+}

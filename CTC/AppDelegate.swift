@@ -8,10 +8,12 @@
 
 import UIKit
 import CTCKit
+import UserNotifications
+import CTCKit
 
 @available(iOS 11.0, *)
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
 
@@ -21,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = HomeView()
         window?.makeKeyAndVisible()
+        
+        UIApplication.shared.applicationIconBadgeNumber = 0
         
         return true
     }
@@ -47,6 +51,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler(UNNotificationPresentationOptions.alert)
+    }
 
 }
 

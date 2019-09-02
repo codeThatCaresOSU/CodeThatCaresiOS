@@ -7,14 +7,12 @@
 //
 
 import UIKit
-import EventKit
 import Lottie
 
 class CalendarView: UIView {
     
     private var viewModel = CalendarScreenViewModel()
     private let cellSpacingHeight: CGFloat = 15
-    private let store = EKEventStore()
     var events: [Event]?
     private var finishedLoadingInitialTableCells = false
     
@@ -23,7 +21,7 @@ class CalendarView: UIView {
         loadingAnimation.play()
         self.addSubview(loadingAnimation)
         
-        viewModel.getAllEvents(){(events:[Event]) in
+        viewModel.getAllEvents() { (events: [Event] ) in // TODO: Fix the completion handler so that the spinny thing doesn't keeo going when no events are returned
             self.events = events
             self.calendarListTableView.reloadData()
             self.loadingAnimation.isHidden = true
@@ -31,6 +29,7 @@ class CalendarView: UIView {
         updateFrames(frame: frame)
         self.addSubview(titleLabel)
     }
+    
     private let loadingAnimation: AnimationView = {
         let animationView = AnimationView(name: "loading")
         animationView.contentMode = .scaleAspectFit
@@ -154,40 +153,39 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
 }
 
 
-// This should not be here
+// TODO: Fix delegate
 extension CalendarView: calendarDelegate {
     func addToCalendar(title: String, eventStartDate: Date, eventEndDate: Date, location: String, detail: String) {
-        store.requestAccess(to: .event) { (success, error) in
-            var alertTitle = "Error"
-            var alertMessage = "Unkown error adding event to calendar."
-            if  error == nil {
-                let event = EKEvent.init(eventStore: self.store)
-                event.title = title
-                event.calendar = self.store.defaultCalendarForNewEvents
-                event.startDate = eventStartDate
-                event.endDate = eventEndDate
-                event.location = location
-                event.notes = detail
+        self.viewModel.addToCalendar(title: title, eventStartDate: eventStartDate, eventEndDate: eventEndDate, location: location, detail: detail) { ( success: Bool, event: Event? ) in
+            
+            let message: String!
+            let title: String!
+            var actions = [UIAlertAction]()
+            var negativeOffset = 0
+            
+            if success && event != nil {
+                title = "Event Added To Calendar!"
+                message = "Event successfully added to your calendar, see you there! Would you like to be notified before the events starts?"
                 
-                do {
-                    try self.store.save(event, span: .thisEvent)
-                    alertTitle = "Success!"
-                    alertMessage = "Successfully added event to calendar!"
-                } catch let error as NSError {
-                    print("Failed to add event with error: \(error)")
-                }
-
+                let thirtyMinAction = UIAlertAction(title: "Notify Me Half An Hour Before", style: .default) { (action) in self.alertControllerActionHandler(offset: 30, event: event!) }
+                let oneHourAction = UIAlertAction(title: "Notify Me 1 Hour Before", style: .default) { (action) in  self.alertControllerActionHandler(offset: 60, event: event!) }
+                let twoHourAction = UIAlertAction(title: "Notify Me 2 Hours Before", style: .default) { (action) in self.alertControllerActionHandler(offset: 120, event: event!) }
+                actions = [thirtyMinAction, oneHourAction, twoHourAction]
+                
             } else {
-                //we have error in getting access to device calnedar
-                alertTitle = "Error"
-                alertMessage = "Error accessing calendar."
+                title = "Error adding event to your calendar"
+                message = "We're having a hard time adding this event to yout calendar. Do us a favor and check settings to see if the app has permission to access your calendar"
             }
-            DispatchQueue.main.async {
-                let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                alertController.show()
-            }
+            
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            actions.forEach() { alertController.addAction($0) }
+            alertController.addAction(UIAlertAction(title: "Sounds Good!", style: .default, handler: nil))
+            alertController.show()
         }
+    }
+    
+    private func alertControllerActionHandler(offset: Int, event: Event) {
+        self.viewModel.scheduleNotificationFromEvent(events: [event], negativeOffsetInMinutes: offset)
     }
 }
 
