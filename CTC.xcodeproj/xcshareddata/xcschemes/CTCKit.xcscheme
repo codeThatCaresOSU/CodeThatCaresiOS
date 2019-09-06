@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "227E9ED1A724EBF8D88DEB9A775E1F35"
-               BuildableName = "Lottie.framework"
-               BlueprintName = "lottie-ios"
-               ReferencedContainer = "container:Pods.xcodeproj">
+               BlueprintIdentifier = "7FD8AB04225FF4EC00DE2017"
+               BuildableName = "CTCKit.framework"
+               BlueprintName = "CTCKit"
+               ReferencedContainer = "container:CTC.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,10 +45,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "227E9ED1A724EBF8D88DEB9A775E1F35"
-            BuildableName = "Lottie.framework"
-            BlueprintName = "lottie-ios"
-            ReferencedContainer = "container:Pods.xcodeproj">
+            BlueprintIdentifier = "7FD8AB04225FF4EC00DE2017"
+            BuildableName = "CTCKit.framework"
+            BlueprintName = "CTCKit"
+            ReferencedContainer = "container:CTC.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -60,6 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "7FD8AB04225FF4EC00DE2017"
+            BuildableName = "CTCKit.framework"
+            BlueprintName = "CTCKit"
+            ReferencedContainer = "container:CTC.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

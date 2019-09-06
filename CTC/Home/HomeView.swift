@@ -8,34 +8,47 @@
 
 import UIKit
 import BLTNBoard
+import CTCKit
 
-class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
+class HomeView: UIViewController, bulletinDelegate, HomeDelegate, ShowGreetingDelegate {
 
-    //private var viewModel: HomeViewModel = HomeViewModel()
     private let pageTitles = ["Calendar", "Settings"]
     private var collectionViewIsActive = false
     private lazy var pages = [calendarView, settingsView]
     private var isStatusBarLight = false
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         self.view.backgroundColor = Globals.constants.greyColor
         
         view.addSubview(backgroundScrollView)
         view.addSubview(segmentedControl)
         updateConstraints()
-
-//        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
-        let launchedBefore = true
+        //----- clear user defaults for testing
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
+        //----
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+      
         if !launchedBefore {
             UserDefaults.standard.set(true, forKey: "launchedBefore")
-            view.addSubview(greetingView)
-            greetingView.homeDelegate = self
-            greetingView.bioView.delegate = self
+            showGreeting()
             prepareForBulletin()
         } else {
             self.calendarView.showCalendar()
         }
+    }
+    
+    func showGreeting(){
+        greetingView = GreetingView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+//        view.addSubview(greetingView)
+        UIView.transition(with: self.view, duration: 0.25, options: [.transitionCrossDissolve], animations: {
+            self.view.addSubview(self.greetingView)
+        }, completion: nil)
+        greetingView.bioView.delegate = self
+        greetingView.homeDelegate = self
     }
     
     func setStatusBar(style: UIStatusBarStyle) {
@@ -56,9 +69,8 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
         
         let yPadding: CGFloat = 10 // Padding below segmentedControl for views
         let yOffset = segmentedControl.frame.size.height + segmentedControl.frame.origin.y + yPadding
-        for page in pages {
-            page.updateFrames(frame: CGRect(x: page.frame.origin.x, y: yOffset, width: page.frame.size.width, height: page.frame.size.height - yOffset))
-        }
+        calendarView.updateFrames(frame: CGRect(x: calendarView.frame.origin.x, y: yOffset, width: calendarView.frame.size.width, height: calendarView.frame.size.height - yOffset))
+        settingsView.updateFrames(frame: CGRect(x: settingsView.frame.origin.x, y: yOffset, width: settingsView.frame.size.width, height: settingsView.frame.size.height - yOffset))
     }
     
     private lazy var segmentedControl: LUNSegmentedControl = {
@@ -66,7 +78,8 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
         seg.delegate = self
         seg.dataSource = self
         seg.selectorViewColor = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 0.1)
-        seg.backgroundColor = UIColor(red: 37.0/255.0, green: 37.0/255.0, blue: 37.0/255.0, alpha: 0.5)
+//        seg.backgroundColor = UIColor(red: 37.0/255.0, green: 37.0/255.0, blue: 37.0/255.0, alpha: 0.5)
+        seg.backgroundColor = UIColor(white: 1, alpha: 0.2)
         seg.cornerRadius = 22 // 18 for 3 pages
         seg.applyCornerRadiusToSelectorView = true
         seg.translatesAutoresizingMaskIntoConstraints = false
@@ -81,7 +94,7 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
-        let background = UIImageView(image: UIImage(named: "leaf"))
+        let background = UIImageView(image: UIImage(named: "particles"))
         background.isUserInteractionEnabled = true
         
         /* Width adds 1.5x to account for scrolling slightly past the end of the first and last page. */
@@ -109,14 +122,11 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
         let view = CalendarView(frame: CGRect(x: self.view.frame.width * 1.5 / 2, y: 0, width: self.view.frame.width, height: self.view.frame.height))
         return view
     }()
-    private lazy var settingsView: CalendarView = {
-        let view = CalendarView(frame: CGRect(x: self.view.bounds.width * 1.5 / 2 + self.view.bounds.width, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
+    private lazy var settingsView: SettingsView = {
+        let view = SettingsView(frame: CGRect(x: self.view.bounds.width * 1.5 / 2 + self.view.bounds.width, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
+        view.greetingDelegate = self
         return view
     }()
-//    private lazy var view3: CalendarView = {
-//        let view = CalendarView(frame: CGRect(x: self.view.bounds.width * 1.5 / 2 + self.view.bounds.width * 2, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
-//        return view
-//    }()
 
     private lazy var bulletinManager: BLTNItemManager = {
         let rootItem: BLTNItem = notificationBulletin
@@ -145,8 +155,13 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
         }
     }
     func showBulletin(){
-        bulletinManager.backgroundViewStyle = .blurredDark
-        bulletinManager.showBulletin(above: self)
+        let setupComplete = UserDefaults.standard.bool(forKey: "setupComplete")
+        if !setupComplete {
+            bulletinManager.backgroundViewStyle = .blurredDark
+            bulletinManager.showBulletin(above: self)
+        } else {
+            removeGreeting()
+        }
     }
     
     /* Temporary function to handle gestures */
@@ -164,7 +179,13 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate {
     }
     func afterBulletin(){
         self.bulletinManager.dismissBulletin()
-        self.greetingView.removeFromSuperview()
+        removeGreeting()
+    }
+    
+    func removeGreeting(){
+        UIView.transition(with: self.view, duration: 0.25, options: [.transitionCrossDissolve], animations: {
+            self.greetingView.removeFromSuperview()
+        }, completion: nil)
         self.calendarView.showCalendar()
     }
     
@@ -186,12 +207,18 @@ extension HomeView: LUNSegmentedControlDataSource, LUNSegmentedControlDelegate {
     }
     
     func segmentedControl(_ segmentedControl: LUNSegmentedControl!, attributedTitleForStateAt index: Int) -> NSAttributedString! {
-        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont(name: "AvenirNext-Medium", size: 18)!]
+        let attrs: [NSAttributedString.Key: Any] = [
+            .font: UIFont(name: "AvenirNext-Medium", size: 18)!,
+            .foregroundColor: UIColor.white
+        ]
         return NSAttributedString(string: pageTitles[index], attributes: attrs)
     }
     
     func segmentedControl(_ segmentedControl: LUNSegmentedControl!, attributedTitleForSelectedStateAt index: Int) -> NSAttributedString! {
-        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont(name: "AvenirNext-Medium", size: 23)!]
+        let attrs: [NSAttributedString.Key: Any] = [
+            .font: UIFont(name: "AvenirNext-Medium", size: 23)!,
+            .foregroundColor: UIColor.white
+        ]
         return NSAttributedString(string: pageTitles[index], attributes: attrs)
     }
     

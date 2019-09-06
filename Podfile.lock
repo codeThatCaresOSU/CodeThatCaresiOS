@@ -1,7 +1,7 @@
 PODS:
   - BulletinBoard (3.0.0)
   - lottie-ios (3.0.3)
-  - RxSwift (4.3.1)
+  - RxSwift (4.5.0)
 
 DEPENDENCIES:
   - BulletinBoard (>= 3.0.0)
@@ -17,8 +17,8 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   BulletinBoard: 927f4f9fd22503ceecd71bfc830fd65d5996593a
   lottie-ios: 06e0b54aab85ba128e332687d7f4ac4861a7a7ae
-  RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
+  RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
 
 PODFILE CHECKSUM: 17ad929d251268cff9e464a7147fd4d32f04e6eb
 
-COCOAPODS: 1.6.0
+COCOAPODS: 1.6.1
