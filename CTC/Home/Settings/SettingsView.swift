@@ -67,7 +67,7 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 2
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
@@ -75,15 +75,11 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            return NotificationsCell(frame: frame, spacing: 15)
-        case 1:
             let cell = ReplayIntroCell(frame: frame, spacing: 15)
             cell.greetingDelegate = greetingDelegate
             return cell
-        case 2:
-            return LinkCell(frame: frame, spacing: 15, text: "Contact us", url: "https://google.com")
-        case 3:
-            return LinkCell(frame: frame, spacing: 15, text: "Rate us on the app store!", url: "https://apple.com")
+        case 1:
+            return LinkCell(frame: frame, spacing: 15, text: "Contact us", url: "mailto:codethatcares@gmail.com")
         default:
             return UITableViewCell()
         }
