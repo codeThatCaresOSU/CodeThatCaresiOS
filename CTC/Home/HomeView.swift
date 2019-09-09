@@ -25,10 +25,6 @@ class HomeView: UIViewController, bulletinDelegate, HomeDelegate, ShowGreetingDe
         view.addSubview(backgroundScrollView)
         view.addSubview(segmentedControl)
         updateConstraints()
-        //----- clear user defaults for testing
-        let domain = Bundle.main.bundleIdentifier!
-        UserDefaults.standard.removePersistentDomain(forName: domain)
-        UserDefaults.standard.synchronize()
         //----
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
       
