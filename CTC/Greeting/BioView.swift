@@ -20,8 +20,8 @@ class BioView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Futura-Medium", size: 35)
-        label.text = "...We're a student organization at OSU dedicated to creating mobile applications for charities and nonprofits"
-        label.textColor = .white
+        label.text = "We're a student organization at OSU dedicated to creating mobile applications for charities and nonprofits."
+        label.textColor = Globals.constants.ctcColor
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.alpha = 0.0
@@ -33,7 +33,7 @@ class BioView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Futura-Medium", size: 35)
         label.text = "Please enable push notifications to stay up to date on meetings and important events!"
-        label.textColor = .white
+        label.textColor = Globals.constants.ctcColor
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.alpha = 0.0
@@ -46,7 +46,8 @@ class BioView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 25
         button.layer.masksToBounds = true
-        button.backgroundColor = UIColor.black
+        button.setTitleColor(Globals.constants.greyColor, for: .normal)
+        button.backgroundColor = Globals.constants.ctcColor
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(readyButtonPressed), for: .touchUpInside)
         return button
@@ -69,8 +70,8 @@ class BioView: UIView {
     }
     
     func showView(duration: Double){
-        self.backgroundColor = Globals.constants.ctcColor
-        self.superview?.backgroundColor = Globals.constants.ctcColor
+        self.backgroundColor = Globals.constants.greyColor
+        self.superview?.backgroundColor = Globals.constants.greyColor
         UIView.animate(withDuration: duration, animations: {
             self.topLabel.alpha = 1.0
             self.bottomLabel.alpha = 1.0
@@ -79,29 +80,24 @@ class BioView: UIView {
     }
     
     func hideView(){
-        self.backgroundColor = Globals.constants.backgroundColor
-        self.superview?.backgroundColor = Globals.constants.backgroundColor
+        self.backgroundColor = Globals.constants.ctcColor
+        self.superview?.backgroundColor = Globals.constants.ctcColor
         self.topLabel.alpha = 0.0
         self.bottomLabel.alpha = 0.0
         self.readyButton.alpha = 0.0
     }
     
     func autoLayout() {
-        if #available(iOS 11.0, *) {
-            topLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-            topLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
-            topLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
-            
-            bottomLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
-            bottomLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
-            
-            readyButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
-            readyButton.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
-            readyButton.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
-        } else {
-            // Fallback on earlier versions
-            // TODO
-        }
+        topLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        topLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
+        topLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+        
+        bottomLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
+        bottomLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+        
+        readyButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+        readyButton.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
+        readyButton.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
         
         bottomLabel.topAnchor.constraint(equalTo: topLabel.bottomAnchor, constant: 60).isActive = true
         readyButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
